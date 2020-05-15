@@ -1,6 +1,6 @@
 {
   "text2speech": {
     "Overview": "/",
-    "Text Normalization for Dataset Preparation": "/text_norm"
+    "Text Normalization": "/text_norm"
   }
 }

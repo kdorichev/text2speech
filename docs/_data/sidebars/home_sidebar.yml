@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Text Normalization for Dataset Preparation
+      title: Text Normalization
       url: /text_norm
     output: web
     title: text2speech

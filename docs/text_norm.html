@@ -1,12 +1,12 @@
 ---
 
-title: Text Normalization for Dataset Preparation
+title: Text Normalization
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Used for TTS dataset preparation"
-description: "Used for TTS dataset preparation"
+summary: "Functions used for TTS Dataset Preparation"
+description: "Functions used for TTS Dataset Preparation"
 ---
 <!--
 
@@ -155,7 +155,7 @@ description: "Used for TTS dataset preparation"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Return a list of digits, or empty, if not found</p>
+<p>Return a list of digits, or empty, if not found.</p>
 
 </div>
 
@@ -350,7 +350,8 @@ description: "Used for TTS dataset preparation"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Pipeline for Russian text cleaning.</p>
+<p>Pipeline for Russian text cleaning:
+lowercase, remove_specials, expand_abbreviations, collapse_whitespace, check_no_numbers.</p>
 
 </div>
 

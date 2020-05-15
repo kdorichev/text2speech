@@ -21,7 +21,7 @@ def lowercase(text):
 
 # Cell
 def check_no_numbers(text):
-    "Return a list of digits, or empty, if not found"
+    "Return a list of digits, or empty, if not found."
     return re.findall(r"(\d+)", text)
 
 # Cell
@@ -62,7 +62,8 @@ def basic_cleaner(text):
 
 # Cell
 def russian_cleaner(text):
-    "Pipeline for Russian text cleaning."
+    """Pipeline for Russian text cleaning:
+       lowercase, remove_specials, expand_abbreviations, collapse_whitespace, check_no_numbers."""
     text = lowercase(text)
     text = remove_specials(text)
     text = expand_abbreviations(text)
