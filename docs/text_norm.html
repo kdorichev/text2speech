@@ -1,12 +1,12 @@
 ---
 
-title: Text normalization for the Dataset
+title: Text Normalization for Dataset Preparation
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "Used for TTS dataset preparation"
+description: "Used for TTS dataset preparation"
 ---
 <!--
 
@@ -54,6 +54,7 @@ sidebar: home_sidebar
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
+<p>Replace multiple whitespaces with single space.</p>
 
 </div>
 
@@ -72,7 +73,9 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">collapse_whitespace</span><span class="p">(</span><span class="s2">&quot; 1  2   3     4     5       &quot;</span><span class="p">),</span><span class="s2">&quot; 1 2 3 4 5 &quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">collapse_whitespace</span><span class="p">(</span>
+    <span class="s2">&quot; 1  2   3     4     5       &quot;</span><span class="p">),</span>
+    <span class="s2">&quot; 1 2 3 4 5 &quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -100,7 +103,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>)</p>
+<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -120,7 +123,9 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">lowercase</span><span class="p">(</span><span class="s1">&#39;ПрИвеТ ЧуВАК!&#39;</span><span class="p">),</span> <span class="s1">&#39;привет чувак!&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">lowercase</span><span class="p">(</span>
+        <span class="s1">&#39;ПрИвеТ ЧуВАК!&#39;</span><span class="p">),</span> 
+        <span class="s1">&#39;привет чувак!&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -148,7 +153,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>)</p>
+<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p>Return a list of digits, or empty, if not found</p>
 
@@ -162,12 +167,6 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Remove-Special-characters">Remove Special characters<a class="anchor-link" href="#Remove-Special-characters"> </a></h3>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -193,7 +192,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>)</p>
+<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -223,12 +222,6 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Replace-Abbreviations">Replace Abbreviations<a class="anchor-link" href="#Replace-Abbreviations"> </a></h3>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -254,7 +247,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>)</p>
+<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -286,18 +279,6 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-Pipelines">Cleaning Pipelines<a class="anchor-link" href="#Cleaning-Pipelines"> </a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Basic-Cleaning">Basic Cleaning<a class="anchor-link" href="#Basic-Cleaning"> </a></h4>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -316,7 +297,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L56" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L57" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p>Basic pipeline that lowercases and collapses whitespaces.</p>
 
@@ -349,12 +330,6 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Russian-Extended-Cleaning">Russian Extended Cleaning<a class="anchor-link" href="#Russian-Extended-Cleaning"> </a></h4>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -373,9 +348,9 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Pipeline for English text, including number and abbreviation expansion.</p>
+<p>Pipeline for Russian text cleaning.</p>
 
 </div>
 

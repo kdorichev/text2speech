@@ -12,6 +12,7 @@ from nbdev.showdoc import *
 _whitespace_re = re.compile(r'\s+')
 
 def collapse_whitespace(text):
+    "Replace multiple whitespaces with single space."
     return re.sub(_whitespace_re, ' ', text)
 
 # Cell
@@ -61,7 +62,7 @@ def basic_cleaner(text):
 
 # Cell
 def russian_cleaner(text):
-    "Pipeline for English text, including number and abbreviation expansion."
+    "Pipeline for Russian text cleaning."
     text = lowercase(text)
     text = remove_specials(text)
     text = expand_abbreviations(text)
