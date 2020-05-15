@@ -1,7 +1,6 @@
 {
-  "tts": {
+  "text2speech": {
     "Overview": "/",
-    "module name here": "/core",
     "Text normalization for the Dataset": "/text_norm"
   }
 }

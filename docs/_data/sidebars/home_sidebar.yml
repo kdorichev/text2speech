@@ -10,12 +10,9 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: module name here
-      url: /core
-    - output: web,pdf
       title: Text normalization for the Dataset
       url: /text_norm
     output: web
-    title: tts
+    title: text2speech
   output: web
   title: Sidebar
