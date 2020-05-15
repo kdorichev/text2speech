@@ -24,6 +24,15 @@ def check_no_numbers(text):
     return re.findall(r"(\d+)", text)
 
 # Cell
+_specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
+  ('!\.', '!'),
+  ('\?\.', '?'),
+  ('\/', ''),
+  ('…', '.'),
+  ('\.\.', '.')
+]]
+
+# Cell
 def remove_specials(text):
     for regex, replacement in _specials:
         text = re.sub(regex, replacement, text)
