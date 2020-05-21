@@ -52,7 +52,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>)</p>
+<h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p>Replace multiple whitespaces with single space.</p>
 
@@ -103,8 +103,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>)</p>
+<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L17" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
+<p>Convert <code>text</code> to lower case.</p>
 
 </div>
 
@@ -123,9 +124,8 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">lowercase</span><span class="p">(</span>
-        <span class="s1">&#39;ПрИвеТ ЧуВАК!&#39;</span><span class="p">),</span> 
-        <span class="s1">&#39;привет чувак!&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">lowercase</span><span class="p">(</span><span class="s1">&#39;ПрИвеТ, ЧуВАК!&#39;</span><span class="p">),</span> 
+                  <span class="s1">&#39;привет, чувак!&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -153,9 +153,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>)</p>
+<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Return a list of digits, or empty, if not found.</p>
+<p>Return a list of digits, or empty list, if not found.</p>
 
 </div>
 
@@ -163,13 +163,6 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -192,8 +185,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L37" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>)</p>
+<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
+<p>Replace predefined in <code>_specials</code> sequence of characters</p>
 
 </div>
 
@@ -212,7 +206,8 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">remove_specials</span><span class="p">(</span><span class="s1">&#39;Ой!. Ага?. Пауза./ Стоп.. Многоточие…&#39;</span><span class="p">),</span><span class="s1">&#39;Ой! Ага? Пауза. Стоп. Многоточие.&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">remove_specials</span><span class="p">(</span><span class="s1">&#39;Ой!. Ага?. Пауза. / Стоп.. Многоточие… Многоточие...&#39;</span><span class="p">),</span>
+                        <span class="s1">&#39;Ой! Ага? Пауза.  Стоп. Многоточие. Многоточие.&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -249,6 +244,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
+<p><code>expand_abbreviations()</code> defined in <code>_abbreviations</code></p>
 
 </div>
 
@@ -267,9 +263,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">expand_abbreviations</span><span class="p">(</span>\
-            <span class="s1">&#39;Привет Джон, т.е. Иван. Т.к. русский. И т.д. И т.п.&#39;</span><span class="p">),</span>\
-            <span class="s1">&#39;Привет Джон, то есть Иван. так как русский. и так далее и тому подобное&#39;</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span>
+    <span class="n">expand_abbreviations</span><span class="p">(</span><span class="s1">&#39;Привет Джон, т.е. Иван. Т.к. русский. И т.д. И т.п.&#39;</span><span class="p">),</span>
+                         <span class="s1">&#39;Привет Джон, то есть Иван. так как русский. и так далее. и тому подобное.&#39;</span><span class="p">)</span> 
 </pre></div>
 
     </div>
@@ -297,9 +293,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L57" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Basic pipeline that lowercases and collapses whitespaces.</p>
+<p>Basic pipeline: lowercase and collapse whitespaces.</p>
 
 </div>
 
@@ -319,7 +315,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">basic_cleaner</span><span class="p">(</span>
-    <span class="s1">&#39;Привет   Джон, т.е. Иван, т.к. русский. И т.д. и т.п.&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;Привет   Джон, т.е. Иван, т.к. русский. И т.д.   и т.п.&#39;</span><span class="p">),</span>
     <span class="s1">&#39;привет джон, т.е. иван, т.к. русский. и т.д. и т.п.&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -333,6 +329,23 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pipeline for Russian text cleaning: </span>
+<span class="sd">       lowercase, expand_abbreviations, remove_specials, collapse_whitespace.&quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">lowercase</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_specials</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">collapse_whitespace</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -348,10 +361,10 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p>Pipeline for Russian text cleaning:
-lowercase, remove_specials, expand_abbreviations, collapse_whitespace, check_no_numbers.</p>
+lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 
 </div>
 
@@ -372,10 +385,118 @@ lowercase, remove_specials, expand_abbreviations, collapse_whitespace, check_no_
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span>
         <span class="s1">&#39;Привет Джон, т.е.     Иван, т.к. русский. И т.д. и т.п. Ой!. Ага?. / Стоп..&#39;</span><span class="p">),</span>
-        <span class="s1">&#39;привет джон, то есть иван, так как русский. и так далее и тому подобное ой! ага? стоп.&#39;</span><span class="p">)</span>
+        <span class="s1">&#39;привет джон, то есть иван, так как русский. и так далее. и тому подобное. ой! ага? стоп.&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифры есть 1 2 3&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">])</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифр нет&#39;</span><span class="p">),</span> <span class="p">[])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">russian_cleaner</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;Америка:  факты и домыслы! Зная статистику золотой лихорадки, мы понимаем, почему первые старатели так торопились добраться до Калифорнии. Между тысяча восемьсот сорок восьмым и пятьдесят восьмым годами, всего за десятилетие, было добыто двадцать четыре миллиона триста тысяч унций золота.</span>
+<span class="s1">По сегодняшним ценам это более тридцати одного миллиарда долларов, но дело было не только в золоте. Сколько было вокруг фантастических историй.  Вот одна из них, известная всем.  После того, как в тысяча восемьсот сорок восьмом году Джеймс Маршалл в воде у лесопилки нашёл несколько самородков, началась первая золотая лихорадка в американской истории.</span>
+<span class="s1">Тысячи храбрецов пустились в далёкое путешествие в Калифорнию по океану. Другие отправились туда в видавших виды повозках.  На одиноких тропах недостатка в опасностях тоже не было, особенно учитывая враждебно настроенных аборигенов.</span>
+<span class="s1">Золотые прииски кишели бородатыми, лохматыми старателями. Удивительно, но золото лежало прямо на поверхности, сверкая на солнце.</span>
+<span class="s1">Поэтому многие первопроходцы разбогатели? Но к середине пятидесятых годов праздник закончился.&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;привет джон, т.е. иван, т.к. русский. и т.д. и т.п.&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;russian&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">---&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>привет джон, т.е. иван, т.к. русский. 
+---
+и т.д. и т.п. 
+---
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

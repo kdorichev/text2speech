@@ -9,53 +9,54 @@ from fastcore.test import *
 from nbdev.showdoc import *
 
 # Cell
-_whitespace_re = re.compile(r'\s+')
-
 def collapse_whitespace(text):
     "Replace multiple whitespaces with single space."
-    return re.sub(_whitespace_re, ' ', text)
+    return re.sub(r'\s+', ' ', text)
 
 # Cell
 def lowercase(text):
+    "Convert `text` to lower case."
     return text.lower()
 
 # Cell
 def check_no_numbers(text):
-    "Return a list of digits, or empty, if not found."
+    "Return a list of digits, or empty list, if not found."
     return re.findall(r"(\d+)", text)
 
-# Cell
+# Internal Cell
 _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
-  ('!\.', '!'),
-  ('\?\.', '?'),
+  ('!\.', '!'), # !. -> !
+  ('\?\.', '?'),# ?. -> ?
   ('\/', ''),
   ('…', '.'),
-  ('\.\.', '.')
+  ('\.+', '.')  # ... -> .
 ]]
 
 # Cell
 def remove_specials(text):
+    "Replace predefined in `_specials` sequence of characters"
     for regex, replacement in _specials:
         text = re.sub(regex, replacement, text)
     return text
 
 # Cell
 _abbreviations = [(re.compile(f'\\b{x[0]}', re.IGNORECASE), x[1]) for x in [
-  ('т.е.', 'то есть'),
-  ('т.к.', 'так как'),
-  ('и т.д.', 'и так далее'),
-  ('и т.п.', 'и тому подобное')
+  ('т\.е\.', 'то есть'),
+  ('т\.к\.', 'так как'),
+  ('и т\.д\.', 'и так далее.'),
+  ('и т\.п\.', 'и тому подобное.')
 ]]
 
 # Cell
 def expand_abbreviations(text):
+    "`expand_abbreviations()` defined in `_abbreviations`"
     for regex, replacement in _abbreviations:
         text = re.sub(regex, replacement, text)
     return text
 
 # Cell
 def basic_cleaner(text):
-    "Basic pipeline that lowercases and collapses whitespaces."
+    "Basic pipeline: lowercase and collapse whitespaces."
     text = lowercase(text)
     text = collapse_whitespace(text)
     return text
@@ -63,13 +64,9 @@ def basic_cleaner(text):
 # Cell
 def russian_cleaner(text):
     """Pipeline for Russian text cleaning:
-       lowercase, remove_specials, expand_abbreviations, collapse_whitespace, check_no_numbers."""
+       lowercase, expand_abbreviations, remove_specials, collapse_whitespace."""
     text = lowercase(text)
-    text = remove_specials(text)
     text = expand_abbreviations(text)
+    text = remove_specials(text)
     text = collapse_whitespace(text)
-    numbers = check_no_numbers(text)
-    if (numbers != []):
-        print("Запишите числительные не цифрами, а словами:")
-        print(numbers)
     return text
