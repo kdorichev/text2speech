@@ -170,6 +170,24 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифры есть 1 12 13.4&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">])</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифр нет&#39;</span><span class="p">),</span> <span class="p">[])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -206,8 +224,8 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">remove_specials</span><span class="p">(</span><span class="s1">&#39;Ой!. Ага?. Пауза. / Стоп.. Многоточие… Многоточие...&#39;</span><span class="p">),</span>
-                        <span class="s1">&#39;Ой! Ага? Пауза.  Стоп. Многоточие. Многоточие.&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">remove_specials</span><span class="p">(</span><span class="s1">&#39;Ой!. Ага?. / Стоп.. Многоточие... Многоточие…&#39;</span><span class="p">),</span>
+                        <span class="s1">&#39;Ой! Ага?  Стоп. Многоточие. Многоточие.&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -278,6 +296,20 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">basic_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="s2">&quot;Basic pipeline: lowercase and collapse whitespaces.&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">lowercase</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">collapse_whitespace</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -334,8 +366,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Pipeline for Russian text cleaning: </span>
-<span class="sd">       lowercase, expand_abbreviations, remove_specials, collapse_whitespace.&quot;&quot;&quot;</span>
+    <span class="s2">&quot;Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace.&quot;</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">lowercase</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">remove_specials</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -363,8 +394,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Pipeline for Russian text cleaning:
-lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
+<p>Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 
 </div>
 
@@ -395,24 +425,12 @@ lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифры есть 1 2 3&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">])</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">check_no_numbers</span><span class="p">(</span><span class="s1">&#39;Цифр нет&#39;</span><span class="p">),</span> <span class="p">[])</span>
-</pre></div>
-
-    </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sentences-Tokenizer">Sentences Tokenizer<a class="anchor-link" href="#Sentences-Tokenizer"> </a></h2>
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -437,28 +455,12 @@ lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">russian_cleaner</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;Америка:  факты и домыслы! Зная статистику золотой лихорадки, мы понимаем, почему первые старатели так торопились добраться до Калифорнии. Между тысяча восемьсот сорок восьмым и пятьдесят восьмым годами, всего за десятилетие, было добыто двадцать четыре миллиона триста тысяч унций золота.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Америка:  факты и домыслы! Зная статистику золотой лихорадки, мы понимаем, почему первые старатели так торопились добраться до Калифорнии. </span>
+<span class="s1">Между тысяча восемьсот сорок восьмым и пятьдесят восьмым годами, всего за десятилетие, было добыто двадцать четыре миллиона триста тысяч унций золота.</span>
 <span class="s1">По сегодняшним ценам это более тридцати одного миллиарда долларов, но дело было не только в золоте. Сколько было вокруг фантастических историй.  Вот одна из них, известная всем.  После того, как в тысяча восемьсот сорок восьмом году Джеймс Маршалл в воде у лесопилки нашёл несколько самородков, началась первая золотая лихорадка в американской истории.</span>
 <span class="s1">Тысячи храбрецов пустились в далёкое путешествие в Калифорнию по океану. Другие отправились туда в видавших виды повозках.  На одиноких тропах недостатка в опасностях тоже не было, особенно учитывая враждебно настроенных аборигенов.</span>
 <span class="s1">Золотые прииски кишели бородатыми, лохматыми старателями. Удивительно, но золото лежало прямо на поверхности, сверкая на солнце.</span>
-<span class="s1">Поэтому многие первопроходцы разбогатели? Но к середине пятидесятых годов праздник закончился.&#39;&#39;&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;привет джон, т.е. иван, т.к. русский. и т.д. и т.п.&#39;</span>
+<span class="s1">Поэтому многие первопроходцы разбогатели? Но к середине пятидесятых годов праздник закончился.&#39;&#39;&#39;</span>
 </pre></div>
 
     </div>
@@ -489,9 +491,33 @@ lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>привет джон, т.е. иван, т.к. русский. 
+<pre>Америка:  факты и домыслы! 
 ---
-и т.д. и т.п. 
+Зная статистику золотой лихорадки, мы понимаем, почему первые старатели так торопились добраться до Калифорнии. 
+---
+Между тысяча восемьсот сорок восьмым и пятьдесят восьмым годами, всего за десятилетие, было добыто двадцать четыре миллиона триста тысяч унций золота. 
+---
+По сегодняшним ценам это более тридцати одного миллиарда долларов, но дело было не только в золоте. 
+---
+Сколько было вокруг фантастических историй. 
+---
+Вот одна из них, известная всем. 
+---
+После того, как в тысяча восемьсот сорок восьмом году Джеймс Маршалл в воде у лесопилки нашёл несколько самородков, началась первая золотая лихорадка в американской истории. 
+---
+Тысячи храбрецов пустились в далёкое путешествие в Калифорнию по океану. 
+---
+Другие отправились туда в видавших виды повозках. 
+---
+На одиноких тропах недостатка в опасностях тоже не было, особенно учитывая враждебно настроенных аборигенов. 
+---
+Золотые прииски кишели бородатыми, лохматыми старателями. 
+---
+Удивительно, но золото лежало прямо на поверхности, сверкая на солнце. 
+---
+Поэтому многие первопроходцы разбогатели? 
+---
+Но к середине пятидесятых годов праздник закончился. 
 ---
 </pre>
 </div>

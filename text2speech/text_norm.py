@@ -63,8 +63,7 @@ def basic_cleaner(text):
 
 # Cell
 def russian_cleaner(text):
-    """Pipeline for Russian text cleaning:
-       lowercase, expand_abbreviations, remove_specials, collapse_whitespace."""
+    "Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace."
     text = lowercase(text)
     text = expand_abbreviations(text)
     text = remove_specials(text)
