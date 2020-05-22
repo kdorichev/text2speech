@@ -5,13 +5,11 @@ __all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'remove_speci
 
 # Cell
 import re
-from fastcore.test import *
-from nbdev.showdoc import *
 
 # Cell
 def collapse_whitespace(text):
     "Replace multiple whitespaces with single space."
-    return re.sub(r'\s+', ' ', text)
+    return re.sub(r'\s+', ' ', text).strip()
 
 # Cell
 def lowercase(text):
@@ -25,9 +23,11 @@ def check_no_numbers(text):
 
 # Internal Cell
 _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
+  ('\d\d[:.]\d\d', ''),  # timestamps
   ('!\.', '!'), # !. -> !
   ('\?\.', '?'),# ?. -> ?
   ('\/', ''),
+  ('\s(…)', ' '),
   ('…', '.'),
   ('\.+', '.')  # ... -> .
 ]]
