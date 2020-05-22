@@ -19,10 +19,15 @@ def main():
 
     for line in inf:
         line = russian_cleaner(line)
-        sentences = (nltk.sent_tokenize(line, language="russian"))
-        for s in sentences:
-            of.write(s)
-            of.write('\n')
+        if line and ord(line[0]) == 65279: # BOM ZERO WIDTH NO-BREAK SPACE' (U+FEFF) (#65279) 
+            line = line[1:] 
+        
+        if line is not '':
+            sentences = (nltk.sent_tokenize(line, language="russian"))
+            for s in sentences:
+                if s.strip() is not '':
+                    of.write(s)
+                    of.write('\n')
 
     inf.close()
     of.close()
