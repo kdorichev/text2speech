@@ -2,33 +2,30 @@
     by K.Dorichev github: @kdorichev
     May 2020
 """
-import sys
-import re
+
 import argparse
-import fileinput
 import nltk
 from text_norm import *
 
 def main():
     parser = argparse.ArgumentParser(description="Text Normalization Utility")
-    parser.add_argument('infile', nargs='?',  type=argparse.FileType('r'), default=sys.stdin)
-    parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)    
-#    parser.add_argument("-i", "--input", required=True, help="Input text for normalization")
-#    parser.add_argument("-o", "--output", required=False, help="Output file name.")
+    parser.add_argument('infile')
+    parser.add_argument('outfile')
     ars = parser.parse_args()
-
-    text = []
-    #with fileinput
-    for line in fileinput.input(ars.infile):
-        print(russian_cleaner(line))
-        text.append(line)
     
-    text = nltk.sent_tokenize(text, language="russian")
+    sentences = []
+    inf = open(ars.infile, 'r')
+    of  = open(ars.outfile,'w')
 
-    with open(ars.outfile) as of:
-        of.write(text)
-            
+    for line in inf:
+        line = russian_cleaner(line)
+        sentences = (nltk.sent_tokenize(line, language="russian"))
+        for s in sentences:
+            of.write(s)
+            of.write('\n')
 
+    inf.close()
+    of.close()
 
 if __name__ == '__main__':
     main()
