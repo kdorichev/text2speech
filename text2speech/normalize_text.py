@@ -22,10 +22,10 @@ def main():
         if line and ord(line[0]) == 65279: # BOM ZERO WIDTH NO-BREAK SPACE' (U+FEFF) (#65279) 
             line = line[1:] 
         
-        if line is not '':
+        if line != '':
             sentences = (nltk.sent_tokenize(line, language="russian"))
             for s in sentences:
-                if s is not '':
+                if s != '':
                     of.write(s)
                     of.write('\n')
 
