@@ -1,3 +1,5 @@
+![CI](https://github.com/kdorichev/text2speech/workflows/CI/badge.svg)
+
 # Text-To-Speech Dataset Preparation and Architecture
 > Let's speak!
 
