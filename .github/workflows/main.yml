@@ -13,6 +13,7 @@ jobs:
       run: |
         pip install nbdev fastcore nltk jupyter
         pip install -e .
+	python -m nltk.downloader punkt
     - name: Read all notebooks
       run: |
         nbdev_read_nbs
