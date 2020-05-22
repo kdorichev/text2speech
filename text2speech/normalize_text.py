@@ -25,7 +25,7 @@ def main():
         if line is not '':
             sentences = (nltk.sent_tokenize(line, language="russian"))
             for s in sentences:
-                if s.strip() is not '':
+                if s is not '':
                     of.write(s)
                     of.write('\n')
 
