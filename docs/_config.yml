@@ -1,7 +1,7 @@
-repository: kdorichev/tts
+repository: kdorichev/text2speech
 output: web
-topnav_title: tts
-site_title: tts
+topnav_title: Text-To-Speech Dataset Preparation
+site_title: text2speech
 company_name: Konstantin Dorichev
 description: Text To Speech (TTS) dataset preparation and Model
 # Set to false to disable KaTeX math
