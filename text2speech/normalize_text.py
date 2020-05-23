@@ -29,7 +29,7 @@ def main():
                     of.write(s)
                     of.write('\n')
 
-    inf.close()![CI](https://github.com/kdorichev/text2speech/workflows/CI/badge.svg)
+    inf.close()
     of.close()
 
 if __name__ == '__main__':
