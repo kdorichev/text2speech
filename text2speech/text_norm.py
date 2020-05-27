@@ -23,7 +23,7 @@ def check_no_numbers(text):
 
 # Internal Cell
 _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
-  ('\d\d[:.]\d\d', ''),  # timestamps
+  ('\(?\d\d[:.]\d\d\)?', ''),  # timestamps
   ('!\.', '!'), # !. -> !
   ('\?\.', '?'),# ?. -> ?
   ('\/', ''),
