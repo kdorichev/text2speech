@@ -34,6 +34,13 @@ description: "Functions used for TTS Dataset Preparation"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Functions-for-Pipeline">Functions for Pipeline<a class="anchor-link" href="#Functions-for-Pipeline"> </a></h2>
@@ -539,7 +546,42 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;russian&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Реальность пиратства далеко не романтична. Кевин Макдоналд, Университет Лойолы Далеко не Голливуд. Миф складывался постепенно.&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Золотой век пиратства пришёлся на период с тысяча шестьсот девяностого</span><span class="se">\</span>
+<span class="s2"> по тысяча семьсот тридцатый год. Но большинство пиратов быстро отходили от дел.&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span><span class="c1">#, language=&quot;russian&quot;):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -559,7 +601,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 Инициалы -- не повод разрывать. 
 
-Правда, А.С. Пушкин? 
+Правда, А.С. 
+
+Пушкин? 
 
 -- Разумеется, голубчик. 
 
