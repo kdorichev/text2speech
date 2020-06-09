@@ -8,9 +8,13 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "remove_specials": "01_text_norm.ipynb",
          "expand_abbreviations": "01_text_norm.ipynb",
          "basic_cleaner": "01_text_norm.ipynb",
-         "russian_cleaner": "01_text_norm.ipynb"}
+         "russian_cleaner": "01_text_norm.ipynb",
+         "get_files": "02_data.ipynb",
+         "get_audio_files": "02_data.ipynb",
+         "get_txt_files": "02_data.ipynb"}
 
-modules = ["text_norm.py"]
+modules = ["text_norm.py",
+           "data.py"]
 
 doc_url = "https://kdorichev.github.io/text2speech/"
 
