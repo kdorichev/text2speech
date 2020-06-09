@@ -3,6 +3,13 @@
 __all__ = ['get_files', 'get_audio_files', 'get_txt_files']
 
 # Cell
+from pathlib import Path
+
+# Cell
+from fastcore.all import *
+from fastai2_audio.core.all import *
+
+# Cell
 def get_files(path, extensions=None, recurse=True, folders=None, followlinks=True):
     "Get all the files in `path` with optional `extensions`, optionally with `recurse`, only in `folders`, if specified."
     path = Path(path)
