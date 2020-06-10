@@ -67,7 +67,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L10" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
-<p>Replace multiple whitespaces with single space.</p>
+<p>Replace multiple various whitespaces with a single space, strip leading and trailing spaces.</p>
 
 </div>
 
@@ -87,7 +87,13 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">collapse_whitespace</span><span class="p">(</span>
-    <span class="s2">&quot;</span><span class="se">\t\n</span><span class="s2"> 1  2   3     4     5       </span><span class="se">\t\r\n</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0xfeff&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># zero width no-break space</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0x200b&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># zero width space</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0x202f&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># narrow no-break space</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0x2060&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># word joiner</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0x3000&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># ideographic space</span>
+    <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;0xa0&quot;</span>  <span class="p">,</span> <span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="c1"># no-break space</span>
+    <span class="s2">&quot;</span><span class="se">\t\n</span><span class="s2"> 1 2   3     4     5       </span><span class="se">\t\r\n</span><span class="s2">&quot;</span><span class="p">),</span>
     <span class="s2">&quot;1 2 3 4 5&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -235,7 +241,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>)</p>
+<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>, <strong><code>purge_digits</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Replace predefined in <code>_specials</code> sequence of characters</p>
 
@@ -328,7 +334,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>)</p>
+<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p><code>expand_abbreviations()</code> defined in <code>_abbreviations</code></p>
 
@@ -399,7 +405,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>)</p>
 </blockquote>
 <p>Basic pipeline: lowercase and collapse whitespaces.</p>
 
@@ -439,11 +445,11 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">purge_digits</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="s2">&quot;Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace.&quot;</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">lowercase</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_specials</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">remove_specials</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">purge_digits</span><span class="o">=</span><span class="n">purge_digits</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">collapse_whitespace</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span>
 </pre></div>
@@ -466,7 +472,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>)</p>
+<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L67" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>, <strong><code>purge_digits</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace.</p>
 
@@ -529,7 +535,333 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Восклицательное предложение! А это какое? Инициалы -- не повод разрывать. Правда, А.С. Пушкин? -- Разумеется, голубчик. (Скобки оставляем.)&#39;&#39;&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/home/condor/git/cyrillica/f-ish.txt&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-of-characters-in-the-origial-text">Set of characters in the origial text<a class="anchor-link" href="#Set-of-characters-in-the-origial-text"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Char</span><span class="se">\t</span><span class="s1">Dec</span><span class="se">\t</span><span class="s1">Hex</span><span class="se">\t</span><span class="s1">Printable?&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">text</span><span class="p">))):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">isprintable</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Char	Dec	Hex	Printable?
+
+	10	0xa	False
+ 	32	0x20	True
+!	33	0x21	True
+,	44	0x2c	True
+-	45	0x2d	True
+.	46	0x2e	True
+/	47	0x2f	True
+0	48	0x30	True
+1	49	0x31	True
+2	50	0x32	True
+3	51	0x33	True
+5	53	0x35	True
+7	55	0x37	True
+8	56	0x38	True
+9	57	0x39	True
+:	58	0x3a	True
+?	63	0x3f	True
+ 	160	0xa0	False
+«	171	0xab	True
+»	187	0xbb	True
+А	1040	0x410	True
+Б	1041	0x411	True
+В	1042	0x412	True
+Г	1043	0x413	True
+Д	1044	0x414	True
+Е	1045	0x415	True
+З	1047	0x417	True
+И	1048	0x418	True
+Й	1049	0x419	True
+К	1050	0x41a	True
+Л	1051	0x41b	True
+М	1052	0x41c	True
+Н	1053	0x41d	True
+О	1054	0x41e	True
+П	1055	0x41f	True
+Р	1056	0x420	True
+С	1057	0x421	True
+Т	1058	0x422	True
+У	1059	0x423	True
+Ф	1060	0x424	True
+Х	1061	0x425	True
+Ч	1063	0x427	True
+Ш	1064	0x428	True
+Ы	1067	0x42b	True
+Э	1069	0x42d	True
+Ю	1070	0x42e	True
+Я	1071	0x42f	True
+а	1072	0x430	True
+б	1073	0x431	True
+в	1074	0x432	True
+г	1075	0x433	True
+д	1076	0x434	True
+е	1077	0x435	True
+ж	1078	0x436	True
+з	1079	0x437	True
+и	1080	0x438	True
+й	1081	0x439	True
+к	1082	0x43a	True
+л	1083	0x43b	True
+м	1084	0x43c	True
+н	1085	0x43d	True
+о	1086	0x43e	True
+п	1087	0x43f	True
+р	1088	0x440	True
+с	1089	0x441	True
+т	1090	0x442	True
+у	1091	0x443	True
+ф	1092	0x444	True
+х	1093	0x445	True
+ц	1094	0x446	True
+ч	1095	0x447	True
+ш	1096	0x448	True
+щ	1097	0x449	True
+ъ	1098	0x44a	True
+ы	1099	0x44b	True
+ь	1100	0x44c	True
+э	1101	0x44d	True
+ю	1102	0x44e	True
+я	1103	0x44f	True
+ё	1105	0x451	True
+–	8211	0x2013	True
+…	8230	0x2026	True
+−	8722	0x2212	True
+﻿	65279	0xfeff	False
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-of-characters-in-the-cleaned-text">Set of characters in the cleaned text<a class="anchor-link" href="#Set-of-characters-in-the-cleaned-text"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Char</span><span class="se">\t</span><span class="s1">Dec</span><span class="se">\t</span><span class="s1">Hex</span><span class="se">\t</span><span class="s1">Printable?&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">)))):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">isprintable</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Char	Dec	Hex	Printable?
+ 	32	0x20	True
+!	33	0x21	True
+,	44	0x2c	True
+-	45	0x2d	True
+.	46	0x2e	True
+1	49	0x31	True
+:	58	0x3a	True
+?	63	0x3f	True
+«	171	0xab	True
+»	187	0xbb	True
+а	1072	0x430	True
+б	1073	0x431	True
+в	1074	0x432	True
+г	1075	0x433	True
+д	1076	0x434	True
+е	1077	0x435	True
+ж	1078	0x436	True
+з	1079	0x437	True
+и	1080	0x438	True
+й	1081	0x439	True
+к	1082	0x43a	True
+л	1083	0x43b	True
+м	1084	0x43c	True
+н	1085	0x43d	True
+о	1086	0x43e	True
+п	1087	0x43f	True
+р	1088	0x440	True
+с	1089	0x441	True
+т	1090	0x442	True
+у	1091	0x443	True
+ф	1092	0x444	True
+х	1093	0x445	True
+ц	1094	0x446	True
+ч	1095	0x447	True
+ш	1096	0x448	True
+щ	1097	0x449	True
+ъ	1098	0x44a	True
+ы	1099	0x44b	True
+ь	1100	0x44c	True
+э	1101	0x44d	True
+ю	1102	0x44e	True
+я	1103	0x44f	True
+ё	1105	0x451	True
+–	8211	0x2013	True
+−	8722	0x2212	True
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;\ufeff\n\n\n\n\n\n\n\nНам кажется, что мы знаем историю Америки, но порой домыслы оказываются сильнее правды. Вы знаете, что способ, которым мы приветствовали наш флаг, зажёг искру в глазах Адольфа Гитлера?.. Или что скульптор барельефа на горе Рашмор вынужден был взорвать незаконченную голову президента динамитом? А как вам тот факт, что «Статуя Свободы» предназначалась для Египта? Я –Джейми Кейлер, давайте немного помашем флагом, попристальнее вглядимся в нос Джорджа Вашингтона и залезем под кожу нашей любимой сорока-семи-метровой женщины в поисках правды.\n\n\nАМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ\n\n\nЭто суперзвезда нашего государства. У него есть собственный гимн, своя клятва верности, он защищён законом. Конечно, я говорю об американском флаге. Но если вы считаете, что знаете всю правду о «Старой славе», приготовьтесь к красно-бело-синим сенсациям. Вот всем известная история. В июне тысяча семьсот семьдесят шестого года в Филадельфии Джордж Вашингтон заходит к швее Бетси Росс и просит её сшить первый американский флаг. Она соглашается и шьёт флаг, который станет образцом для всех последующих американских флагов… 01:39 Патриоты принимают его с восторгом. Под ним войска Вашингтона побеждают во многих революционных битвах… И обретшие независимость Соединённые Штаты хранят и оберегают свой символ с почти религиозным трепетом. \n\n\nДОМЫСЕЛ\n\n\nЕсли вы так и думаете, у вас в глазах явно пляшут звёздочки. Давайте начнём с Бетси Росс… Она ходила в ту же церковь, что Вашингтон и Бен Франклин. Но вся проблема в том, что реальных свидетельств того, что именно она сшила флаг, нет. Мы верим в рассказ, который её внук написал через сто лет после тех событий. В тысяча восемьсот семидесятом году внук Бетси Росс – Уильям Кэмби – заявил, что его бабушка придумала и сшила первый флаг. Единственное доказательство − история, рассказываемая в семье. И эта легенда обретает популярность. \n\n\nДоктор Алан Литман, заслуженный профессор истории Американского университета.\n\n\nВ лучшем случае она сделала шестиконечные звёзды пятиконечными. Вот и всё. \n\n\nЕсли Бетси Росс не придумывала макет флага, тогда кто же?.. Точно к созданию флага был причастен Фрэнсис Хопкинсон. Его подпись – среди тех, что скрепили Декларацию Независимости. Он был одним из первых федеральных служащих. \n\n\nСтюарт Дэвенпорт, адъюнкт-профессор американской истории в Университете Пеппердайна\n\n\nКомитету военно-морских сил нужно было разработать флаг, под которым могли бы ходить корабли нового государства – США. Нужно было разработать символ, который поможет морякам на других судах определить, идёт им навстречу друг или враг.\n\n\nДействительно ли флаг сразу же стал священным символом, который мы теперь почитаем?\n\n\nТогда американцы не рассматривали флаг в качестве важного символа страны. Не было универсального рисунка. Звёзды иногда располагались по кругу, иногда овалом или рядами. На разных флагах было разное количество полос. На тех первых американских флагах их было от девяти до восемнадцати. \n\n\nИ всё же мы видим флаг на картинах и в кино. Знамя реет над войсками во время самых ожесточённых революционных боёв, так?\n\n\nДОМЫСЕЛ\n\n\nТак же, как Джордж Вашингтон, я не могу лгать. \n\n\nНи в одной революционной битве американцы не сражались под флагом. Впервые на полях сражений он появился в тысяча восемьсот сороковом году. Во время американо-мексиканской войны. \n\n\nНо откуда же флаги на картинах, которые рисовали художники девятнадцатого века? Их интересовала не историческая точность, а патриотизм. Американский флаг не был действительно мощным символом вплоть до кровавой битвы во время Гражданской войны. «Старую славу» гордо подняли солдаты Союза во время неудачной обороны форта Самтер. После этого он, наконец, стал символом патриотизма и единения даже, когда армия терпела поражение. \n\n\nАмериканские военные признали флаг лишь в конце девятнадцатого века. Морской флот – в тысяча восемьсот семьдесят шестом году. А кавалерийские подразделения – в тысяча восемьсот восемьдесят седьмом.\n\n\nТем не менее американцы давали клятву верности, прижимая руку к сердцу, с первых лет образования государства. \n\n\nДОМЫСЕЛ\n\n\nНе совсем. Клятва верности появилась только в тысяча восемьсот девяносто втором году.  \n\n\nИммигранты волной хлынули в Америку. И нужно было придумать нечто объединяющее всех граждан. Если у них не было общей истории, то пусть дают клятву верности флагу. Это символ нашей страны. И ритуал принесения клятвы были призван объединить народ. \n\n\nЯ клянусь в верности флагу Соединённых Штатов Америки. \n\n\nА способ принесения клятвы был изменён в тысяча девятьсот сорок втором году, во время Второй мировой войны. \n\n\nИзначально приветствие было очень похожим, к сожалению, на нацистское. Выкинутая вперёд рука ладонью вверх. И когда началась эра фашистского кошмара в Германии, Америка решила изменить традицию, стали давать клятву, положа одну руку на сердце. \n\n\nАмерика была очень молодой страной, ей нужно было обретать свои символы, своих героев, артефакты, которые дали бы возможность самоопределения, национальной принадлежности. Поэтому флаг приобрёл огромное значение. \n\n\nВ тысяча девятьсот тридцать седьмом году, когда рабочие ещё не закончили барельеф на горе Рашмор, Конгресс предлагает добавить ещё одну голову. Суфражистки Сюзан Энтони… Но этого так и не случилось. Предложение было отклонено. И главным аргументом стала… цена вопроса. Сколько ещё нас ждёт сюрпризов в Блэк-Хиллс Южной Дакоты, пока мы не сумеем отсечь наносное от камня истины? 07:11 Начнём с того, что нам известно. В Южной Дакоте скульптор Гатсон Борглум задумывает создать монумент, высеченный из гранита. Головы четырёх американских президентов: Джорджа Вашингтона, Томаса Джефферсона, Теодора Рузвельта и Авраама Линкольна. Работы начались в тысяча девятьсот двадцать седьмом году, а закончились в тысяча девятьсот сорок первом. Гатсон ни разу не отошёл от первоначального плана. С первого дня памятник задумывался как выражение идеи предначертанности судьбы. Этот восемнадцати-метровый монумент нравится всем без исключения.\n\n\nДОМЫСЕЛ\n\n\nЛожь в этом рассказе так же велика, как и родинка на лице Линкольна. Начнём с того, что этот монумент изначально задумывался как барельеф четырёх президентов. \n\n\nИдея создания монумента в Южной Дакоте принадлежала не Борглуму. Первым её предложил историк из Южной Дакоты Доан Робинсон. И по его замыслу там должны были быть фигуры, прославляющие Запад. Красное облако, Льюис и Уильям Кларк, Буффало Билл Коуди.\n\n\nБорглум согласился с Робинсоном, что такой монумент привлечёт множество туристов, но он хотел отдать дань президентам государства, которые внесли самый большой вклад в становление демократии, завоевание свободы и укрепление страны. Что несколько удивительно, учитывая его пожизненное сотрудничество с одной из самых печально известных организаций Америки.\n\n\nБорглум был членом Ку-клукс-клана. Он начинал работу над созданием «Мемориала Конфедерации» на Стоун-Маунтин, в Джорджии. Затем у него начались проблемы с инвесторами. Его лишили работы, пытались даже арестовать и заставили покинуть штат. \n\n\nДоктор Джеймс Лоуэн, автор книги «Ложь, которую мне рассказал учитель».\n\n\nНо сидеть сложа руки ему пришлось недолго. Робинсон нашёл его в двадцать четвёртом году, а в двадцать седьмом работа закипела… В ней было задействовано четыреста рабочих и много динамита. Всё шло точно по плану. \n\n\nДОМЫСЕЛ\n\n\nНе совсем. Изначально Борглум планировал поместить Джефферсона справа от Вашингтона. Но гора постоянно осыпалась. Поэтому Борглум попросту взорвал незаконченную голову Джефферсона и переместил его на другую сторону. Вставал и вопрос гардероба.\n\n\nЛюди полагают, что монумент закончен. Но если вы посмотрите на эскизы, то увидите, что планировалось создание бюстов. На них должна была быть одежда или униформа. \n\n\nБорглуму пришлось отказаться не только от одежды. \n\n\nОн представлял себе гору Рашмор не только, как величайший монумент, но и как мемориальный комплекс, представляющий величие Америки для будущих поколений. Он собирался построить там музей, где будут храниться самые ценные документы истории: такие как Декларация Независимости и Конституция Соединённых Штатов. \n\n\nМузей-пещеру размером двадцать четыре на тридцать метров планировалось расположить прямо за головой Линкольна… Борглум уже построил главный вход, но деньги закончились. И всё что успели сделать – двадцатиметровое углубление. Борглум умер в тысяча девятьсот сорок первом году, к этому времени работы на горе Рашмор были остановлены. Однако мемориал мгновенно стал легендарным, любимым всеми американцами монументом. \n\n\nДОМЫСЕЛ\n\n\nОн был построен на священной земле индейцев Сиу, которая принадлежала им до тех пор, пока мы не нашли там золото. Я говорю «мы», подразумевая всех не индейцев лакота. В тот момент мы отобрали у них землю. \n\n\nМногие индейцы считают, что монумент на горе Рашмор увековечил аннексию земель и попрание традиций коренных американцев белыми. Многие индейцы видят в американских президентах не символ освобождения Америки, а символ так называемого американского перста судьбы. \n\n\nТаким образом, один из самых почитаемых многими американцами монумент не так однозначен, как многим кажется… Но Америка как раз и славится тем, что мы не боимся взглянуть в глаза правде, даже когда дело касается самых священных символов. И если вы думаете, что ошибались только насчёт этих парней, давайте разберёмся с этой дамой.\n\n\nАМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ  //  13:01  АМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ\n\n\nЕщё одна икона американской истории − Колокол Свободы в Филадельфии, чьей истории суждено было дать трещину. Надпись на колоколе гласит:\xa0«И объявите свободу на земле всем жителям её». И аболиционистам эта идея очень понравилась. Думаю, именно тогда его и стали называть «Колокол свободы».\n\n\nОн стал знаменит только, когда его приняли аболиционисты, которые боролись за отмену рабства. А вы помните, что даже отцы-основатели, включая Томаса Джефферсона − автора Декларации независимости, Джорджа Вашингтона − лидера революции, ставшего первым американским президентом, – что все они были рабовладельцами. В том, как использовался «Колокол Свободы», и в его отношении к основателям американской независимости усматривается явный парадокс. Ведь на нём начертаны слова из библии: «И объявите свободу на земле всем жителям её».\n\n\nАмериканцам нужны эти рассказы, эти артефакты, они помогают им понять самих себя. Возможно, «Колокол свободы» не имеет ничего общего с независимостью, зато это символ свободы. Символ освобождения от рабства. \n\n\nИстория оказалась не так однозначна, как мы её воспринимали./ Известная нам версия рассказов о «Статуе Свободы» звучит приблизительно так. Французская революция началась в тысяча семьсот восемьдесят девятом году, всего через четырнадцать лет после нашей. А век спустя французы решили отблагодарить нас за подаренное им вдохновение благородным жестом − подарить Статую Свободы. Она была создана специально для нас, с единственной целью: …приветствовать миллионы иммигрантов на обетованной земле Америки. \n\n\nДОМЫСЕЛ\n\n\nНе считая дат, этот рассказ – такое сотрясание воздуха, что может легко скинуть с пьедестала нашу великую даму. Сначала вспомним её скульптора, Фредерика Огюста Бартольди, который задумал статую специально для нас. \n\n\nОн любил создавать масштабные произведения.\n\n\nЭлизабет Манн, автор книги «Статуя Свободы». \n\n\nЕго пригласили в Египет для создания маяка у входа в только что законченный Суэцкий канал. Монумент должен был быть очень высоким. И Бартольди создал макет скульптуры, которой предстояло стать египетским «Светом Азии». \n\n\nНо правитель Египта так и не оплатил заказ в связи с финансовыми проблемами, и Бартольди вернулся во Францию ни с чем… Ну вот, теперь ясно, что изначально статуя предназначалась не нам. Но у Бартольди появился второй шанс. Французский профессор юриспруденции, Эдуар де Лабуле, страстный поборник демократии, посоветовал Бартольди создать огромную статую для США. Армия Союза только что победила в Гражданской Войне. Лабуле предлагает совместный проект. Франция финансирует создание статуи, а Америка построит пьедестал, на котором та будет горделиво возвышаться. По прибытии в Америку она носила имя, которым мы пользуемся по сей день: «Статуя Свободы».  \n\n\nДОМЫСЕЛ\n\n\nНа самом деле у таинственной дамы было другое имя.\n\n\nЕё название происходило от египетского «Света Азии» – «Свобода, освещающая мир». \n\n\nВсё случилось, как по мановению волшебной палочки. Бартольди мгновенно получил деньги на статую. США выделили деньги на пьедестал – и готово! Статуя заняла своё место в Нью-Йорке. \n\n\nДОМЫСЕЛ \n\n\nНа самом деле денег не оказалось по обе стороны Атлантики. Поэтому во время создания статуи использовались новые маркетинговые идеи, включая гастроли частей тела дамы. Её рука с факелом была привезена в Филадельфию на празднование столетнего юбилея в тысяча восемьсот семьдесят шестом году. 17:27 Приглашённые были в восторге, но много денег это не принесло… В Париже Бартольди выставил на всеобщее обозрение голову бедной дамы. Устроители акции брали с желающих вскарабкаться на её корону по франку. Наконец, когда рука вернулась из Америки, Бартольди собрал статую целиком рядом со своей мастерской в Париже. \n\n\nКакое-то время она просто стояла там. Люди любовались ею, но места для неё не было. Америка не готова была её принять.\n\n\nДа, статуя, наконец, закончена. Но Нью-Йорк до сих пор не нашёл денег на пьедестал. Статуя простояла в Париже ещё восемь лет. Наконец, Бартольди надоело ждать, когда построят пьедестал. Он разобрал своё творение и упаковал в ящики для транспортировки. \n\n\nТриста частей статуи отправились в Соединённые Штаты в более чем двухстах ящиках.\n\n\nМногие испытали чувство гордости и патриотизма, впервые увидев «Статую Свободы». Но они не знали, что статуя сама себя зарядила электричеством. В том месте, где медная кожа касалась стальной основы, она превратилась в аккумулятор, благодаря гальванической коррозии, что произошло, когда шеллак между двумя видами металла рассохся, попав на морской, солёный воздух Нью-йоркской гавани. 18:58 Этот электрический заряд ослабил заклёпки, на которых держалась статуя. Лишь в восьмидесятых годах двадцатого века, через сто лет после водружения на исторический пьедестал, провели электроизоляционные работы. Но тогда пьедестал был ещё не готов. 19:13 В тысяча восемьсот восемьдесят пятом году денег на него всё ещё не хватало. Джозеф Пулитцер взял дело в свои руки и собрал сто тысяч долларов, проведя сбор средств с помощью своей газеты «Нью-Йорк Уорлд». Но этого было мало. Вот где начинается история о радушном приёме иммигрантов. Думаете, это французы написали на статуе стихи об отверженных, униженных и бездомных?\n\n\nДОМЫСЕЛ\n\n\nА вот и нет. Американская поэтесса Эмма Лазарус написала знаменитый сонет «Новый Колосс» для акции по сбору средств в тысяча восемьсот восемьдесят третьем году. \n\n\nИзначально этого сонета на статуе не было. Она написала его, чтобы помочь собрать деньги. И ей это удалось. Тогда сонет и был выгравирован на бронзовой табличке монумента. \n\n\nСтатуя начала ассоциироваться с потоком иммигрантов лишь в тысяча девятьсот третьем году, когда знаменитый сонет Эммы Лазарус «Новый Колосс» был выгравирован в основании статуи. \n20:20 Мать изгнанных! Их горьким воплям внемля,\nУ широко распахнутой двери,\nБездомных и замученных приемли…\nИ в конце: «Стань маяком величия и славы,\nСветильник мой у золотых ворот».\n«Золотые ворота» – конечно, ворота в Америку, в обитель свободы, новых возможностей и обогащения. \n\n\nНаконец, Нью-Йорку удалось наскрести денег на завершение работы. Двадцать восьмого октября тысяча восемьсот восемьдесят шестого года президент Грувер Кливленд официально открыл памятник великой даме, водружённый на пьедестал. \n\n\nСтатуя стала символом свободы и независимости, которые, по убеждению многих, Америка и представляла. Мы действительно принимали «изгнанных, бездомных и замученных» из других стран и помогали им внедриться в американскую культуру. \n\n\nИ уж если она всё равно стоит, почему бы ей не послужить ещё и маяком?\n\n\nНад Нью-йоркской гаванью вознесён этот монументальный факел. Но изначально с ним были большие проблемы. Свет был тусклым, и маяк из статуи был плохой. \n\n\nОн горит и сегодня, но им никто не пользуется. \n\n\nЛадно, маяк из неё никакой. Зато она заняла центральное место, приветствуя граждан Америки и её гостей. \n\n\nДОМЫСЕЛ\n\n\nНу, это и не входило в планы. \n\n\nБыло серьёзное предложение поставить на Стейтен Айленд такую же, даже побольше, статую индейца. Огромного индейца. Он должен был символизировать истребление коренного населения Америки иммигрантами. \n\n\nДа, у леди Свободы мог появиться брат. В тысяча девятьсот тринадцатом году президент Тафт заложил фундамент Национального мемориала американским индейцам. Но сбор средств шёл плохо, а начавшаяся в четырнадцатом году Первая мировая война поставила на нём крест… 22:30 Поэтому «Статуя Свободы» так и осталась одиноко стоять в Нью-йоркской гавани, став величайшим национальным достоянием Америки. \n\n\nМы научились чтить свой флаг. Гора Рашмор, «Статуя Свободы» стали монументальным воплощением самоопределения нации. И, разумеется, в силу того, что мы все такие разные, каждый видит в этих символах что-то своё. Этим и отличается Америка. \n\n\nДаже наши гранитные изваяния обросли столькими домыслами, что приходится рубить камень, чтобы добраться до истины.\n\n\n\n\n\n\n\n1\n\n\n&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;нам кажется, что мы знаем историю америки, но порой домыслы оказываются сильнее правды. вы знаете, что способ, которым мы приветствовали наш флаг, зажёг искру в глазах адольфа гитлера?. или что скульптор барельефа на горе рашмор вынужден был взорвать незаконченную голову президента динамитом? а как вам тот факт, что «статуя свободы» предназначалась для египта? я –джейми кейлер, давайте немного помашем флагом, попристальнее вглядимся в нос джорджа вашингтона и залезем под кожу нашей любимой сорока-семи-метровой женщины в поисках правды. америка: факты и домыслы это суперзвезда нашего государства. у него есть собственный гимн, своя клятва верности, он защищён законом. конечно, я говорю об американском флаге. но если вы считаете, что знаете всю правду о «старой славе», приготовьтесь к красно-бело-синим сенсациям. вот всем известная история. в июне тысяча семьсот семьдесят шестого года в филадельфии джордж вашингтон заходит к швее бетси росс и просит её сшить первый американский флаг. она соглашается и шьёт флаг, который станет образцом для всех последующих американских флагов. патриоты принимают его с восторгом. под ним войска вашингтона побеждают во многих революционных битвах. и обретшие независимость соединённые штаты хранят и оберегают свой символ с почти религиозным трепетом. домысел если вы так и думаете, у вас в глазах явно пляшут звёздочки. давайте начнём с бетси росс. она ходила в ту же церковь, что вашингтон и бен франклин. но вся проблема в том, что реальных свидетельств того, что именно она сшила флаг, нет. мы верим в рассказ, который её внук написал через сто лет после тех событий. в тысяча восемьсот семидесятом году внук бетси росс – уильям кэмби – заявил, что его бабушка придумала и сшила первый флаг. единственное доказательство − история, рассказываемая в семье. и эта легенда обретает популярность. доктор алан литман, заслуженный профессор истории американского университета. в лучшем случае она сделала шестиконечные звёзды пятиконечными. вот и всё. если бетси росс не придумывала макет флага, тогда кто же?. точно к созданию флага был причастен фрэнсис хопкинсон. его подпись – среди тех, что скрепили декларацию независимости. он был одним из первых федеральных служащих. стюарт дэвенпорт, адъюнкт-профессор американской истории в университете пеппердайна комитету военно-морских сил нужно было разработать флаг, под которым могли бы ходить корабли нового государства – сша. нужно было разработать символ, который поможет морякам на других судах определить, идёт им навстречу друг или враг. действительно ли флаг сразу же стал священным символом, который мы теперь почитаем? тогда американцы не рассматривали флаг в качестве важного символа страны. не было универсального рисунка. звёзды иногда располагались по кругу, иногда овалом или рядами. на разных флагах было разное количество полос. на тех первых американских флагах их было от девяти до восемнадцати. и всё же мы видим флаг на картинах и в кино. знамя реет над войсками во время самых ожесточённых революционных боёв, так? домысел так же, как джордж вашингтон, я не могу лгать. ни в одной революционной битве американцы не сражались под флагом. впервые на полях сражений он появился в тысяча восемьсот сороковом году. во время американо-мексиканской войны. но откуда же флаги на картинах, которые рисовали художники девятнадцатого века? их интересовала не историческая точность, а патриотизм. американский флаг не был действительно мощным символом вплоть до кровавой битвы во время гражданской войны. «старую славу» гордо подняли солдаты союза во время неудачной обороны форта самтер. после этого он, наконец, стал символом патриотизма и единения даже, когда армия терпела поражение. американские военные признали флаг лишь в конце девятнадцатого века. морской флот – в тысяча восемьсот семьдесят шестом году. а кавалерийские подразделения – в тысяча восемьсот восемьдесят седьмом. тем не менее американцы давали клятву верности, прижимая руку к сердцу, с первых лет образования государства. домысел не совсем. клятва верности появилась только в тысяча восемьсот девяносто втором году. иммигранты волной хлынули в америку. и нужно было придумать нечто объединяющее всех граждан. если у них не было общей истории, то пусть дают клятву верности флагу. это символ нашей страны. и ритуал принесения клятвы были призван объединить народ. я клянусь в верности флагу соединённых штатов америки. а способ принесения клятвы был изменён в тысяча девятьсот сорок втором году, во время второй мировой войны. изначально приветствие было очень похожим, к сожалению, на нацистское. выкинутая вперёд рука ладонью вверх. и когда началась эра фашистского кошмара в германии, америка решила изменить традицию, стали давать клятву, положа одну руку на сердце. америка была очень молодой страной, ей нужно было обретать свои символы, своих героев, артефакты, которые дали бы возможность самоопределения, национальной принадлежности. поэтому флаг приобрёл огромное значение. в тысяча девятьсот тридцать седьмом году, когда рабочие ещё не закончили барельеф на горе рашмор, конгресс предлагает добавить ещё одну голову. суфражистки сюзан энтони. но этого так и не случилось. предложение было отклонено. и главным аргументом стала. цена вопроса. сколько ещё нас ждёт сюрпризов в блэк-хиллс южной дакоты, пока мы не сумеем отсечь наносное от камня истины? начнём с того, что нам известно. в южной дакоте скульптор гатсон борглум задумывает создать монумент, высеченный из гранита. головы четырёх американских президентов: джорджа вашингтона, томаса джефферсона, теодора рузвельта и авраама линкольна. работы начались в тысяча девятьсот двадцать седьмом году, а закончились в тысяча девятьсот сорок первом. гатсон ни разу не отошёл от первоначального плана. с первого дня памятник задумывался как выражение идеи предначертанности судьбы. этот восемнадцати-метровый монумент нравится всем без исключения. домысел ложь в этом рассказе так же велика, как и родинка на лице линкольна. начнём с того, что этот монумент изначально задумывался как барельеф четырёх президентов. идея создания монумента в южной дакоте принадлежала не борглуму. первым её предложил историк из южной дакоты доан робинсон. и по его замыслу там должны были быть фигуры, прославляющие запад. красное облако, льюис и уильям кларк, буффало билл коуди. борглум согласился с робинсоном, что такой монумент привлечёт множество туристов, но он хотел отдать дань президентам государства, которые внесли самый большой вклад в становление демократии, завоевание свободы и укрепление страны. что несколько удивительно, учитывая его пожизненное сотрудничество с одной из самых печально известных организаций америки. борглум был членом ку-клукс-клана. он начинал работу над созданием «мемориала конфедерации» на стоун-маунтин, в джорджии. затем у него начались проблемы с инвесторами. его лишили работы, пытались даже арестовать и заставили покинуть штат. доктор джеймс лоуэн, автор книги «ложь, которую мне рассказал учитель». но сидеть сложа руки ему пришлось недолго. робинсон нашёл его в двадцать четвёртом году, а в двадцать седьмом работа закипела. в ней было задействовано четыреста рабочих и много динамита. всё шло точно по плану. домысел не совсем. изначально борглум планировал поместить джефферсона справа от вашингтона. но гора постоянно осыпалась. поэтому борглум попросту взорвал незаконченную голову джефферсона и переместил его на другую сторону. вставал и вопрос гардероба. люди полагают, что монумент закончен. но если вы посмотрите на эскизы, то увидите, что планировалось создание бюстов. на них должна была быть одежда или униформа. борглуму пришлось отказаться не только от одежды. он представлял себе гору рашмор не только, как величайший монумент, но и как мемориальный комплекс, представляющий величие америки для будущих поколений. он собирался построить там музей, где будут храниться самые ценные документы истории: такие как декларация независимости и конституция соединённых штатов. музей-пещеру размером двадцать четыре на тридцать метров планировалось расположить прямо за головой линкольна. борглум уже построил главный вход, но деньги закончились. и всё что успели сделать – двадцатиметровое углубление. борглум умер в тысяча девятьсот сорок первом году, к этому времени работы на горе рашмор были остановлены. однако мемориал мгновенно стал легендарным, любимым всеми американцами монументом. домысел он был построен на священной земле индейцев сиу, которая принадлежала им до тех пор, пока мы не нашли там золото. я говорю «мы», подразумевая всех не индейцев лакота. в тот момент мы отобрали у них землю. многие индейцы считают, что монумент на горе рашмор увековечил аннексию земель и попрание традиций коренных американцев белыми. многие индейцы видят в американских президентах не символ освобождения америки, а символ так называемого американского перста судьбы. таким образом, один из самых почитаемых многими американцами монумент не так однозначен, как многим кажется. но америка как раз и славится тем, что мы не боимся взглянуть в глаза правде, даже когда дело касается самых священных символов. и если вы думаете, что ошибались только насчёт этих парней, давайте разберёмся с этой дамой. америка: факты и домыслы америка: факты и домыслы ещё одна икона американской истории − колокол свободы в филадельфии, чьей истории суждено было дать трещину. надпись на колоколе гласит: «и объявите свободу на земле всем жителям её». и аболиционистам эта идея очень понравилась. думаю, именно тогда его и стали называть «колокол свободы». он стал знаменит только, когда его приняли аболиционисты, которые боролись за отмену рабства. а вы помните, что даже отцы-основатели, включая томаса джефферсона − автора декларации независимости, джорджа вашингтона − лидера революции, ставшего первым американским президентом, – что все они были рабовладельцами. в том, как использовался «колокол свободы», и в его отношении к основателям американской независимости усматривается явный парадокс. ведь на нём начертаны слова из библии: «и объявите свободу на земле всем жителям её». американцам нужны эти рассказы, эти артефакты, они помогают им понять самих себя. возможно, «колокол свободы» не имеет ничего общего с независимостью, зато это символ свободы. символ освобождения от рабства. история оказалась не так однозначна, как мы её воспринимали. известная нам версия рассказов о «статуе свободы» звучит приблизительно так. французская революция началась в тысяча семьсот восемьдесят девятом году, всего через четырнадцать лет после нашей. а век спустя французы решили отблагодарить нас за подаренное им вдохновение благородным жестом − подарить статую свободы. она была создана специально для нас, с единственной целью: приветствовать миллионы иммигрантов на обетованной земле америки. домысел не считая дат, этот рассказ – такое сотрясание воздуха, что может легко скинуть с пьедестала нашу великую даму. сначала вспомним её скульптора, фредерика огюста бартольди, который задумал статую специально для нас. он любил создавать масштабные произведения. элизабет манн, автор книги «статуя свободы». его пригласили в египет для создания маяка у входа в только что законченный суэцкий канал. монумент должен был быть очень высоким. и бартольди создал макет скульптуры, которой предстояло стать египетским «светом азии». но правитель египта так и не оплатил заказ в связи с финансовыми проблемами, и бартольди вернулся во францию ни с чем. ну вот, теперь ясно, что изначально статуя предназначалась не нам. но у бартольди появился второй шанс. французский профессор юриспруденции, эдуар де лабуле, страстный поборник демократии, посоветовал бартольди создать огромную статую для сша. армия союза только что победила в гражданской войне. лабуле предлагает совместный проект. франция финансирует создание статуи, а америка построит пьедестал, на котором та будет горделиво возвышаться. по прибытии в америку она носила имя, которым мы пользуемся по сей день: «статуя свободы». домысел на самом деле у таинственной дамы было другое имя. её название происходило от египетского «света азии» – «свобода, освещающая мир». всё случилось, как по мановению волшебной палочки. бартольди мгновенно получил деньги на статую. сша выделили деньги на пьедестал – и готово! статуя заняла своё место в нью-йорке. домысел на самом деле денег не оказалось по обе стороны атлантики. поэтому во время создания статуи использовались новые маркетинговые идеи, включая гастроли частей тела дамы. её рука с факелом была привезена в филадельфию на празднование столетнего юбилея в тысяча восемьсот семьдесят шестом году. приглашённые были в восторге, но много денег это не принесло. в париже бартольди выставил на всеобщее обозрение голову бедной дамы. устроители акции брали с желающих вскарабкаться на её корону по франку. наконец, когда рука вернулась из америки, бартольди собрал статую целиком рядом со своей мастерской в париже. какое-то время она просто стояла там. люди любовались ею, но места для неё не было. америка не готова была её принять. да, статуя, наконец, закончена. но нью-йорк до сих пор не нашёл денег на пьедестал. статуя простояла в париже ещё восемь лет. наконец, бартольди надоело ждать, когда построят пьедестал. он разобрал своё творение и упаковал в ящики для транспортировки. триста частей статуи отправились в соединённые штаты в более чем двухстах ящиках. многие испытали чувство гордости и патриотизма, впервые увидев «статую свободы». но они не знали, что статуя сама себя зарядила электричеством. в том месте, где медная кожа касалась стальной основы, она превратилась в аккумулятор, благодаря гальванической коррозии, что произошло, когда шеллак между двумя видами металла рассохся, попав на морской, солёный воздух нью-йоркской гавани. этот электрический заряд ослабил заклёпки, на которых держалась статуя. лишь в восьмидесятых годах двадцатого века, через сто лет после водружения на исторический пьедестал, провели электроизоляционные работы. но тогда пьедестал был ещё не готов. в тысяча восемьсот восемьдесят пятом году денег на него всё ещё не хватало. джозеф пулитцер взял дело в свои руки и собрал сто тысяч долларов, проведя сбор средств с помощью своей газеты «нью-йорк уорлд». но этого было мало. вот где начинается история о радушном приёме иммигрантов. думаете, это французы написали на статуе стихи об отверженных, униженных и бездомных? домысел а вот и нет. американская поэтесса эмма лазарус написала знаменитый сонет «новый колосс» для акции по сбору средств в тысяча восемьсот восемьдесят третьем году. изначально этого сонета на статуе не было. она написала его, чтобы помочь собрать деньги. и ей это удалось. тогда сонет и был выгравирован на бронзовой табличке монумента. статуя начала ассоциироваться с потоком иммигрантов лишь в тысяча девятьсот третьем году, когда знаменитый сонет эммы лазарус «новый колосс» был выгравирован в основании статуи. мать изгнанных! их горьким воплям внемля, у широко распахнутой двери, бездомных и замученных приемли. и в конце: «стань маяком величия и славы, светильник мой у золотых ворот». «золотые ворота» – конечно, ворота в америку, в обитель свободы, новых возможностей и обогащения. наконец, нью-йорку удалось наскрести денег на завершение работы. двадцать восьмого октября тысяча восемьсот восемьдесят шестого года президент грувер кливленд официально открыл памятник великой даме, водружённый на пьедестал. статуя стала символом свободы и независимости, которые, по убеждению многих, америка и представляла. мы действительно принимали «изгнанных, бездомных и замученных» из других стран и помогали им внедриться в американскую культуру. и уж если она всё равно стоит, почему бы ей не послужить ещё и маяком? над нью-йоркской гаванью вознесён этот монументальный факел. но изначально с ним были большие проблемы. свет был тусклым, и маяк из статуи был плохой. он горит и сегодня, но им никто не пользуется. ладно, маяк из неё никакой. зато она заняла центральное место, приветствуя граждан америки и её гостей. домысел ну, это и не входило в планы. было серьёзное предложение поставить на стейтен айленд такую же, даже побольше, статую индейца. огромного индейца. он должен был символизировать истребление коренного населения америки иммигрантами. да, у леди свободы мог появиться брат. в тысяча девятьсот тринадцатом году президент тафт заложил фундамент национального мемориала американским индейцам. но сбор средств шёл плохо, а начавшаяся в четырнадцатом году первая мировая война поставила на нём крест. поэтому «статуя свободы» так и осталась одиноко стоять в нью-йоркской гавани, став величайшим национальным достоянием америки. мы научились чтить свой флаг. гора рашмор, «статуя свободы» стали монументальным воплощением самоопределения нации. и, разумеется, в силу того, что мы все такие разные, каждый видит в этих символах что-то своё. этим и отличается америка. даже наши гранитные изваяния обросли столькими домыслами, что приходится рубить камень, чтобы добраться до истины.&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_no_numbers</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -546,7 +878,287 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;russian&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_detector</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tokenizers/punkt/russian.pickle&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;&lt;Loading nltk:tokenizers/punkt/PY3/russian.pickle&gt;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_detector</span><span class="o">.</span><span class="n">tokenize</span><span class="p">((</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;нам кажется, что мы знаем историю америки, но порой домыслы оказываются сильнее правды.&#39;,
+ &#39;вы знаете, что способ, которым мы приветствовали наш флаг, зажёг искру в глазах адольфа гитлера?.&#39;,
+ &#39;или что скульптор барельефа на горе рашмор вынужден был взорвать незаконченную голову президента динамитом?&#39;,
+ &#39;а как вам тот факт, что «статуя свободы» предназначалась для египта?&#39;,
+ &#39;я –джейми кейлер, давайте немного помашем флагом, попристальнее вглядимся в нос джорджа вашингтона и залезем под кожу нашей любимой сорока-семи-метровой женщины в поисках правды.&#39;,
+ &#39;америка: факты и домыслы это суперзвезда нашего государства.&#39;,
+ &#39;у него есть собственный гимн, своя клятва верности, он защищён законом.&#39;,
+ &#39;конечно, я говорю об американском флаге.&#39;,
+ &#39;но если вы считаете, что знаете всю правду о «старой славе», приготовьтесь к красно-бело-синим сенсациям.&#39;,
+ &#39;вот всем известная история.&#39;,
+ &#39;в июне тысяча семьсот семьдесят шестого года в филадельфии джордж вашингтон заходит к швее бетси росс и просит её сшить первый американский флаг.&#39;,
+ &#39;она соглашается и шьёт флаг, который станет образцом для всех последующих американских флагов.&#39;,
+ &#39;патриоты принимают его с восторгом.&#39;,
+ &#39;под ним войска вашингтона побеждают во многих революционных битвах.&#39;,
+ &#39;и обретшие независимость соединённые штаты хранят и оберегают свой символ с почти религиозным трепетом.&#39;,
+ &#39;домысел если вы так и думаете, у вас в глазах явно пляшут звёздочки.&#39;,
+ &#39;давайте начнём с бетси росс. она ходила в ту же церковь, что вашингтон и бен франклин.&#39;,
+ &#39;но вся проблема в том, что реальных свидетельств того, что именно она сшила флаг, нет.&#39;,
+ &#39;мы верим в рассказ, который её внук написал через сто лет после тех событий.&#39;,
+ &#39;в тысяча восемьсот семидесятом году внук бетси росс – уильям кэмби – заявил, что его бабушка придумала и сшила первый флаг.&#39;,
+ &#39;единственное доказательство − история, рассказываемая в семье.&#39;,
+ &#39;и эта легенда обретает популярность.&#39;,
+ &#39;доктор алан литман, заслуженный профессор истории американского университета.&#39;,
+ &#39;в лучшем случае она сделала шестиконечные звёзды пятиконечными.&#39;,
+ &#39;вот и всё.&#39;,
+ &#39;если бетси росс не придумывала макет флага, тогда кто же?.&#39;,
+ &#39;точно к созданию флага был причастен фрэнсис хопкинсон.&#39;,
+ &#39;его подпись – среди тех, что скрепили декларацию независимости.&#39;,
+ &#39;он был одним из первых федеральных служащих.&#39;,
+ &#39;стюарт дэвенпорт, адъюнкт-профессор американской истории в университете пеппердайна комитету военно-морских сил нужно было разработать флаг, под которым могли бы ходить корабли нового государства – сша.&#39;,
+ &#39;нужно было разработать символ, который поможет морякам на других судах определить, идёт им навстречу друг или враг.&#39;,
+ &#39;действительно ли флаг сразу же стал священным символом, который мы теперь почитаем?&#39;,
+ &#39;тогда американцы не рассматривали флаг в качестве важного символа страны.&#39;,
+ &#39;не было универсального рисунка.&#39;,
+ &#39;звёзды иногда располагались по кругу, иногда овалом или рядами.&#39;,
+ &#39;на разных флагах было разное количество полос.&#39;,
+ &#39;на тех первых американских флагах их было от девяти до восемнадцати.&#39;,
+ &#39;и всё же мы видим флаг на картинах и в кино.&#39;,
+ &#39;знамя реет над войсками во время самых ожесточённых революционных боёв, так?&#39;,
+ &#39;домысел так же, как джордж вашингтон, я не могу лгать.&#39;,
+ &#39;ни в одной революционной битве американцы не сражались под флагом.&#39;,
+ &#39;впервые на полях сражений он появился в тысяча восемьсот сороковом году.&#39;,
+ &#39;во время американо-мексиканской войны.&#39;,
+ &#39;но откуда же флаги на картинах, которые рисовали художники девятнадцатого века?&#39;,
+ &#39;их интересовала не историческая точность, а патриотизм.&#39;,
+ &#39;американский флаг не был действительно мощным символом вплоть до кровавой битвы во время гражданской войны.&#39;,
+ &#39;«старую славу» гордо подняли солдаты союза во время неудачной обороны форта самтер.&#39;,
+ &#39;после этого он, наконец, стал символом патриотизма и единения даже, когда армия терпела поражение.&#39;,
+ &#39;американские военные признали флаг лишь в конце девятнадцатого века.&#39;,
+ &#39;морской флот – в тысяча восемьсот семьдесят шестом году.&#39;,
+ &#39;а кавалерийские подразделения – в тысяча восемьсот восемьдесят седьмом.&#39;,
+ &#39;тем не менее американцы давали клятву верности, прижимая руку к сердцу, с первых лет образования государства.&#39;,
+ &#39;домысел не совсем.&#39;,
+ &#39;клятва верности появилась только в тысяча восемьсот девяносто втором году.&#39;,
+ &#39;иммигранты волной хлынули в америку.&#39;,
+ &#39;и нужно было придумать нечто объединяющее всех граждан.&#39;,
+ &#39;если у них не было общей истории, то пусть дают клятву верности флагу.&#39;,
+ &#39;это символ нашей страны.&#39;,
+ &#39;и ритуал принесения клятвы были призван объединить народ.&#39;,
+ &#39;я клянусь в верности флагу соединённых штатов америки.&#39;,
+ &#39;а способ принесения клятвы был изменён в тысяча девятьсот сорок втором году, во время второй мировой войны.&#39;,
+ &#39;изначально приветствие было очень похожим, к сожалению, на нацистское.&#39;,
+ &#39;выкинутая вперёд рука ладонью вверх.&#39;,
+ &#39;и когда началась эра фашистского кошмара в германии, америка решила изменить традицию, стали давать клятву, положа одну руку на сердце.&#39;,
+ &#39;америка была очень молодой страной, ей нужно было обретать свои символы, своих героев, артефакты, которые дали бы возможность самоопределения, национальной принадлежности.&#39;,
+ &#39;поэтому флаг приобрёл огромное значение.&#39;,
+ &#39;в тысяча девятьсот тридцать седьмом году, когда рабочие ещё не закончили барельеф на горе рашмор, конгресс предлагает добавить ещё одну голову.&#39;,
+ &#39;суфражистки сюзан энтони.&#39;,
+ &#39;но этого так и не случилось.&#39;,
+ &#39;предложение было отклонено.&#39;,
+ &#39;и главным аргументом стала.&#39;,
+ &#39;цена вопроса.&#39;,
+ &#39;сколько ещё нас ждёт сюрпризов в блэк-хиллс южной дакоты, пока мы не сумеем отсечь наносное от камня истины?&#39;,
+ &#39;начнём с того, что нам известно.&#39;,
+ &#39;в южной дакоте скульптор гатсон борглум задумывает создать монумент, высеченный из гранита.&#39;,
+ &#39;головы четырёх американских президентов: джорджа вашингтона, томаса джефферсона, теодора рузвельта и авраама линкольна.&#39;,
+ &#39;работы начались в тысяча девятьсот двадцать седьмом году, а закончились в тысяча девятьсот сорок первом.&#39;,
+ &#39;гатсон ни разу не отошёл от первоначального плана.&#39;,
+ &#39;с первого дня памятник задумывался как выражение идеи предначертанности судьбы.&#39;,
+ &#39;этот восемнадцати-метровый монумент нравится всем без исключения.&#39;,
+ &#39;домысел ложь в этом рассказе так же велика, как и родинка на лице линкольна.&#39;,
+ &#39;начнём с того, что этот монумент изначально задумывался как барельеф четырёх президентов.&#39;,
+ &#39;идея создания монумента в южной дакоте принадлежала не борглуму.&#39;,
+ &#39;первым её предложил историк из южной дакоты доан робинсон.&#39;,
+ &#39;и по его замыслу там должны были быть фигуры, прославляющие запад.&#39;,
+ &#39;красное облако, льюис и уильям кларк, буффало билл коуди.&#39;,
+ &#39;борглум согласился с робинсоном, что такой монумент привлечёт множество туристов, но он хотел отдать дань президентам государства, которые внесли самый большой вклад в становление демократии, завоевание свободы и укрепление страны.&#39;,
+ &#39;что несколько удивительно, учитывая его пожизненное сотрудничество с одной из самых печально известных организаций америки.&#39;,
+ &#39;борглум был членом ку-клукс-клана.&#39;,
+ &#39;он начинал работу над созданием «мемориала конфедерации» на стоун-маунтин, в джорджии.&#39;,
+ &#39;затем у него начались проблемы с инвесторами.&#39;,
+ &#39;его лишили работы, пытались даже арестовать и заставили покинуть штат.&#39;,
+ &#39;доктор джеймс лоуэн, автор книги «ложь, которую мне рассказал учитель».&#39;,
+ &#39;но сидеть сложа руки ему пришлось недолго.&#39;,
+ &#39;робинсон нашёл его в двадцать четвёртом году, а в двадцать седьмом работа закипела.&#39;,
+ &#39;в ней было задействовано четыреста рабочих и много динамита.&#39;,
+ &#39;всё шло точно по плану.&#39;,
+ &#39;домысел не совсем.&#39;,
+ &#39;изначально борглум планировал поместить джефферсона справа от вашингтона.&#39;,
+ &#39;но гора постоянно осыпалась.&#39;,
+ &#39;поэтому борглум попросту взорвал незаконченную голову джефферсона и переместил его на другую сторону.&#39;,
+ &#39;вставал и вопрос гардероба.&#39;,
+ &#39;люди полагают, что монумент закончен.&#39;,
+ &#39;но если вы посмотрите на эскизы, то увидите, что планировалось создание бюстов.&#39;,
+ &#39;на них должна была быть одежда или униформа.&#39;,
+ &#39;борглуму пришлось отказаться не только от одежды.&#39;,
+ &#39;он представлял себе гору рашмор не только, как величайший монумент, но и как мемориальный комплекс, представляющий величие америки для будущих поколений.&#39;,
+ &#39;он собирался построить там музей, где будут храниться самые ценные документы истории: такие как декларация независимости и конституция соединённых штатов.&#39;,
+ &#39;музей-пещеру размером двадцать четыре на тридцать метров планировалось расположить прямо за головой линкольна.&#39;,
+ &#39;борглум уже построил главный вход, но деньги закончились.&#39;,
+ &#39;и всё что успели сделать – двадцатиметровое углубление.&#39;,
+ &#39;борглум умер в тысяча девятьсот сорок первом году, к этому времени работы на горе рашмор были остановлены.&#39;,
+ &#39;однако мемориал мгновенно стал легендарным, любимым всеми американцами монументом.&#39;,
+ &#39;домысел он был построен на священной земле индейцев сиу, которая принадлежала им до тех пор, пока мы не нашли там золото.&#39;,
+ &#39;я говорю «мы», подразумевая всех не индейцев лакота.&#39;,
+ &#39;в тот момент мы отобрали у них землю.&#39;,
+ &#39;многие индейцы считают, что монумент на горе рашмор увековечил аннексию земель и попрание традиций коренных американцев белыми.&#39;,
+ &#39;многие индейцы видят в американских президентах не символ освобождения америки, а символ так называемого американского перста судьбы.&#39;,
+ &#39;таким образом, один из самых почитаемых многими американцами монумент не так однозначен, как многим кажется.&#39;,
+ &#39;но америка как раз и славится тем, что мы не боимся взглянуть в глаза правде, даже когда дело касается самых священных символов.&#39;,
+ &#39;и если вы думаете, что ошибались только насчёт этих парней, давайте разберёмся с этой дамой.&#39;,
+ &#39;америка: факты и домыслы америка: факты и домыслы ещё одна икона американской истории − колокол свободы в филадельфии, чьей истории суждено было дать трещину.&#39;,
+ &#39;надпись на колоколе гласит: «и объявите свободу на земле всем жителям её».&#39;,
+ &#39;и аболиционистам эта идея очень понравилась.&#39;,
+ &#39;думаю, именно тогда его и стали называть «колокол свободы».&#39;,
+ &#39;он стал знаменит только, когда его приняли аболиционисты, которые боролись за отмену рабства.&#39;,
+ &#39;а вы помните, что даже отцы-основатели, включая томаса джефферсона − автора декларации независимости, джорджа вашингтона − лидера революции, ставшего первым американским президентом, – что все они были рабовладельцами.&#39;,
+ &#39;в том, как использовался «колокол свободы», и в его отношении к основателям американской независимости усматривается явный парадокс.&#39;,
+ &#39;ведь на нём начертаны слова из библии: «и объявите свободу на земле всем жителям её».&#39;,
+ &#39;американцам нужны эти рассказы, эти артефакты, они помогают им понять самих себя.&#39;,
+ &#39;возможно, «колокол свободы» не имеет ничего общего с независимостью, зато это символ свободы.&#39;,
+ &#39;символ освобождения от рабства.&#39;,
+ &#39;история оказалась не так однозначна, как мы её воспринимали.&#39;,
+ &#39;известная нам версия рассказов о «статуе свободы» звучит приблизительно так. французская революция началась в тысяча семьсот восемьдесят девятом году, всего через четырнадцать лет после нашей.&#39;,
+ &#39;а век спустя французы решили отблагодарить нас за подаренное им вдохновение благородным жестом − подарить статую свободы.&#39;,
+ &#39;она была создана специально для нас, с единственной целью: приветствовать миллионы иммигрантов на обетованной земле америки.&#39;,
+ &#39;домысел не считая дат, этот рассказ – такое сотрясание воздуха, что может легко скинуть с пьедестала нашу великую даму.&#39;,
+ &#39;сначала вспомним её скульптора, фредерика огюста бартольди, который задумал статую специально для нас. он любил создавать масштабные произведения.&#39;,
+ &#39;элизабет манн, автор книги «статуя свободы».&#39;,
+ &#39;его пригласили в египет для создания маяка у входа в только что законченный суэцкий канал.&#39;,
+ &#39;монумент должен был быть очень высоким.&#39;,
+ &#39;и бартольди создал макет скульптуры, которой предстояло стать египетским «светом азии».&#39;,
+ &#39;но правитель египта так и не оплатил заказ в связи с финансовыми проблемами, и бартольди вернулся во францию ни с чем.&#39;,
+ &#39;ну вот, теперь ясно, что изначально статуя предназначалась не нам.&#39;,
+ &#39;но у бартольди появился второй шанс.&#39;,
+ &#39;французский профессор юриспруденции, эдуар де лабуле, страстный поборник демократии, посоветовал бартольди создать огромную статую для сша.&#39;,
+ &#39;армия союза только что победила в гражданской войне.&#39;,
+ &#39;лабуле предлагает совместный проект.&#39;,
+ &#39;франция финансирует создание статуи, а америка построит пьедестал, на котором та будет горделиво возвышаться.&#39;,
+ &#39;по прибытии в америку она носила имя, которым мы пользуемся по сей день: «статуя свободы».&#39;,
+ &#39;домысел на самом деле у таинственной дамы было другое имя.&#39;,
+ &#39;её название происходило от египетского «света азии» – «свобода, освещающая мир».&#39;,
+ &#39;всё случилось, как по мановению волшебной палочки.&#39;,
+ &#39;бартольди мгновенно получил деньги на статую.&#39;,
+ &#39;сша выделили деньги на пьедестал – и готово!&#39;,
+ &#39;статуя заняла своё место в нью-йорке.&#39;,
+ &#39;домысел на самом деле денег не оказалось по обе стороны атлантики.&#39;,
+ &#39;поэтому во время создания статуи использовались новые маркетинговые идеи, включая гастроли частей тела дамы.&#39;,
+ &#39;её рука с факелом была привезена в филадельфию на празднование столетнего юбилея в тысяча восемьсот семьдесят шестом году.&#39;,
+ &#39;приглашённые были в восторге, но много денег это не принесло.&#39;,
+ &#39;в париже бартольди выставил на всеобщее обозрение голову бедной дамы.&#39;,
+ &#39;устроители акции брали с желающих вскарабкаться на её корону по франку.&#39;,
+ &#39;наконец, когда рука вернулась из америки, бартольди собрал статую целиком рядом со своей мастерской в париже.&#39;,
+ &#39;какое-то время она просто стояла там.&#39;,
+ &#39;люди любовались ею, но места для неё не было.&#39;,
+ &#39;америка не готова была её принять.&#39;,
+ &#39;да, статуя, наконец, закончена.&#39;,
+ &#39;но нью-йорк до сих пор не нашёл денег на пьедестал.&#39;,
+ &#39;статуя простояла в париже ещё восемь лет.&#39;,
+ &#39;наконец, бартольди надоело ждать, когда построят пьедестал.&#39;,
+ &#39;он разобрал своё творение и упаковал в ящики для транспортировки.&#39;,
+ &#39;триста частей статуи отправились в соединённые штаты в более чем двухстах ящиках.&#39;,
+ &#39;многие испытали чувство гордости и патриотизма, впервые увидев «статую свободы».&#39;,
+ &#39;но они не знали, что статуя сама себя зарядила электричеством.&#39;,
+ &#39;в том месте, где медная кожа касалась стальной основы, она превратилась в аккумулятор, благодаря гальванической коррозии, что произошло, когда шеллак между двумя видами металла рассохся, попав на морской, солёный воздух нью-йоркской гавани.&#39;,
+ &#39;этот электрический заряд ослабил заклёпки, на которых держалась статуя.&#39;,
+ &#39;лишь в восьмидесятых годах двадцатого века, через сто лет после водружения на исторический пьедестал, провели электроизоляционные работы.&#39;,
+ &#39;но тогда пьедестал был ещё не готов.&#39;,
+ &#39;в тысяча восемьсот восемьдесят пятом году денег на него всё ещё не хватало.&#39;,
+ &#39;джозеф пулитцер взял дело в свои руки и собрал сто тысяч долларов, проведя сбор средств с помощью своей газеты «нью-йорк уорлд».&#39;,
+ &#39;но этого было мало.&#39;,
+ &#39;вот где начинается история о радушном приёме иммигрантов.&#39;,
+ &#39;думаете, это французы написали на статуе стихи об отверженных, униженных и бездомных?&#39;,
+ &#39;домысел а вот и нет.&#39;,
+ &#39;американская поэтесса эмма лазарус написала знаменитый сонет «новый колосс» для акции по сбору средств в тысяча восемьсот восемьдесят третьем году.&#39;,
+ &#39;изначально этого сонета на статуе не было.&#39;,
+ &#39;она написала его, чтобы помочь собрать деньги.&#39;,
+ &#39;и ей это удалось.&#39;,
+ &#39;тогда сонет и был выгравирован на бронзовой табличке монумента.&#39;,
+ &#39;статуя начала ассоциироваться с потоком иммигрантов лишь в тысяча девятьсот третьем году, когда знаменитый сонет эммы лазарус «новый колосс» был выгравирован в основании статуи.&#39;,
+ &#39;мать изгнанных!&#39;,
+ &#39;их горьким воплям внемля, у широко распахнутой двери, бездомных и замученных приемли.&#39;,
+ &#39;и в конце: «стань маяком величия и славы, светильник мой у золотых ворот».&#39;,
+ &#39;«золотые ворота» – конечно, ворота в америку, в обитель свободы, новых возможностей и обогащения.&#39;,
+ &#39;наконец, нью-йорку удалось наскрести денег на завершение работы.&#39;,
+ &#39;двадцать восьмого октября тысяча восемьсот восемьдесят шестого года президент грувер кливленд официально открыл памятник великой даме, водружённый на пьедестал.&#39;,
+ &#39;статуя стала символом свободы и независимости, которые, по убеждению многих, америка и представляла.&#39;,
+ &#39;мы действительно принимали «изгнанных, бездомных и замученных» из других стран и помогали им внедриться в американскую культуру.&#39;,
+ &#39;и уж если она всё равно стоит, почему бы ей не послужить ещё и маяком?&#39;,
+ &#39;над нью-йоркской гаванью вознесён этот монументальный факел.&#39;,
+ &#39;но изначально с ним были большие проблемы.&#39;,
+ &#39;свет был тусклым, и маяк из статуи был плохой.&#39;,
+ &#39;он горит и сегодня, но им никто не пользуется.&#39;,
+ &#39;ладно, маяк из неё никакой.&#39;,
+ &#39;зато она заняла центральное место, приветствуя граждан америки и её гостей.&#39;,
+ &#39;домысел ну, это и не входило в планы.&#39;,
+ &#39;было серьёзное предложение поставить на стейтен айленд такую же, даже побольше, статую индейца.&#39;,
+ &#39;огромного индейца.&#39;,
+ &#39;он должен был символизировать истребление коренного населения америки иммигрантами.&#39;,
+ &#39;да, у леди свободы мог появиться брат.&#39;,
+ &#39;в тысяча девятьсот тринадцатом году президент тафт заложил фундамент национального мемориала американским индейцам.&#39;,
+ &#39;но сбор средств шёл плохо, а начавшаяся в четырнадцатом году первая мировая война поставила на нём крест. поэтому «статуя свободы» так и осталась одиноко стоять в нью-йоркской гавани, став величайшим национальным достоянием америки.&#39;,
+ &#39;мы научились чтить свой флаг.&#39;,
+ &#39;гора рашмор, «статуя свободы» стали монументальным воплощением самоопределения нации.&#39;,
+ &#39;и, разумеется, в силу того, что мы все такие разные, каждый видит в этих символах что-то своё.&#39;,
+ &#39;этим и отличается америка.&#39;,
+ &#39;даже наши гранитные изваяния обросли столькими домыслами, что приходится рубить камень, чтобы добраться до истины.&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;russian&quot;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -560,17 +1172,17 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Восклицательное предложение! 
+<pre>восклицательное предложение! 
 
-А это какое? 
+а это какое? 
 
-Инициалы -- не повод разрывать. 
+инициалы -- не повод разрывать. 
 
-Правда, А.С. Пушкин? 
+правда, а.с. пушкин? 
 
--- Разумеется, голубчик. 
+-- разумеется, голубчик. 
 
-(Скобки оставляем.) 
+(скобки оставляем.) 
 
 </pre>
 </div>

@@ -8,8 +8,8 @@ import re
 
 # Cell
 def collapse_whitespace(text):
-    "Replace multiple whitespaces with single space."
-    return re.sub(r'\s+', ' ', text).strip()
+    "Replace multiple various whitespaces with a single space, strip leading and trailing spaces."
+    return re.sub(r'[\s\ufeff\u200b\u2060]+', ' ', text).strip()
 
 # Cell
 def lowercase(text):
@@ -33,10 +33,12 @@ _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
 ]]
 
 # Cell
-def remove_specials(text):
+def remove_specials(text, purge_digits=None):
     "Replace predefined in `_specials` sequence of characters"
     for regex, replacement in _specials:
         text = re.sub(regex, replacement, text)
+    if purge_digits:
+        text = re.sub('\d', '', text)
     return text
 
 # Cell
@@ -62,10 +64,10 @@ def basic_cleaner(text):
     return text
 
 # Cell
-def russian_cleaner(text):
+def russian_cleaner(text, purge_digits=True):
     "Pipeline for Russian text cleaning: lowercase, expand_abbreviations, remove_specials, collapse_whitespace."
     text = lowercase(text)
     text = expand_abbreviations(text)
-    text = remove_specials(text)
+    text = remove_specials(text, purge_digits=purge_digits)
     text = collapse_whitespace(text)
     return text
