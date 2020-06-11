@@ -409,7 +409,9 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">unify_dash_hyphen</span><span class="p">(</span><span class="s1">&#39;Я &#39;</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;2013&quot;</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;Джейми Кейлер&#39;</span><span class="p">),</span><span class="s1">&#39;Я – Джейми Кейлер&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">unify_dash_hyphen</span><span class="p">(</span><span class="s1">&#39;Я &#39;</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;2013&quot;</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span><span class="o">+</span> <span class="s1">&#39;Джейми Кейлер&#39;</span><span class="p">),</span><span class="s1">&#39;Я – Джейми Кейлер&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">unify_dash_hyphen</span><span class="p">(</span><span class="s1">&#39;Я&#39;</span> <span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;2013&quot;</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span><span class="o">+</span> <span class="s1">&#39;Джейми Кейлер&#39;</span><span class="p">),</span><span class="s1">&#39;Я – Джейми Кейлер&#39;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">collapse_whitespace</span><span class="p">(</span><span class="n">unify_dash_hyphen</span><span class="p">(</span><span class="s1">&#39;Я&#39;</span> <span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s2">&quot;2013&quot;</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39; Джейми Кейлер&#39;</span><span class="p">)),</span><span class="s1">&#39;Я – Джейми Кейлер&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -679,7 +681,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Я −Джейми Кейлер,&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Я−Джейми Кейлер,&quot;</span>
 </pre></div>
 
     </div>

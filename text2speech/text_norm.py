@@ -60,9 +60,9 @@ def expand_abbreviations(text):
 # Cell
 def unify_dash_hyphen(text):
     "Unify dash and hyphen symbols -- replace with emdash or hyphen, separate with space."
-    text = re.sub('[\u2212\u2012]', '\u2013', text) # minus sign, figure dash
-    text = re.sub('[\u2010\u2011]', '\u002d', text) # hyphen, non-breaking hyphen
-    text = re.sub('\s*?(\u2013)\S*?',' \g<1> ',text)
+    text = re.sub('[\u2212\u2012\u2014]', '\u2013', text) # replace minus sign, figure dash, em dash with en dash
+    text = re.sub('[\u2010\u2011]', '\u002d', text)  # hyphen, non-breaking hyphen
+    text = re.sub('\s*?(\u2013)\s*?',' \g<1> ',text) #
     return text
 
 # Cell
