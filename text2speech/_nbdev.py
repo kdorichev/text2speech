@@ -12,7 +12,10 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "russian_cleaner": "01_text_norm.ipynb",
          "get_files": "02_data.ipynb",
          "get_audio_files": "02_data.ipynb",
-         "get_txt_files": "02_data.ipynb"}
+         "get_txt_files": "02_data.ipynb",
+         "words_count": "02_data.ipynb",
+         "label_func": "02_data.ipynb",
+         "ReadTxt": "02_data.ipynb"}
 
 modules = ["text_norm.py",
            "data.py"]
