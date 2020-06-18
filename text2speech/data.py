@@ -138,7 +138,7 @@ def plot_durations(files, figsize=None):
 
 # Cell
 def drop_outliers(files, mindur=None, maxdur=None):
-    "Drop `files` with duration outside of (`mindur`,`maxdur`)"
+    "Return only those `files` with duration in (`mindur`,`maxdur`), drop outliers."
     newfiles = []
     mindur = mindur if mindur is not None else 0
     maxdur = maxdur if maxdur is not None else 10000
