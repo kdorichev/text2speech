@@ -23,6 +23,15 @@ from spacy_russian_tokenizer import RussianTokenizer, MERGE_PATTERNS
 from .text_norm import *
 
 # Cell
+def _get_files(p, fs, extensions=None):
+    "Construct a list of `Path`s from a list of files `fs` in directory`p`"
+    p = Path(p)
+    res = [p/f for f in fs
+           if not f.startswith('.') # not hidden file
+              and ((not extensions) or f'.{f.split(".")[-1].lower()}' in extensions)]
+    return res
+
+# Cell
 def get_files(path, extensions=None, recurse=True, folders=None, followlinks=True):
     "Get all the files in `path` with optional `extensions`, optionally with `recurse`, only in `folders`, if specified."
     path = Path(path)
