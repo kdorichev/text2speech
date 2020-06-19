@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/kdorichev/tts/tree/master/
+      external_url: https://github.com/kdorichev/text2speech/tree/master/
 
 #Topnav dropdowns
 topnav_dropdowns:
