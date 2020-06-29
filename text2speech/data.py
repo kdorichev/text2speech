@@ -55,7 +55,7 @@ def get_audio_files(path, recurse=True, folders=None):
 
 # Cell
 def get_txt_files(path, recurse=True, folders=None):
-    "Get audio files in `path` recursively, only in `folders`, if specified."
+    "Get text files in `path` recursively, only in `folders`, if specified."
     return get_files(path, extensions='.txt', recurse=recurse, folders=folders)
 
 # Cell
@@ -116,7 +116,7 @@ def word_in_files(word, files, show=False, play=False):
 
 # Cell
 def regex_files(regexp, files, show=False, play=False):
-    """Return an L list of text `files` where regular expression `regexp` is found;
+    """Return an L list of text `files` where regular expression `regexp` is found.
     Optionally `show` text and/or `play` corresponding audio."""
     if not isinstance(files, L): files = L(files)
     found_in = set()
