@@ -19,6 +19,8 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "word_in_files": "02_data.ipynb",
          "regex_files": "02_data.ipynb",
          "accent_files": "02_data.ipynb",
+         "abbrev_files": "02_data.ipynb",
+         "unusual_files": "02_data.ipynb",
          "plot_durations": "02_data.ipynb",
          "drop_outliers": "02_data.ipynb"}
 
