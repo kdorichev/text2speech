@@ -5,6 +5,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"collapse_whitespace": "01_text_norm.ipynb",
          "lowercase": "01_text_norm.ipynb",
          "check_no_numbers": "01_text_norm.ipynb",
+         "purge_dots": "01_text_norm.ipynb",
          "remove_specials": "01_text_norm.ipynb",
          "expand_abbreviations": "01_text_norm.ipynb",
          "unify_dash_hyphen": "01_text_norm.ipynb",
