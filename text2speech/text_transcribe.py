@@ -3,6 +3,9 @@
 __all__ = ['VoskTranscribe']
 
 # Cell
+from fastcore.all import *
+
+# Cell
 class VoskTranscribe():
     """Transcribe an accented word using rules of `VOSK` library.
 
@@ -73,10 +76,16 @@ class VoskTranscribe():
             "ы" : "y",
         }
 
-
-    def __call__(self, stressword: str) -> str:
+    @typedispatch
+    def __call__(self, word: str) -> str:
         """To call class instance as a function."""
-        return self.convert(stressword)
+        return self.convert(word)
+
+    @typedispatch
+    def __call__(self, phrase: list) -> list:
+        """To call class instance as a function."""
+        if isinstance(phrase[0],list): phrase = phrase[0]
+        return [self.convert(word) for word in phrase]
 
 
     def __pallatize(self, phones: list) -> list:
@@ -129,9 +138,10 @@ class VoskTranscribe():
         return new_phones
 
 
-    def convert(self, stressword: str) -> str:
+    def convert(self, word: str) -> str:
         """"""
-        phones = ("#" + stressword + "#")
+        if word == '<sil>': return word
+        phones = ("#" + word + "#")
 
         # Assign stress marks
         stress_phones = []

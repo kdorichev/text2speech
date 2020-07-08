@@ -5,8 +5,8 @@ title: VoskTranscribe
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Class implementing accented word transcription according to the <a href='https://alphacephei.com/vosk/models.html'>`VOSK`</a> library rules."
-description: "Class implementing accented word transcription according to the <a href='https://alphacephei.com/vosk/models.html'>`VOSK`</a> library rules."
+summary: "Class for accented word/phase transcription according to the <a href='https://alphacephei.com/vosk/models.html'>`VOSK`</a> library rules."
+description: "Class for accented word/phase transcription according to the <a href='https://alphacephei.com/vosk/models.html'>`VOSK`</a> library rules."
 ---
 <!--
 
@@ -55,6 +55,13 @@ description: "Class implementing accented word transcription according to the <a
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -62,7 +69,7 @@ description: "Class implementing accented word transcription according to the <a
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="VoskTranscribe" class="doc_header"><code>class</code> <code>VoskTranscribe</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_transcribe.py#L6" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>VoskTranscribe</code>(<strong><code>acc_before</code></strong>=<em><code>False</code></em>)</p>
+<h2 id="VoskTranscribe" class="doc_header"><code>class</code> <code>VoskTranscribe</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_transcribe.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>VoskTranscribe</code>(<strong><code>acc_before</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Transcribe an accented word using rules of <code>VOSK</code> library.</p>
 <p>For example:</p>
@@ -92,7 +99,7 @@ description: "Class implementing accented word transcription according to the <a
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="VOSK-like-accents">VOSK like accents<a class="anchor-link" href="#VOSK-like-accents"> </a></h3>
+<h4 id="VOSK-like-accents">VOSK-like accents<a class="anchor-link" href="#VOSK-like-accents"> </a></h4>
 </div>
 </div>
 </div>
@@ -104,8 +111,101 @@ description: "Class implementing accented word transcription according to the <a
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">vt</span> <span class="o">=</span> <span class="n">VoskTranscribe</span><span class="p">(</span><span class="n">acc_before</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 
-<span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;куп+юра&#39;</span><span class="p">),</span> <span class="s1">&#39;k u0 pj u1 r a0&#39;</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Calling-with-a-list-of-words">Calling with a list of words<a class="anchor-link" href="#Calling-with-a-list-of-words"> </a></h5>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vt</span><span class="p">([[</span><span class="s1">&#39;куп+юра&#39;</span><span class="p">,</span> <span class="s1">&#39;мо+я&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;k u0 pj u1 r a0&#39;, &#39;m o0 j a1&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Calling-with-a-string">Calling with a string<a class="anchor-link" href="#Calling-with-a-string"> </a></h5>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;куп+юра&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;k u0 pj u1 r a0&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;куп+юра&#39;</span><span class="p">),</span> <span class="s1">&#39;k u0 pj u1 r a0&#39;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;к+онь&#39;</span><span class="p">),</span> <span class="s1">&#39;k o1 nj&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -118,7 +218,7 @@ description: "Class implementing accented word transcription according to the <a
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Russian_G2P-like-accents">Russian_G2P like accents<a class="anchor-link" href="#Russian_G2P-like-accents"> </a></h3>
+<h4 id="Russian_G2P-like-accents">Russian_G2P-like accents<a class="anchor-link" href="#Russian_G2P-like-accents"> </a></h4>
 </div>
 </div>
 </div>
@@ -133,6 +233,29 @@ description: "Class implementing accented word transcription according to the <a
 
 <span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;купю+ра&#39;</span><span class="p">),</span> <span class="s1">&#39;k u0 pj u1 r a0&#39;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;ко+нь&#39;</span><span class="p">),</span> <span class="s1">&#39;k o1 nj&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Ignore-special-tag">Ignore special tag<a class="anchor-link" href="#Ignore-special-tag"> </a></h5>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;&lt;sil&gt;&#39;</span><span class="p">),</span> <span class="s1">&#39;&lt;sil&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
