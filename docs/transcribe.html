@@ -66,9 +66,9 @@ description: "Class implementing accented word transcription according to the <a
 </blockquote>
 <p>Transcribe an accented word using rules of <code>VOSK</code> library.</p>
 <p>For example:</p>
-<p>абстракцион+истов
-абстр+акцию
-абстр+акция</p>
+<p>абстракциони+стов
+абстра+кцию
+абстра+кция</p>
 <p>абстракционистов a0 b s t r a0 k c i0 o0 nj i1 s t o0 v
 абстракцию a0 b s t r a1 k c i0 j u0
 абстракция a0 b s t r a1 k c i0 j a0</p>
@@ -92,7 +92,7 @@ description: "Class implementing accented word transcription according to the <a
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="VOSK-like-accentions">VOSK like accentions<a class="anchor-link" href="#VOSK-like-accentions"> </a></h3>
+<h3 id="VOSK-like-accents">VOSK like accents<a class="anchor-link" href="#VOSK-like-accents"> </a></h3>
 </div>
 </div>
 </div>
@@ -118,7 +118,7 @@ description: "Class implementing accented word transcription according to the <a
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Russian_G2P-like-accentions">Russian_G2P like accentions<a class="anchor-link" href="#Russian_G2P-like-accentions"> </a></h3>
+<h3 id="Russian_G2P-like-accents">Russian_G2P like accents<a class="anchor-link" href="#Russian_G2P-like-accents"> </a></h3>
 </div>
 </div>
 </div>
@@ -145,12 +145,29 @@ description: "Class implementing accented word transcription according to the <a
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="TODO">TODO<a class="anchor-link" href="#TODO"> </a></h2><ul>
-<li>raise a <code>Warning</code> in case no stress</li>
+<li>raise a <code>Warning</code> in case no stress.</li>
 </ul>
 
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">vt</span><span class="p">(</span><span class="s1">&#39;конь&#39;</span><span class="p">),</span> <span class="s1">&#39;k o0 nj&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 </div>
  
 
