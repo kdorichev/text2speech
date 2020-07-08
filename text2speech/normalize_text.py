@@ -18,7 +18,7 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 def main():
-    parser = argparse.ArgumentParser(description="Text Normalization Utility")
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('infile')
     parser.add_argument('outfile')
     parser.add_argument('--purgedots', type=str2bool, nargs='?', const=True, default=False,

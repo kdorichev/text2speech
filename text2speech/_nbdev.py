@@ -24,10 +24,12 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "abbrev_files": "02_data.ipynb",
          "unusual_files": "02_data.ipynb",
          "plot_durations": "02_data.ipynb",
-         "drop_outliers": "02_data.ipynb"}
+         "drop_outliers": "02_data.ipynb",
+         "VoskTranscribe": "03_transcribe.ipynb"}
 
 modules = ["text_norm.py",
-           "data.py"]
+           "data.py",
+           "text_transcribe.py"]
 
 doc_url = "https://kdorichev.github.io/text2speech/"
 
