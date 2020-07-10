@@ -7,22 +7,18 @@ import argparse
 import nltk
 from text_norm import *
 
-def str2bool(v):
-    if isinstance(v, bool):
-       return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+__version__ = '0.3'
+__date__ = '10.07.2020'
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('infile')
     parser.add_argument('outfile')
-    parser.add_argument('--purgedots', type=str2bool, nargs='?', const=True, default=False,
-                        help='If set, `...` will be purged. Else replaced with `.`')
+    parser.add_argument('--purgedots', action='store_true',
+                        help='If set, `...`, `…` will be purged. Else replaced with `.`')
+    parser.add_argument('--version', action='version',
+                    version=f'%(prog)s, version {__version__}, {__date__}', help='Print script version.')
+    
     ars = parser.parse_args()
 
     sentences = []
