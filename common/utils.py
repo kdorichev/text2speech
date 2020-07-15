@@ -27,35 +27,70 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
+"""
+    Miscelaneous utility functions.
+"""
+
+__all__ = ['mask_from_lens', 'load_wav_to_torch', 'load_filepaths_and_text',
+           'to_gpu', 'to_device_async', 'to_numpy']
 
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 import numpy as np
 
 import torch
-from scipy.io.wavfile import read
+from librosa.core import load
 
 
 def mask_from_lens(lens, max_len: Optional[int] = None):
+    """Return an element-wise boolean mask of length less that `max_len`.
+
+    Args:
+        lens ([type]): [description]
+        max_len (Optional[int]): max length. Defaults to None.
+
+    Returns:
+        tensor:
+    """
+
     if max_len is None:
         max_len = int(lens.max().item())
-    ids = torch.arange(0, max_len, device=lens.device, dtype=lens.dtype)
+    ids = torch.arange(max_len, device=lens.device, dtype=lens.dtype)
     mask = torch.lt(ids, lens.unsqueeze(1))
     return mask
 
 
-def load_wav_to_torch(full_path):
-    sampling_rate, data = read(full_path)
-    return torch.FloatTensor(data.astype(np.float32)), sampling_rate
+def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.tensor, int]:
+    """Load audio file from `full_path` with optional resamplling to `sr`.
+
+    Args:
+        full_path (str): path to wav file.
+        sr (int, optional): sample rate to resample to. 
+
+    Returns:
+        (torch.tensor, sampling_rate)
+    """
+
+    data, sampling_rate = load(full_path, sr)
+    return torch.from_numpy(data), sampling_rate
 
 
 def load_filepaths_and_text(dataset_path, filename, split="|"):
+    """[summary]
+
+    Args:
+        dataset_path ([type]): [description]
+        filename ([type]): [description]
+        split (str, optional): [description]. Defaults to "|".
+    """
+
     def split_line(root, line):
         parts = line.strip().split(split)
         paths, text = parts[:-1], parts[-1]
         return tuple(os.path.join(root, p) for p in paths) + (text,)
+
     with open(filename, encoding='utf-8') as f:
         filepaths_and_text = [split_line(dataset_path, line) for line in f]
     return filepaths_and_text
