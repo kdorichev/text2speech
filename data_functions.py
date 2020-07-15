@@ -44,24 +44,33 @@ from waveglow.data_function import batch_to_gpu as batch_to_gpu_waveglow
 from waveglow.data_function import MelAudioLoader
 
 
-def get_collate_function(model_name) -> Callable:
+def get_collate_function(model_name: str) -> Callable:
     """Return a collate function for the `model_name`."""
+
+    if model_name not in ['Tacotron2', 'WaveGlow', 'FastPitch']:
+        raise NotImplementedError(f"Unknown {model_name}")
 
     return {'Tacotron2': lambda _: TextMelCollate(n_frames_per_step=1),
             'WaveGlow': lambda _: torch.utils.data.dataloader.default_collate,
             'FastPitch': TextMelAliCollate}[model_name]()
 
 
-def get_data_loader(model_name, *args) -> Callable:
+def get_data_loader(model_name: str, *args) -> Callable:
     """Return a DataLoader for the `model_name`."""
+
+    if model_name not in ['Tacotron2', 'WaveGlow', 'FastPitch']:
+        raise NotImplementedError(f"Unknown {model_name}")
 
     return {'Tacotron2': TextMelLoader,
             'WaveGlow': MelAudioLoader,
             'FastPitch': TextMelAliLoader}[model_name](*args)
 
 
-def get_batch_to_gpu(model_name) -> Callable:
+def get_batch_to_gpu(model_name: str) -> Callable:
     """Return a function for placing a batch to GPU for the `model_name`."""
+
+    if model_name not in ['Tacotron2', 'WaveGlow', 'FastPitch']:
+        raise NotImplementedError(f"Unknown {model_name}")
 
     return {'Tacotron2': batch_to_gpu_tacotron2,
             'WaveGlow': batch_to_gpu_waveglow,
