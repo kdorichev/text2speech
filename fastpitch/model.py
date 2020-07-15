@@ -26,7 +26,7 @@
 # *****************************************************************************
 
 import torch
-from torch import nn as nn
+from torch import nn
 from torch.nn.utils.rnn import pad_sequence
 
 from common.layers import ConvReLUNorm
@@ -70,26 +70,70 @@ class TemporalPredictor(nn.Module):
 
 
 class FastPitch(nn.Module):
+    """FastPitch module definition."""
+
     def __init__(self, n_mel_channels, max_seq_len, n_symbols,
-                 symbols_embedding_dim, in_fft_n_layers, in_fft_n_heads, 
+                 symbols_embedding_dim, in_fft_n_layers, in_fft_n_heads,
                  in_fft_d_head,
                  in_fft_conv1d_kernel_size, in_fft_conv1d_filter_size,
-                 in_fft_output_size, 
-                 p_in_fft_dropout,  p_in_fft_dropatt, p_in_fft_dropemb,
+                 in_fft_output_size,
+                 p_in_fft_dropout, p_in_fft_dropatt, p_in_fft_dropemb,
                  out_fft_n_layers, out_fft_n_heads, out_fft_d_head,
                  out_fft_conv1d_kernel_size, out_fft_conv1d_filter_size,
-                 out_fft_output_size, 
-                 p_out_fft_dropout,  p_out_fft_dropatt, p_out_fft_dropemb,
-                 dur_predictor_kernel_size, dur_predictor_filter_size, 
+                 out_fft_output_size,
+                 p_out_fft_dropout, p_out_fft_dropatt, p_out_fft_dropemb,
+                 dur_predictor_kernel_size, dur_predictor_filter_size,
                  p_dur_predictor_dropout, dur_predictor_n_layers,
-                 pitch_predictor_kernel_size, pitch_predictor_filter_size, 
+                 pitch_predictor_kernel_size, pitch_predictor_filter_size,
                  p_pitch_predictor_dropout, pitch_predictor_n_layers):
+        """FastPitch's constructor
+
+        Args:
+            n_mel_channels ([type]): [description]
+            max_seq_len ([type]): Unused.
+            n_symbols ([type]): Unused.
+            symbols_embedding_dim ([type]): [description]
+
+            in_fft_n_layers ([type]): [description]
+            in_fft_n_heads ([type]): [description]
+            in_fft_d_head ([type]): [description]
+            in_fft_conv1d_kernel_size ([type]): [description]
+            in_fft_conv1d_filter_size ([type]): [description]
+            in_fft_output_size ([type]): [description]
+
+            p_in_fft_dropout ([type]): [description]
+            p_in_fft_dropatt ([type]): [description]
+            p_in_fft_dropemb ([type]): [description]
+
+            out_fft_n_layers ([type]): [description]
+            out_fft_n_heads ([type]): [description]
+            out_fft_d_head ([type]): [description]
+            out_fft_conv1d_kernel_size ([type]): [description]
+            out_fft_conv1d_filter_size ([type]): [description]
+            out_fft_output_size ([type]): [description]
+
+            p_out_fft_dropout ([type]): [description]
+            p_out_fft_dropatt ([type]): [description]
+            p_out_fft_dropemb ([type]): [description]
+
+            dur_predictor_kernel_size ([type]): [description]
+            dur_predictor_filter_size ([type]): [description]
+            p_dur_predictor_dropout ([type]): [description]
+            dur_predictor_n_layers ([type]): [description]
+
+            pitch_predictor_kernel_size ([type]): [description]
+            pitch_predictor_filter_size ([type]): [description]
+            p_pitch_predictor_dropout ([type]): [description]
+            pitch_predictor_n_layers ([type]): [description]
+        """
+
         super(FastPitch, self).__init__()
         del max_seq_len  # unused
         del n_symbols
 
         self.encoder = FFTransformer(
-            n_layer=in_fft_n_layers, n_head=in_fft_n_heads,
+            n_layer=in_fft_n_layers,
+            n_head=in_fft_n_heads,
             d_model=symbols_embedding_dim,
             d_head=in_fft_d_head,
             d_inner=in_fft_conv1d_filter_size,
@@ -98,7 +142,8 @@ class FastPitch(nn.Module):
             dropatt=p_in_fft_dropatt,
             dropemb=p_in_fft_dropemb,
             d_embed=symbols_embedding_dim,
-            embed_input=True)
+            embed_input=True
+        )
 
         self.duration_predictor = TemporalPredictor(
             in_fft_output_size,
@@ -117,7 +162,8 @@ class FastPitch(nn.Module):
             dropatt=p_out_fft_dropatt,
             dropemb=p_out_fft_dropemb,
             d_embed=symbols_embedding_dim,
-            embed_input=False)
+            embed_input=False
+        )
 
         self.pitch_predictor = TemporalPredictor(
             in_fft_output_size,
@@ -125,6 +171,7 @@ class FastPitch(nn.Module):
             kernel_size=pitch_predictor_kernel_size,
             dropout=p_pitch_predictor_dropout, n_layers=pitch_predictor_n_layers
         )
+
         self.pitch_emb = nn.Conv1d(1, symbols_embedding_dim, kernel_size=3,
                                    padding=1)
 
@@ -136,6 +183,19 @@ class FastPitch(nn.Module):
 
     def forward(self, inputs, use_gt_durations=True, use_gt_pitch=True,
                 pace=1.0, max_duration=75):
+        """A forward step.
+
+        Args:
+            inputs ([type]): [description]
+            use_gt_durations (bool, optional): [description]. Defaults to True.
+            use_gt_pitch (bool, optional): [description]. Defaults to True.
+            pace (float, optional): [description]. Defaults to 1.0.
+            max_duration (int, optional): [description]. Defaults to 75.
+
+        Returns:
+            [type]: [description]
+        """
+
         inputs, _, mel_tgt, _, dur_tgt, _, pitch_tgt = inputs
         mel_max_len = mel_tgt.size(2)
 
@@ -169,6 +229,21 @@ class FastPitch(nn.Module):
 
     def infer(self, inputs, input_lens, pace=1.0, dur_tgt=None, pitch_tgt=None,
               pitch_transform=None, max_duration=75):
+        """Inference.
+
+        Args:
+            inputs (tuple): [description]
+            input_lens ([type]): [description]
+            pace (float, optional): Target pace. Defaults to 1.0.
+            dur_tgt ([type], optional): [description]. Defaults to None.
+            pitch_tgt ([type], optional): Target pitch. Defaults to None.
+            pitch_transform ([type], optional): [description]. Defaults to None.
+            max_duration (int, optional): [description]. Defaults to 75.
+
+        Returns:
+            tuple: mel_out, dec_lens, dur_pred, pitch_pred
+        """
+
         del input_lens  # unused
 
         # Input FFT

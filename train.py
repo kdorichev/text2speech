@@ -37,14 +37,15 @@ from collections import defaultdict, OrderedDict
 from contextlib import contextmanager
 
 import torch
-import numpy as np
 import torch.distributed as dist
-from scipy.io.wavfile import write as write_wav
 from torch.autograd import Variable
 from torch.nn.parallel import DistributedDataParallel
 from torch.nn.parameter import Parameter
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
+
+import numpy as np
+from scipy.io.wavfile import write as write_wav
 
 import dllogger as DLLogger
 from apex import amp
@@ -233,11 +234,11 @@ def validate(model, criterion, valset, batch_size, world_size, collate_fn,
             y_pred = model(x, use_gt_durations=use_gt_durations)
             loss, meta = criterion(y_pred, y, is_training=False, meta_agg='sum')
             if distributed_run:
-                for k,v in meta.items():
+                for k, v in meta.items():
                     val_meta[k] += reduce_tensor(v, 1)
                 val_num_frames += reduce_tensor(num_frames.data, 1).item()
             else:
-                for k,v in meta.items():
+                for k, v in meta.items():
                     val_meta[k] += v
                 val_num_frames = num_frames.item()
         val_meta = {k: v / len(valset) for k,v in val_meta.items()}
@@ -265,7 +266,7 @@ def apply_ema_decay(model, ema_model, decay):
         return
     st = model.state_dict()
     add_module = hasattr(model, 'module') and not hasattr(ema_model, 'module')
-    for k,v in ema_model.state_dict().items():
+    for k, v in ema_model.state_dict().items():
         if add_module and not k.startswith('module.'):
             k = 'module.' + k
         v.copy_(decay * v + (1 - decay) * st[k])
@@ -459,7 +460,7 @@ def main():
             if distributed_run:
                 reduced_loss = reduce_tensor(loss.data, world_size).item()
                 reduced_num_frames = reduce_tensor(num_frames.data, 1).item()
-                meta = {k: reduce_tensor(v, world_size) for k,v in meta.items()}
+                meta = {k: reduce_tensor(v, world_size) for k, v in meta.items()}
             else:
                 reduced_loss = loss.item()
                 reduced_num_frames = num_frames.item()

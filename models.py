@@ -39,8 +39,22 @@ from tacotron2.model import Tacotron2
 from waveglow.model import WaveGlow
 
 
-def parse_model_args(model_name, parser, add_help=False):
-    """Parse `model_name` arguments with `parser`."""
+def parse_model_args(model_name: str, parser: ArgumentParser, add_help=False):
+    """Parse `model_name` arguments together with the parent `parser`.
+    
+    Args:
+        model_name (str): One of ['Tacotron2', 'WaveGlow', 'FastPitch']
+        parser (ArgumentParser): a parent ArgumentParser object to include.
+        add_help (bool, optional): Add a -h/--help option to the parser. 
+            Defaults to False.
+
+    Raises:
+        NotImplementedError: if the `model_name` not in 
+                             ['Tacotron2', 'WaveGlow', 'FastPitch']
+
+    Returns:
+        ArgumentParser: object
+    """
 
     if model_name == 'Tacotron2':
         from tacotron2.arg_parser import parse_tacotron2_args
@@ -56,7 +70,14 @@ def parse_model_args(model_name, parser, add_help=False):
 
 
 def batchnorm_to_float(module):
-    """Convert batch norm `module` to FP32."""
+    """Convert batch norm `module` to FP32.
+
+    Args:
+        module (torch.nn.Module): A module to batch norm.
+
+    Returns:
+        torch.nn.Module: normalized module
+    """
 
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
         module.float()
@@ -65,10 +86,15 @@ def batchnorm_to_float(module):
     return module
 
 
-def init_bn(module):"
-    """Initialize batch norm `module`."""
+def init_bn(module):
+    """Initialize the `module` and its children.
+
+    Args:
+        torch.nn.Module: A module to initialize
+    """
+
     if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
-        if module.affine:
+        if module.affine:  # the module has learnable affine parameters
             module.weight.data.uniform_()
     for child in module.children():
         init_bn(child)
@@ -77,7 +103,22 @@ def init_bn(module):"
 def get_model(model_name, model_config, device,
               uniform_initialize_bn_weight=False, forward_is_infer=False,
               jitable=False):
-    """Return a model `model_name` with `model_config` at `device`."""
+    """Return a model `model_name` with `model_config` at `device`.
+
+    Args:
+        model_name ([type]): [description]
+        model_config ([type]): [description]
+        device ([type]): [description]
+        uniform_initialize_bn_weight (bool, optional): [description]. Defaults to False.
+        forward_is_infer (bool, optional): [description]. Defaults to False.
+        jitable (bool, optional): [description]. Defaults to False.
+
+    Raises:
+        NotImplementedError: if the `model_name` not in 
+                             ['Tacotron2', 'WaveGlow', 'FastPitch']
+    Returns:
+        model: [description]
+    """
 
     model = None
     if model_name == 'Tacotron2':
@@ -133,7 +174,19 @@ def get_model(model_name, model_config, device,
 
 
 def get_model_config(model_name, args) -> dict:
-    """ Return a dict with `model_name` config prepared from `args`."""
+    """Return a dict with `model_name` config prepared from `args`.
+
+    Args:
+        model_name ([type]): [description]
+        args ([type]): [description]
+
+    Raises:
+        NotImplementedError: if the `model_name` not in 
+                             ['Tacotron2', 'WaveGlow', 'FastPitch']
+
+    Returns:
+        dict: [description]
+    """
 
     if model_name == 'Tacotron2':
         model_config = dict(
