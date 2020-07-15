@@ -1,4 +1,6 @@
-#!/usr/bin/python3
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
 #

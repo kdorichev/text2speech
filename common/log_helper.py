@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 import atexit
 import glob
 import os

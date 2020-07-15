@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -31,9 +34,16 @@ from common.text import symbols
 
 
 def parse_tacotron2_args(parent, add_help=False):
+    """Parse commandline arguments.
+
+    Args:
+        parent (ArgumentParser): An ArgumentParser object whose arguments should also be included.
+        add_help (bool, optional): Add a -h/--help option to the parser. Defaults to False.
+
+    Returns:
+        ArgumentParser object
     """
-    Parse commandline arguments.
-    """
+
     parser = argparse.ArgumentParser(parents=[parent], add_help=add_help)
 
     # misc parameters

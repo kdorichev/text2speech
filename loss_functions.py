@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -33,14 +36,27 @@ from tacotron2.loss_function import Tacotron2Loss
 from waveglow.loss_function import WaveGlowLoss
 
 
-def get_loss_function(loss_function, **kw):
-    if loss_function == 'Tacotron2':
+def get_loss_function(model_name: str, **kw):
+    """Return a loss function for the `model_name`.
+
+    Args:
+        model_name (str): One of the ['Tacotron2', 'WaveGlow', 'FastPitch']
+
+    Raises:
+        NotImplementedError: if the `model_name` not in 
+                             ['Tacotron2', 'WaveGlow', 'FastPitch']
+
+    Returns:
+        loss: FastPitchLoss, Tacotron2Loss or WaveGlowLoss
+    """
+
+    if model_name == 'Tacotron2':
         loss = Tacotron2Loss()
-    elif loss_function == 'WaveGlow':
+    elif model_name == 'WaveGlow':
         loss = WaveGlowLoss(**kw)
-    elif loss_function == 'FastPitch':
+    elif model_name == 'FastPitch':
         loss = FastPitchLoss(**kw)
     else:
         raise NotImplementedError(
-            "unknown loss function requested: {}".format(loss_function))
+            f"unknown loss function requested: {model_name}")
     return loss.cuda()

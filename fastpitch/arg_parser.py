@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -35,8 +38,7 @@ def parse_fastpitch_args(parent, add_help=False):
 
     Args:
         parent (ArgumentParser): An ArgumentParser object whose arguments should also be included.
-        add_help (bool, optional): Add a -h/--help option to the parser. 
-            Defaults to False.
+        add_help (bool, optional): Add a -h/--help option to the parser. Defaults to False.
 
     Returns:
         ArgumentParser object 

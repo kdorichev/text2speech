@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -33,6 +36,16 @@ class Tacotron2Loss(nn.Module):
         super(Tacotron2Loss, self).__init__()
 
     def forward(self, model_output, targets):
+        """[summary]
+
+        Args:
+            model_output ([type]): [description]
+            targets ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+
         mel_target, gate_target = targets[0], targets[1]
         mel_target.requires_grad = False
         gate_target.requires_grad = False
