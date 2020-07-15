@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -24,35 +27,41 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
+"""Generic functions to get specific collate, dataloader and batch_to_gpu functions
+for the model.
+"""
 
+__all__ = ['get_collate_function', 'get_data_loader', 'get_batch_to_gpu']
+
+from typing import Callable
 import torch
 
 from fastpitch.data_function import (TextMelAliCollate, TextMelAliLoader,
-                                    batch_to_gpu as batch_to_gpu_fastpitch)
+                                     batch_to_gpu as batch_to_gpu_fastpitch)
 from tacotron2.data_function import batch_to_gpu as batch_to_gpu_tacotron2
 from tacotron2.data_function import TextMelCollate, TextMelLoader
 from waveglow.data_function import batch_to_gpu as batch_to_gpu_waveglow
 from waveglow.data_function import MelAudioLoader
 
 
-def get_collate_function(model_name) -> dict:
-    """Return a dict of collate functions for models."""
+def get_collate_function(model_name) -> Callable:
+    """Return a collate function for the `model_name`."""
 
     return {'Tacotron2': lambda _: TextMelCollate(n_frames_per_step=1),
             'WaveGlow': lambda _: torch.utils.data.dataloader.default_collate,
             'FastPitch': TextMelAliCollate}[model_name]()
 
 
-def get_data_loader(model_name, *args) -> dict:
-    """Return a dict of DataLoaders for models."""
+def get_data_loader(model_name, *args) -> Callable:
+    """Return a DataLoader for the `model_name`."""
 
     return {'Tacotron2': TextMelLoader,
             'WaveGlow': MelAudioLoader,
             'FastPitch': TextMelAliLoader}[model_name](*args)
 
 
-def get_batch_to_gpu(model_name) -> dict:
-    """Return a dict of functions placing a batch to GPU for models."""
+def get_batch_to_gpu(model_name) -> Callable:
+    """Return a function for placing a batch to GPU for the `model_name`."""
 
     return {'Tacotron2': batch_to_gpu_tacotron2,
             'WaveGlow': batch_to_gpu_waveglow,
