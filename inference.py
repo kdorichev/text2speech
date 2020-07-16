@@ -27,11 +27,13 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
+"""Inference -- voice synthesis script.
+"""
 
 import argparse
 import models
 import time
-import tqdm
+
 import sys
 import warnings
 from pathlib import Path
@@ -39,7 +41,8 @@ from pathlib import Path
 import torch
 import numpy as np
 from scipy.stats import norm
-from scipy.io.wavfile import write
+
+from librosa.output import write_wav
 from torch.nn.utils.rnn import pad_sequence
 
 import dllogger as DLLogger
@@ -56,7 +59,7 @@ sys.modules['glow'] = glow
 
 def parse_args(parser):
     """
-    Parse commandline arguments.
+    Parse command line arguments.
     """
     parser.add_argument('-i', '--input', type=str, required=True,
                         help='Full path to the input text (phareses separated by newlines)')
@@ -111,6 +114,23 @@ def parse_args(parser):
 def load_and_setup_model(model_name, parser, checkpoint, amp, device,
                          unk_args=[], forward_is_infer=False, ema=True,
                          jitable=False):
+    """Load from `checkpoint`, set to `device` and return a `model_name` for inference.
+
+    Args:
+        model_name ([type]): [description]
+        parser ([type]): [description]
+        checkpoint ([type]): [description]
+        amp ([type]): [description]
+        device ([type]): [description]
+        unk_args (list, optional): [description]. Defaults to [].
+        forward_is_infer (bool, optional): [description]. Defaults to False.
+        ema (bool, optional): [description]. Defaults to True.
+        jitable (bool, optional): [description]. Defaults to False.
+
+    Returns:
+        [type]: [description]
+    """
+
     model_parser = models.parse_model_args(model_name, parser, add_help=False)
     model_args, model_unk_args = model_parser.parse_known_args()
     unk_args[:] = list(set(unk_args) & set(model_unk_args))
@@ -216,13 +236,24 @@ def build_pitch_transformation(args):
     return eval(f'lambda pitch, mean, std: {fun}')
 
 
+# TODO: Figure out how it is intended to work
 class MeasureTime(list):
+    """[summary]
+
+    Base type:
+        list: 
+    """
+
     def __enter__(self):
-        torch.cuda.synchronize()
+        """Save time in seconds in float, upon entrance into with."""
+
+        torch.cuda.synchronize()  # Wait for all kernels in all streams on a CUDA device to complete
         self.t0 = time.perf_counter()
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        torch.cuda.synchronize()
+        """Save time in seconds in float, upon exit from with."""
+
+        torch.cuda.synchronize()  # Wait for all kernels in all streams on a CUDA device to complete
         self.append(time.perf_counter() - self.t0)
 
     def __add__(self, other):
@@ -235,7 +266,8 @@ def main():
     Launches text to speech (inference).
     Inference is executed on a single GPU.
     """
-
+    # Enable benchmark mode in cudnn
+    # https://discuss.pytorch.org/t/pytorch-performance/3079/7
     torch.backends.cudnn.benchmark = True
 
     parser = argparse.ArgumentParser(description='PyTorch FastPitch Inference',
@@ -250,7 +282,8 @@ def main():
     log_fpath = unique_dllogger_fpath(log_fpath)
     DLLogger.init(backends=[JSONStreamBackend(Verbosity.DEFAULT, log_fpath),
                             StdOutBackend(Verbosity.VERBOSE)])
-    [DLLogger.log("PARAMETER", {k:v}) for k,v in vars(args).items()]
+    for k, v in vars(args).items():
+        DLLogger.log("PARAMETER", {k:v})
 
     device = torch.device('cuda' if args.cuda else 'cpu')
 
@@ -358,7 +391,7 @@ def main():
                         audio = audio/torch.max(torch.abs(audio))
                         fname = b['output'][i] if 'output' in b else f'audio_{i}.wav'
                         audio_path = Path(args.output, fname)
-                        write(audio_path, args.sampling_rate, audio.cpu().numpy())
+                        write_wav(audio_path, audio.cpu().numpy(), args.sampling_rate)
 
             if generator is not None and waveglow is not None:
                 log(rep, {"latency": (gen_measures[-1] + waveglow_measures[-1])})
