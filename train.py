@@ -36,7 +36,7 @@ import os
 import re
 import time
 from collections import defaultdict, OrderedDict
-from contextlib import contextmanager
+# unused: from contextlib import contextmanager
 
 import torch
 import torch.distributed as dist
