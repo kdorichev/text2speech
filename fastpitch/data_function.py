@@ -28,8 +28,6 @@
 #
 # *****************************************************************************
 
-import numpy as np
-
 import torch
 
 from common.utils import to_gpu
@@ -37,8 +35,12 @@ from tacotron2.data_function import TextMelLoader
 
 
 class TextMelAliLoader(TextMelLoader):
+    """[summary]
+
+    Args:
+        TextMelLoader ([type]): [description]
     """
-    """
+
     def __init__(self, *args):
         super(TextMelAliLoader, self).__init__(*args)
         if len(self.audiopaths_and_text[0]) != 4:
