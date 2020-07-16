@@ -66,8 +66,8 @@ def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.
     """Load audio file from `full_path` with optional resamplling to `sr`.
 
     Args:
-        full_path (str): path to wav file.
-        sr (int, optional): sample rate to resample to. 
+        full_path (str): path to audio file.
+        sr (int, optional): sample rate to resample to.
 
     Returns:
         (torch.tensor, sampling_rate)
