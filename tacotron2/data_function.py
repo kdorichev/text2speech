@@ -28,9 +28,6 @@
 #
 # *****************************************************************************
 
-import random
-import numpy as np
-
 import torch
 import torch.utils.data
 
@@ -40,14 +37,22 @@ from common.text import text_to_sequence
 
 
 class TextMelLoader(torch.utils.data.Dataset):
-    """
+    """A Dataset for TTS.
+  
         1) loads audio,text pairs
         2) normalizes text and converts them to sequences of one-hot vectors
         3) computes mel-spectrograms from audio files.
     """
 
     def __init__(self, dataset_path, audiopaths_and_text, args, load_mel_from_disk=True):
-        """Initialize class and store its parameters."""
+        """Initialize `TextMelLoader` class and store its parameters.
+
+        Args:
+            dataset_path ([type]): [description]
+            audiopaths_and_text ([type]): [description]
+            args ([type]): [description]
+            load_mel_from_disk (bool, optional): To load (True) or calculate mels. Defaults to True.
+        """
 
         self.audiopaths_and_text = load_filepaths_and_text(dataset_path, audiopaths_and_text)
         self.text_cleaners = args.text_cleaners
