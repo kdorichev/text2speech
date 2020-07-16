@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 DATA_DIR="LJSpeech-1.1"
+AMP="true" 
 
 [ ! -n "$WAVEG_CH" ] && WAVEG_CH="pretrained_models/waveglow/waveglow_1076430_14000_amp.pt"
-[ ! -n "$FASTPITCH_CH" ] && FASTPITCH_CH="output/FastPitch_checkpoint_1500.pt"
+[ ! -n "$FASTPITCH_CH" ] && FASTPITCH_CH="pretrained_models/fastpitch/nvidia_fastpitch_200518.pt"
+#"output/FastPitch_checkpoint_1500.pt"
 [ ! -n "$BS" ] && BS=32
 [ ! -n "$PHRASES" ] && PHRASES="phrases/devset10.tsv"
 [ ! -n "$OUTPUT_DIR" ] && OUTPUT_DIR="./output/audio_$(basename ${PHRASES} .tsv)"
