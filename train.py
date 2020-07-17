@@ -40,14 +40,14 @@ from collections import defaultdict, OrderedDict
 
 import torch
 import torch.distributed as dist
-from torch.autograd import Variable
 from torch.nn.parallel import DistributedDataParallel
-from torch.nn.parameter import Parameter
+# Unused: from torch.autograd import Variable
+# Unused: from torch.nn.parameter import Parameter
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 
 import numpy as np
-from scipy.io.wavfile import write as write_wav
+# Unused: from scipy.io.wavfile import write as write_wav
 
 import dllogger as DLLogger
 from apex import amp
@@ -61,9 +61,8 @@ from common.log_helper import init_dllogger, TBLogger, unique_dllogger_fpath
 
 
 def parse_args(parser):
-    """
-    Parse commandline arguments.
-    """
+    """Parse commandline arguments."""
+    
     parser.add_argument('-o', '--output', type=str, required=True,
                         help='Directory to save checkpoints')
     parser.add_argument('-d', '--dataset-path', type=str, default='./',
@@ -144,7 +143,7 @@ def init_distributed(args, world_size, rank):
     print("Initializing distributed training")
 
     # Set cuda device so everything is done on the right GPU.
-    torch.cuda.set_device(rank % torch.cuda.device_count())
+    torch.cuda.device(rank % torch.cuda.device_count())
 
     # Initialize distributed communication
     dist.init_process_group(backend=('nccl' if args.cuda else 'gloo'),
@@ -286,7 +285,7 @@ def main():
                                      allow_abbrev=False)
     parser = parse_args(parser)
     args, _ = parser.parse_known_args()
-
+    # CUDA_VISIBLE_DEVICES
     if 'LOCAL_RANK' in os.environ and 'WORLD_SIZE' in os.environ:
         local_rank = int(os.environ['LOCAL_RANK'])
         world_size = int(os.environ['WORLD_SIZE'])
@@ -307,8 +306,9 @@ def main():
         init_dllogger(log_fpath)
     else:
         init_dllogger(dummy=True)
-
-    [DLLogger.log("PARAMETER", {k:v}) for k,v in vars(args).items()]
+    
+    for k, v in vars(args).items():
+        DLLogger.log("PARAMETER", {k:v})
 
     parser = models.parse_model_args('FastPitch', parser)
     args, unk_args = parser.parse_known_args()
@@ -400,6 +400,7 @@ def main():
 
     train_tblogger = TBLogger(local_rank, args.output, 'train')
     val_tblogger = TBLogger(local_rank, args.output, 'val', dummies=True)
+    
     if args.ema_decay > 0:
         val_ema_tblogger = TBLogger(local_rank, args.output, 'val_ema')
 

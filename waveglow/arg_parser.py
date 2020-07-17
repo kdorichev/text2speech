@@ -31,7 +31,7 @@
 import argparse
 
 def parse_waveglow_args(parent, add_help=False):
-    """Parse commandline arguments.
+    """Helper function parsing the command line arguments.
 
     Args:
         parent (ArgumentParser): An ArgumentParser object whose arguments should also be included.

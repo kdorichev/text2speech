@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -24,18 +27,20 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
+"""PyTorch TTS Data Pre-processing."""
 
 import argparse
 import json
 import time
 from pathlib import Path
 
-import parselmouth
 import torch
-import dllogger as DLLogger
-import numpy as np
-from dllogger import StdOutBackend, JSONStreamBackend, Verbosity
 from torch.utils.data import DataLoader
+import numpy as np
+import parselmouth
+import dllogger as DLLogger
+
+from dllogger import StdOutBackend, JSONStreamBackend, Verbosity
 
 from common import utils
 from inference import load_and_setup_model
@@ -121,6 +126,7 @@ def dur_chunk_sizes(n, ary):
       dur_chunk(3, 3) --> [1, 1, 1]
       dur_chunk(5, 3) --> [2, 2, 1]
     """
+
     ret = np.ones((ary,), dtype=np.int32) * (n // ary)
     ret[:n % ary] = n // ary + 1
     assert ret.sum() == n
@@ -179,7 +185,13 @@ def save_stats(dataset_path, wav_text_filelist, feature_name, mean, std):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='PyTorch TTS Data Pre-processing')
+    """Main logic of the script.
+
+    Raises:
+        ValueError: In case of unknown arguments.
+    """
+
+    parser = argparse.ArgumentParser(description=__doc__)
     parser = parse_args(parser)
     args, unk_args = parser.parse_known_args()
     if len(unk_args) > 0:
@@ -190,7 +202,7 @@ def main():
 
     DLLogger.init(backends=[JSONStreamBackend(Verbosity.DEFAULT, args.log_file),
                             StdOutBackend(Verbosity.VERBOSE)])
-    for k,v in vars(args).items():
+    for k, v in vars(args).items():
         DLLogger.log(step="PARAMETER", data={k:v})
 
     model = load_and_setup_model(
