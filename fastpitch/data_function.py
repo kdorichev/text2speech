@@ -29,16 +29,16 @@
 # *****************************************************************************
 
 import torch
-
+from typing import Tuple
 from common.utils import to_gpu
 from tacotron2.data_function import TextMelLoader
 
 
 class TextMelAliLoader(TextMelLoader):
-    """[summary]
+    """A DataLoader for FastPitch model.
 
     Args:
-        TextMelLoader ([type]): [description]
+        TextMelLoader (class): base class.
     """
 
     def __init__(self, *args):
@@ -46,7 +46,7 @@ class TextMelAliLoader(TextMelLoader):
         if len(self.audiopaths_and_text[0]) != 4:
             raise ValueError('Expected four columns in audiopaths file')
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Tuple:
         # separate filename and text
         audiopath, durpath, pitchpath, text = self.audiopaths_and_text[index]
         len_text = len(text)
@@ -58,16 +58,18 @@ class TextMelAliLoader(TextMelLoader):
 
 
 class TextMelAliCollate():
-    """ Zero-pads model inputs and targets based on number of frames per setep
+    """FastPitch model, Collate function. 
+    Zero-pads model's inputs and targets based on number of frames per setup.
     """
+
     def __init__(self):
         self.n_frames_per_step = 1  # Taco2 bckwd compat
 
     def __call__(self, batch):
-        """Collate's training batch from normalized text and mel-spectrogram
-        PARAMS
-        ------
-        batch: [text_normalized, mel_normalized]
+        """Collates training batch from normalized text and mel-spectrogram.
+
+        Arguments:
+            batch: [text_normalized, mel_normalized]
         """
         # Right zero-pad all one-hot text sequences to max input length
         input_lengths, ids_sorted_decreasing = torch.sort(

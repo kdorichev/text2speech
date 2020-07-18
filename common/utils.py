@@ -76,23 +76,57 @@ def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.
     data, sampling_rate = load(full_path, sr)
     return torch.from_numpy(data), sampling_rate
 
+def _split_line(root, line, split="|") -> Tuple[]:
+    """Split a line from the filelists/*_filelist.txt files into a tuple consisting
+    the `paths` prepended with the root of the dataset -- all the fields but last,
+    and `text` -- the last field.
 
-def load_filepaths_and_text(dataset_path, filename, split="|"):
-    """[summary]
+    Examples:
+    wavs/LJ037-0219.wav|Oswald's Jacket
+
+    mels/LJ030-0105.pt|durations/LJ030-0105.pt|pitch_char/LJ030-0105.pt|Communications in the motorcade.
 
     Args:
-        dataset_path ([type]): [description]
-        filename ([type]): [description]
-        split (str, optional): [description]. Defaults to "|".
+        root (str): path to the root directory of the dataset to prefix the paths fields.
+        line (str): A line from the filelists/*.filelist.txt to split.
+        split (str): A character separatr to split by. Defaults to '|'.
+
+    Returns:
+        tuple: A line split into a tuple 
+            Examples:
+                    ('LJSpeech/wavs/LJ037-0219.wav', "Oswald's Jacket")
+
+                    ('LJSpeech/mels/LJ030-0105.pt',
+                     'LJSpeech/durations/LJ030-0105.pt',
+                     'LJSpeech/pitch_char/LJ030-0105.pt',
+                     'Communications in the motorcade.')
+
     """
 
-    def split_line(root, line):
-        parts = line.strip().split(split)
-        paths, text = parts[:-1], parts[-1]
-        return tuple(os.path.join(root, p) for p in paths) + (text,)
+    parts = line.strip().split(split)
+    paths, text = parts[:-1], parts[-1]
+    return tuple(os.path.join(root, p) for p in paths) + (text,)
+
+
+def load_filepaths_and_text(dataset_path, filename, split="|") -> list:
+    """Parse the `filename` and return a list of tuples consisting the paths 
+    to the saved tensors and the text.
+
+    Args:
+        dataset_path (str): path to the root directory of the dataset.
+        filename (str): A file from the filelists/* to parse.
+        split (str, optional): Felds separator. Defaults to "|".
+
+    Returns:
+        a list of tuples
+        Example:
+            [('LJSpeech/wavs/LJ037-0219.wav', "Oswald's Jacket")
+                ...
+             ('LJSpeech/wavs/LJ030-0109.wav', "The Vice-Presidential car")]
+    """
 
     with open(filename, encoding='utf-8') as f:
-        filepaths_and_text = [split_line(dataset_path, line) for line in f]
+        filepaths_and_text = [_split_line(dataset_path, line) for line in f]
     return filepaths_and_text
 
 

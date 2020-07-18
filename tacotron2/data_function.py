@@ -30,6 +30,7 @@
 
 import torch
 import torch.utils.data
+from argparse import ArgumentParser
 
 import common.layers as layers
 from common.utils import load_wav_to_torch, load_filepaths_and_text, to_gpu
@@ -37,11 +38,11 @@ from common.text import text_to_sequence
 
 
 class TextMelLoader(torch.utils.data.Dataset):
-    """A Dataset for TTS.
+    """A DataLoader for Tacotron2 model.
   
-        1) loads audio,text pairs
-        2) normalizes text and converts them to sequences of one-hot vectors
-        3) computes mel-spectrograms from audio files.
+        1) load audio,text pairs;
+        2) normalize text and convert them to sequences of one-hot vectors;
+        3) compute mel-spectrograms from audio files.
     """
 
     def __init__(self, dataset_path, audiopaths_and_text, args, load_mel_from_disk=True):
@@ -50,8 +51,9 @@ class TextMelLoader(torch.utils.data.Dataset):
         Args:
             dataset_path ([type]): [description]
             audiopaths_and_text ([type]): [description]
-            args ([type]): [description]
-            load_mel_from_disk (bool, optional): To load (True) or calculate mels. Defaults to True.
+            args (ArgumentParser): Command line arguments.
+            load_mel_from_disk (bool, optional): To load (True) or 
+                calculate (False) mels. Defaults to True.
         """
 
         self.audiopaths_and_text = load_filepaths_and_text(dataset_path, audiopaths_and_text)
@@ -102,17 +104,25 @@ class TextMelLoader(torch.utils.data.Dataset):
 
 
 class TextMelCollate():
-    """ Zero-pads model inputs and targets based on number of frames per step
+    """Tacotron2: Collate function.
+    Zero-pads model inputs and targets based on number of frames per step.
     """
-    def __init__(self, n_frames_per_step):
+    def __init__(self, n_frames_per_step: int):
+        """[summary]
+
+        Args:
+            n_frames_per_step (int): number of frames per step
+        """
+
         self.n_frames_per_step = n_frames_per_step
 
     def __call__(self, batch):
-        """Collate's training batch from normalized text and mel-spectrogram
+        """Collate training batch from normalized text and mel-spectrogram
         PARAMS
         ------
         batch: [text_normalized, mel_normalized]
         """
+
         # Right zero-pad all one-hot text sequences to max input length
         input_lengths, ids_sorted_decreasing = torch.sort(
             torch.LongTensor([len(x[0]) for x in batch]),
