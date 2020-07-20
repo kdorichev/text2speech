@@ -45,12 +45,12 @@ class TextMelLoader(torch.utils.data.Dataset):
         3) compute mel-spectrograms from audio files.
     """
 
-    def __init__(self, dataset_path, audiopaths_and_text, args, load_mel_from_disk=True):
+    def __init__(self, dataset_path: str, audiopaths_and_text: str, args: ArgumentParser, load_mel_from_disk: bool=True):
         """Initialize `TextMelLoader` class and store its parameters.
 
         Args:
-            dataset_path ([type]): [description]
-            audiopaths_and_text ([type]): [description]
+            dataset_path (str): [description]
+            audiopaths_and_text (str): A file from filelists/* to load data from.
             args (ArgumentParser): Command line arguments.
             load_mel_from_disk (bool, optional): To load (True) or 
                 calculate (False) mels. Defaults to True.
@@ -67,7 +67,7 @@ class TextMelLoader(torch.utils.data.Dataset):
                 args.n_mel_channels, args.sampling_rate, args.mel_fmin,
                 args.mel_fmax)
 
-    def get_mel(self, filename):
+    def get_mel(self, filename: str) -> torch.Tensor:
         """Return a tensor with melspec read or calculated from `filename`."""
 
         if not self.load_mel_from_disk:
@@ -81,9 +81,6 @@ class TextMelLoader(torch.utils.data.Dataset):
             melspec = torch.squeeze(melspec, 0)
         else:
             melspec = torch.load(filename)
-            # assert melspec.size(0) == self.stft.n_mel_channels, (
-            #     'Mel dimension mismatch: given {}, expected {}'.format(
-            #         melspec.size(0), self.stft.n_mel_channels))
 
         return melspec
 

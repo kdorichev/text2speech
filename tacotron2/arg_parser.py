@@ -29,11 +29,11 @@
 # *****************************************************************************
 
 import argparse
-
+from argparse import ArgumentParser
 from common.text import symbols
 
 
-def parse_tacotron2_args(parent, add_help=False):
+def parse_tacotron2_args(parent, add_help=False) -> ArgumentParser:
     """Helper function parsing the command line arguments.
 
     Args:

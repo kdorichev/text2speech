@@ -39,7 +39,6 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 import numpy as np
-
 import torch
 from librosa.core import load
 
@@ -62,7 +61,7 @@ def mask_from_lens(lens, max_len: Optional[int] = None):
     return mask
 
 
-def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.tensor, int]:
+def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.Tensor, int]:
     """Load audio file from `full_path` with optional resamplling to `sr`.
 
     Args:
@@ -70,7 +69,7 @@ def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.
         sr (int, optional): sample rate to resample to.
 
     Returns:
-        (torch.tensor, sampling_rate)
+        (torch.Tensor, sampling_rate)
     """
 
     data, sampling_rate = load(full_path, sr)
@@ -136,6 +135,15 @@ def stats_filename(dataset_path, filelist_path, feature_name):
 
 
 def to_gpu(x):
+    """Move `x` to cuda device.
+
+    Args:
+        x (tensor)
+
+    Returns:
+        torch.Variable
+    """
+
     x = x.contiguous()
     if torch.cuda.is_available():
         x = x.cuda(non_blocking=True)
@@ -146,5 +154,14 @@ def to_device_async(tensor, device):
     return tensor.to(device, non_blocking=True)
 
 
-def to_numpy(x):
+def to_numpy(x: torch.Tensor) -> numpy.ndarray:
+    """Cast tensor `x` to numpy.ndarray
+
+    Args:
+        x ([type])
+
+    Returns:
+        numpy.ndarray
+    """
+
     return x.cpu().numpy() if isinstance(x, torch.Tensor) else x

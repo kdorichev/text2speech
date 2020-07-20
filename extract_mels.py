@@ -27,7 +27,7 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
-"""PyTorch TTS Data Pre-processing."""
+"""TTS Data Pre-processing."""
 
 import argparse
 import json
@@ -48,9 +48,8 @@ from tacotron2.data_function import TextMelLoader, TextMelCollate, batch_to_gpu
 
 
 def parse_args(parser):
-    """
-    Parse commandline arguments.
-    """
+    """Parse commandline arguments."""
+
     parser.add_argument('--tacotron2-checkpoint', type=str,
                         help='full path to the generator checkpoint file')
     parser.add_argument('-b', '--batch-size', default=32, type=int)
