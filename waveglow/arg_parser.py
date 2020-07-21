@@ -29,8 +29,9 @@
 # *****************************************************************************
 
 import argparse
+from argparse import ArgumentParser
 
-def parse_waveglow_args(parent, add_help=False):
+def parse_waveglow_args(parent, add_help=False) -> ArgumentParser:
     """Helper function parsing the command line arguments.
 
     Args:

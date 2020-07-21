@@ -110,8 +110,8 @@ def get_model(model_name, model_config, device,
     """Return a model `model_name` with `model_config` at `device`.
 
     Args:
-        model_name ([type]): [description]
-        model_config ([type]): [description]
+        model_name (str): One of the ['Tacotron2', 'WaveGlow', 'FastPitch']
+        model_config (dict): a dict with `model_name`'s parameters
         device ([type]): [description]
         uniform_initialize_bn_weight (bool, optional): [description]. Defaults to False.
         forward_is_infer (bool, optional): [description]. Defaults to False.

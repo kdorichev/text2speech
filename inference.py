@@ -30,21 +30,23 @@
 """Inference -- voice synthesis script.
 """
 
-import argparse
-import models
 import time
-
 import sys
 import warnings
+import argparse
+from argparse import ArgumentParser
+
 from pathlib import Path
 
 import torch
+from torch.nn.utils.rnn import pad_sequence
+
 import numpy as np
 from scipy.stats import norm
 
 from librosa.output import write_wav
-from torch.nn.utils.rnn import pad_sequence
 
+import models
 import dllogger as DLLogger
 from dllogger import StdOutBackend, JSONStreamBackend, Verbosity
 
@@ -57,10 +59,16 @@ from waveglow.denoiser import Denoiser
 sys.modules['glow'] = glow
 
 
-def parse_args(parser):
+def parse_args(parser) -> ArgumentParser:
+    """Parse command line arguments.
+
+    Args:
+        parser ([type]): [description]
+
+    Returns:
+        ArgumentParser: [description]
     """
-    Parse command line arguments.
-    """
+    
     parser.add_argument('-i', '--input', type=str, required=True,
                         help='Full path to the input text (phareses separated by newlines)')
     parser.add_argument('-o', '--output', default=None,
@@ -111,7 +119,7 @@ def parse_args(parser):
     return parser
 
 
-def load_and_setup_model(model_name, parser, checkpoint, amp, device,
+def load_and_setup_model(model_name, parser, checkpoint, amp: bool, device: torch.device,
                          unk_args=[], forward_is_infer=False, ema=True,
                          jitable=False):
     """Load from `checkpoint`, set to `device` and return a `model_name` for inference.
@@ -119,9 +127,9 @@ def load_and_setup_model(model_name, parser, checkpoint, amp, device,
     Args:
         model_name ([type]): [description]
         parser ([type]): [description]
-        checkpoint ([type]): [description]
-        amp ([type]): [description]
-        device ([type]): [description]
+        checkpoint (str): Saved checkpoint to load.
+        amp (bool): Auto Mixed Precision
+        device (torch.device): Device to load the model to.
         unk_args (list, optional): [description]. Defaults to [].
         forward_is_infer (bool, optional): [description]. Defaults to False.
         ema (bool, optional): [description]. Defaults to True.
@@ -150,11 +158,11 @@ def load_and_setup_model(model_name, parser, checkpoint, amp, device,
             if ema and 'ema_state_dict' in checkpoint_data:
                 sd = checkpoint_data['ema_state_dict']
                 status += ' (EMA)'
-            elif ema and not 'ema_state_dict' in checkpoint_data:
+            elif ema and 'ema_state_dict' not in checkpoint_data:
                 print(f'WARNING: EMA weights missing for {model_name}')
 
             if any(key.startswith('module.') for key in sd):
-                sd = {k.replace('module.', ''): v for k,v in sd.items()}
+                sd = {k.replace('module.', ''): v for k, v in sd.items()}
             status += ' ' + str(model.load_state_dict(sd, strict=False))
         else:
             model = checkpoint_data['model']
@@ -168,7 +176,16 @@ def load_and_setup_model(model_name, parser, checkpoint, amp, device,
     return model.to(device)
 
 
-def load_fields(fpath):
+def load_fields(fpath: str):
+    """Return a dict of fields from `fpath`
+
+    Args:
+        fpath (str): [description]
+
+    Returns:
+        dict: [description]
+    """
+
     lines = [l.strip() for l in open(fpath, encoding='utf-8')]
     if fpath.endswith('.tsv'):
         columns = lines[0].split('\t')
@@ -179,8 +196,22 @@ def load_fields(fpath):
     return {c:f for c, f in zip(columns, fields)}
 
 
-def prepare_input_sequence(fields, device, batch_size=128, dataset=None,
-                           load_mels=False, load_pitch=False):
+def prepare_input_sequence(fields: dict, device: torch.device, batch_size: int = 128,
+                           dataset=None, load_mels=False, load_pitch=False) -> list:
+    """[summary]
+
+    Args:
+        fields (dict): [description]
+        device (torch.device): [description]
+        batch_size (int, optional): [description]. Defaults to 128.
+        dataset ([type], optional): [description]. Defaults to None.
+        load_mels (bool, optional): [description]. Defaults to False.
+        load_pitch (bool, optional): [description]. Defaults to False.
+
+    Returns:
+        list: batches
+    """
+
     fields['text'] = [torch.LongTensor(text_to_sequence(t, ['english_cleaners']))
                       for t in fields['text']]
     order = np.argsort([-t.size(0) for t in fields['text']])
@@ -215,7 +246,7 @@ def prepare_input_sequence(fields, device, batch_size=128, dataset=None,
             elif f == 'pitch' and load_pitch:
                 batch[f] = pad_sequence(batch[f], batch_first=True)
 
-            if type(batch[f]) is torch.Tensor:
+            if isinstance(batch[f], torch.Tensor):
                 batch[f] = batch[f].to(device)
         batches.append(batch)
 
@@ -223,6 +254,15 @@ def prepare_input_sequence(fields, device, batch_size=128, dataset=None,
 
 
 def build_pitch_transformation(args):
+    """[summary]
+
+    Args:
+        args ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+
     fun = 'pitch'
     if args.pitch_transform_flatten:
         fun = f'({fun}) * 0.0'
@@ -241,7 +281,7 @@ class MeasureTime(list):
     """[summary]
 
     Base type:
-        list: 
+        list:
     """
 
     def __enter__(self):
