@@ -137,6 +137,7 @@ def stats_filename(dataset_path: str, filelist_path: str, feature_name: str) -> 
         dataset_path (str): Root path for the dataset.
         filelist_path (str): File from the filelists directory.
         feature_name (str): Name of the feature to include into the filename.
+            Example: pitch_char
 
     Returns:
         Path: [description]

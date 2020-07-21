@@ -31,6 +31,7 @@
 import torch
 import torch.utils.data
 from argparse import ArgumentParser
+from typing import Tuple
 
 import common.layers as layers
 from common.utils import load_wav_to_torch, load_filepaths_and_text, to_gpu
@@ -49,7 +50,13 @@ class TextMelLoader(torch.utils.data.Dataset):
         """Initialize `TextMelLoader` class and store its parameters.
 
         Args:
-            dataset_path (str): [description]
+            dataset_path (str): Path to the root of the dataset, LJSpeech-1.1
+            LJSpeech-1.1
+            ├── durations
+            ├── mels
+            ├── pitch_char
+            └── wavs
+            
             audiopaths_and_text (str): A file from filelists/* to load data from.
             args (ArgumentParser): Command line arguments.
             load_mel_from_disk (bool, optional): To load (True) or 
@@ -84,7 +91,7 @@ class TextMelLoader(torch.utils.data.Dataset):
 
         return melspec
 
-    def get_text(self, text):
+    def get_text(self, text) -> Tuple[torch.IntTensor, torch.Tensor, int]:
         text_norm = torch.IntTensor(text_to_sequence(text, self.text_cleaners))
         return text_norm
 

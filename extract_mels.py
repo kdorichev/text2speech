@@ -33,6 +33,7 @@ import argparse
 import json
 import time
 from pathlib import Path
+from typing import Tuple
 
 import torch
 from torch.utils.data import DataLoader
@@ -173,7 +174,16 @@ def calculate_pitch(wav, durs):
     return pitch_mel, pitch_char, pitch_trichar
 
 
-def normalize_pitch_vectors(pitch_vecs):
+def normalize_pitch_vectors(pitch_vecs) -> Tuple[np.float64, np.float64]:
+    """Normalize nonzero pitch vectors using calculated `mean` and `std`
+
+    Args:
+        pitch_vecs ([type]): [description]
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray]: mean, std
+    """
+
     nonzeros = np.concatenate([v[np.where(v != 0.0)[0]]
                                for v in pitch_vecs.values()])
     mean, std = np.mean(nonzeros), np.std(nonzeros)
@@ -187,7 +197,18 @@ def normalize_pitch_vectors(pitch_vecs):
     return mean, std
 
 
-def save_stats(dataset_path, wav_text_filelist, feature_name, mean, std):
+def save_stats(dataset_path: str, wav_text_filelist: str, feature_name: str, mean: np.float64, std: np.float64) -> None:
+    """Save `mean` and `std` of `wav_text_filelist` of `dataset_path` into a json-file.
+
+    Args:
+        dataset_path (str): Root path to the dataset
+        wav_text_filelist (str): ljs_audio_text_*_filelist
+        feature_name (str): Name of the feature to include into the filename.
+            Example: pitch_char
+        mean (np.float64): Mean
+        std (np.float64): Standard deviation
+    """
+
     fpath = utils.stats_filename(dataset_path, wav_text_filelist, feature_name)
     with open(fpath, 'w') as f:
         json.dump({'mean': mean, 'std': std}, f, indent=4)
