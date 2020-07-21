@@ -100,11 +100,21 @@ def parse_args(parser):
 
 
 class FilenamedLoader(TextMelLoader):
-    def __init__(self, filenames, *args, **kwargs):
+    """A Loader that adds a filename to the text and mel."""
+
+    def __init__(self, filenames: list, *args, **kwargs):
         super(FilenamedLoader, self).__init__(*args, **kwargs)
         self.filenames = filenames
 
-    def __getitem__(self, index):
+    def __getitem__(self, index) ->Tuple[torch.IntTensor, torch.Tensor, int, Path]:
+        """Adds Path of filename at the `index` element of the dataset.
+
+        Args:
+            index (int): index of file in `filenames`
+
+        Returns:
+            Tuple[torch.IntTensor, torch.Tensor, int, Path]: text, mel, text_len, filename
+        """
         mel_text = super(FilenamedLoader, self).__getitem__(index)
         return mel_text + (self.filenames[index],)
 
@@ -191,7 +201,7 @@ def main():
     """
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser = parse_args(parser)
+#    parser = parse_args(parser)
     args, unk_args = parser.parse_known_args()
     if len(unk_args) > 0:
         raise ValueError(f'Invalid options {unk_args}')
@@ -229,7 +239,9 @@ def main():
                              sampler=None, num_workers=0,
                              collate_fn=TextMelCollate(1),
                              pin_memory=False, drop_last=False)
+
     pitch_vecs = {'mel': {}, 'char': {}, 'trichar': {}}
+
     for i, batch in enumerate(data_loader):
         tik = time.time()
         fnames = batch[-1]
@@ -247,11 +259,13 @@ def main():
             for j, mel in enumerate(out_mels_postnet):
                 fpath = Path(args.dataset_path, 'mels_teacher', fnames[j] + '.pt')
                 torch.save(mel[:, :mel_lens[j]].cpu(), fpath)
+
         if args.extract_attentions:
             for j, ali in enumerate(alignments):
                 ali = ali[:mel_lens[j],:text_lens[j]]
                 fpath = Path(args.dataset_path, 'attentions', fnames[j] + '.pt')
                 torch.save(ali.cpu(), fpath)
+
         durations = []
         if args.extract_durations:
             for j, ali in enumerate(alignments):
@@ -262,6 +276,7 @@ def main():
                 durations.append(dur)
                 fpath = Path(args.dataset_path, 'durations', fnames[j] + '.pt')
                 torch.save(dur.cpu().int(), fpath)
+
         if args.extract_pitch_mel or args.extract_pitch_char or args.extract_pitch_trichar:
             for j, dur in enumerate(durations):
                 fpath = Path(args.dataset_path, 'pitch_char', fnames[j] + '.pt')
@@ -272,7 +287,7 @@ def main():
                 pitch_vecs['trichar'][fnames[j]] = p_trichar
 
         nseconds = time.time() - tik
-        DLLogger.log(step=f'{i+1}/{len(data_loader)} ({nseconds:.2f}s)', data={})
+        DLLogger.log(step=f'Batch {i+1}/{len(data_loader)} ({nseconds:.2f}s)', data={})
 
     if args.extract_pitch_mel:
         normalize_pitch_vectors(pitch_vecs['mel'])
