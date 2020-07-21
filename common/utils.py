@@ -166,7 +166,7 @@ def to_device_async(tensor, device):
     return tensor.to(device, non_blocking=True)
 
 
-def to_numpy(x: torch.Tensor) -> numpy.ndarray:
+def to_numpy(x: torch.Tensor) -> np.ndarray:
     """Cast tensor `x` to numpy.ndarray
 
     Args:

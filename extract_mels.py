@@ -33,6 +33,7 @@ import argparse
 import json
 import time
 from pathlib import Path
+from typing import Tuple
 
 import torch
 from torch.utils.data import DataLoader
@@ -201,7 +202,7 @@ def main():
     """
 
     parser = argparse.ArgumentParser(description=__doc__)
-#    parser = parse_args(parser)
+    parser = parse_args(parser)
     args, unk_args = parser.parse_known_args()
     if len(unk_args) > 0:
         raise ValueError(f'Invalid options {unk_args}')
