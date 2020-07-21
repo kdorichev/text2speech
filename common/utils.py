@@ -32,7 +32,7 @@
 """
 
 __all__ = ['mask_from_lens', 'load_wav_to_torch', 'load_filepaths_and_text',
-           'to_gpu', 'to_device_async', 'to_numpy']
+           'stats_filename', 'to_gpu', 'to_device_async', 'to_numpy']
 
 import os
 from pathlib import Path
@@ -75,7 +75,7 @@ def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.
     data, sampling_rate = load(full_path, sr)
     return torch.from_numpy(data), sampling_rate
 
-def _split_line(root, line, split="|") -> Tuple[]:
+def _split_line(root, line, split="|") -> Tuple[str, str]:
     """Split a line from the filelists/*_filelist.txt files into a tuple consisting
     the `paths` prepended with the root of the dataset -- all the fields but last,
     and `text` -- the last field.
@@ -129,7 +129,19 @@ def load_filepaths_and_text(dataset_path, filename, split="|") -> list:
     return filepaths_and_text
 
 
-def stats_filename(dataset_path, filelist_path, feature_name):
+def stats_filename(dataset_path: str, filelist_path: str, feature_name: str) -> Path:
+    """Construct filename to write the mean and std of the `feature_name`
+    for the `filelist_path` part of the `dataset_path`.
+
+    Args:
+        dataset_path (str): Root path for the dataset.
+        filelist_path (str): File from the filelists directory.
+        feature_name (str): Name of the feature to include into the filename.
+
+    Returns:
+        Path: [description]
+    """
+
     stem = Path(filelist_path).stem
     return Path(dataset_path, f'{feature_name}_stats__{stem}.json')
 
