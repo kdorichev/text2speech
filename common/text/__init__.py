@@ -75,4 +75,4 @@ def _arpabet_to_sequence(text: str) -> list:
 
 
 def _should_keep_symbol(s: str) -> bool:
-  return s in _symbol_to_id and s is not '_' and s is not '~'
+  return s in _symbol_to_id and s != '_' and s != '~'
