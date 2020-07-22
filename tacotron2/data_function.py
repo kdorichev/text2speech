@@ -46,7 +46,8 @@ class TextMelLoader(torch.utils.data.Dataset):
         3) compute mel-spectrograms from audio files.
     """
 
-    def __init__(self, dataset_path: str, audiopaths_and_text: str, args: ArgumentParser, load_mel_from_disk: bool=True):
+    def __init__(self, dataset_path: str, audiopaths_and_text: str,
+                 args: ArgumentParser, load_mel_from_disk: bool=True):
         """Initialize `TextMelLoader` class and store its parameters.
 
         Args:
@@ -56,7 +57,7 @@ class TextMelLoader(torch.utils.data.Dataset):
             ├── mels
             ├── pitch_char
             └── wavs
-            
+
             audiopaths_and_text (str): A file from filelists/* to load data from.
             args (ArgumentParser): Command line arguments.
             load_mel_from_disk (bool, optional): To load (True) or 
@@ -75,7 +76,18 @@ class TextMelLoader(torch.utils.data.Dataset):
                 args.mel_fmax)
 
     def get_mel(self, filename: str) -> torch.Tensor:
-        """Return a tensor with melspec read or calculated from `filename`."""
+        """Return a tensor with melspec read or calculated from `filename`.
+
+        Args:
+            filename (str): File with audio or saved mel.
+
+        Raises:
+            ValueError: In case sample rate of the audio `filename` doesn't
+                        match the expected.
+
+        Returns:
+            torch.Tensor: mel spectrogram
+        """
 
         if not self.load_mel_from_disk:
             audio, sampling_rate = load_wav_to_torch(filename)
@@ -91,12 +103,28 @@ class TextMelLoader(torch.utils.data.Dataset):
 
         return melspec
 
-    def get_text(self, text) -> Tuple[torch.IntTensor, torch.Tensor, int]:
+    def get_text(self, text: str):
+        """Converts `text` to a sequence of IDs corresponding to the symbols in the text.
+
+        Args:
+            text (str): [description]
+
+        Returns:
+            Tuple[torch.IntTensor, torch.Tensor, int]: [description]
+        """
         text_norm = torch.IntTensor(text_to_sequence(text, self.text_cleaners))
         return text_norm
 
-    def __getitem__(self, index):
-        # separate filename and text
+    def __getitem__(self, index) -> Tuple[torch.IntTensor, torch.Tensor, int]:
+        """Return (`text`, `mel` and `len_text`) for the `index`
+
+        Args:
+            index ([type]): [description]
+
+        Returns:
+            Tuple[torch.IntTensor, torch.Tensor, int]: [description]
+        """
+
         audiopath, text = self.audiopaths_and_text[index]
         len_text = len(text)
         text = self.get_text(text)

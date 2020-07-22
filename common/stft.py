@@ -105,6 +105,15 @@ class STFT(torch.nn.Module):
         return magnitude, phase
 
     def inverse(self, magnitude, phase):
+        """[summary]
+
+        Args:
+            magnitude ([type]): [description]
+            phase ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
         recombine_magnitude_phase = torch.cat(
             [magnitude*torch.cos(phase), magnitude*torch.sin(phase)], dim=1)
 

@@ -1,3 +1,6 @@
+# Adapted from
+# https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/SpeechSynthesis/FastPitch
+
 # *****************************************************************************
 #  Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -65,6 +68,7 @@ def window_sumsquare(window, n_frames, hop_length=200, win_length=800,
     wss : np.ndarray, shape=`(n_fft + hop_length * (n_frames - 1))`
         The sum-squared envelope of the window function
     """
+
     if win_length is None:
         win_length = n_fft
 
