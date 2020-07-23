@@ -31,14 +31,28 @@
 import torch
 from torch import nn
 from torch.nn.utils.rnn import pad_sequence
+from typing import Tuple
 
 from common.layers import ConvReLUNorm
 from common.utils import mask_from_lens
 from fastpitch.transformer import FFTransformer
 
 
-def regulate_len(durations, enc_out, pace=1.0, mel_max_len=None):
-    """If target=None, then predicted durations are applied"""
+def regulate_len(durations, enc_out, pace: float = 1.0,
+                 mel_max_len=None) -> Tuple[torch.Tensor, torch.Tensor]:
+    """Regulate the length.
+    If target=None, then predicted durations are applied.
+
+    Args:
+        durations ([type]): [description]
+        enc_out ([type]): [description]
+        pace (float, optional): [description]. Defaults to 1.0.
+        mel_max_len ([type], optional): [description]. Defaults to None.
+
+    Returns:
+        [type]: [description]
+    """
+
     reps = torch.round(durations.float() / pace).long()
     dec_lens = reps.sum(dim=1)
 
@@ -52,7 +66,9 @@ def regulate_len(durations, enc_out, pace=1.0, mel_max_len=None):
 
 
 class TemporalPredictor(nn.Module):
-    """Predicts a single float per each temporal location"""
+    """Predicts a single float per each temporal location.
+    Used as duration predictor and pitch predictor.
+    """
 
     def __init__(self, input_size, filter_size, kernel_size, dropout,
                  n_layers=2):
@@ -75,64 +91,65 @@ class TemporalPredictor(nn.Module):
 class FastPitch(nn.Module):
     """FastPitch module definition."""
 
-    def __init__(self, n_mel_channels, max_seq_len, n_symbols,
-                 symbols_embedding_dim, in_fft_n_layers, in_fft_n_heads,
-                 in_fft_d_head,
-                 in_fft_conv1d_kernel_size, in_fft_conv1d_filter_size,
-                 in_fft_output_size,
-                 p_in_fft_dropout, p_in_fft_dropatt, p_in_fft_dropemb,
-                 out_fft_n_layers, out_fft_n_heads, out_fft_d_head,
-                 out_fft_conv1d_kernel_size, out_fft_conv1d_filter_size,
-                 out_fft_output_size,
-                 p_out_fft_dropout, p_out_fft_dropatt, p_out_fft_dropemb,
-                 dur_predictor_kernel_size, dur_predictor_filter_size,
-                 p_dur_predictor_dropout, dur_predictor_n_layers,
-                 pitch_predictor_kernel_size, pitch_predictor_filter_size,
-                 p_pitch_predictor_dropout, pitch_predictor_n_layers):
+    def __init__(self, n_mel_channels: int, max_seq_len: int, n_symbols: int,
+                 symbols_embedding_dim: int, in_fft_n_layers: int, in_fft_n_heads: int,
+                 in_fft_d_head: int,
+                 in_fft_conv1d_kernel_size: int, in_fft_conv1d_filter_size: int,
+                 in_fft_output_size: int,
+                 p_in_fft_dropout: float, p_in_fft_dropatt, p_in_fft_dropemb,
+                 out_fft_n_layers: int, out_fft_n_heads: int, out_fft_d_head: int,
+                 out_fft_conv1d_kernel_size: int, out_fft_conv1d_filter_size: int,
+                 out_fft_output_size: int, p_out_fft_dropout: float,
+                 p_out_fft_dropatt: float, p_out_fft_dropemb: float,
+                 dur_predictor_kernel_size: int, dur_predictor_filter_size: int,
+                 p_dur_predictor_dropout: float, dur_predictor_n_layers: int,
+                 pitch_predictor_kernel_size: int, pitch_predictor_filter_size: int,
+                 p_pitch_predictor_dropout: float, pitch_predictor_n_layers: int):
         """FastPitch's constructor
 
         Args:
-            n_mel_channels ([type]): [description]
-            max_seq_len ([type]): Unused.
-            n_symbols ([type]): Unused.
-            symbols_embedding_dim ([type]): [description]
+            n_mel_channels (int): Number of bins in mel-spectrograms
+            max_seq_len (int): Unused.
+            n_symbols (int): Unused.
+            symbols_embedding_dim (int): Input embedding dimension
 
-            in_fft_n_layers ([type]): [description]
-            in_fft_n_heads ([type]): [description]
-            in_fft_d_head ([type]): [description]
-            in_fft_conv1d_kernel_size ([type]): [description]
-            in_fft_conv1d_filter_size ([type]): [description]
-            in_fft_output_size ([type]): [description]
+            in_fft_n_layers (int): Number of FFT blocks
+            in_fft_n_heads (int): Number of attention heads
+            in_fft_d_head (int): Dim of attention heads
+            in_fft_conv1d_kernel_size (int): Conv-1D kernel size
+            in_fft_conv1d_filter_size (int): Conv-1D filter size
+            in_fft_output_size (int): Output dim
 
-            p_in_fft_dropout ([type]): [description]
-            p_in_fft_dropatt ([type]): [description]
-            p_in_fft_dropemb ([type]): [description]
+            p_in_fft_dropout (float): Dropout probability
+            p_in_fft_dropatt (float): Multi-head attention dropout
+            p_in_fft_dropemb (float): Dropout added to word+positional embeddings')
 
-            out_fft_n_layers ([type]): [description]
-            out_fft_n_heads ([type]): [description]
-            out_fft_d_head ([type]): [description]
-            out_fft_conv1d_kernel_size ([type]): [description]
-            out_fft_conv1d_filter_size ([type]): [description]
-            out_fft_output_size ([type]): [description]
 
-            p_out_fft_dropout ([type]): [description]
-            p_out_fft_dropatt ([type]): [description]
-            p_out_fft_dropemb ([type]): [description]
+            out_fft_n_layers (int): Number of FFT blocks
+            out_fft_n_heads (int): Number of attention heads
+            out_fft_d_head (int): Dim of attention head
+            out_fft_conv1d_kernel_size (int): Conv-1D kernel size
+            out_fft_conv1d_filter_size (int): Conv-1D filter size
+            out_fft_output_size (int): Output dim
 
-            dur_predictor_kernel_size ([type]): [description]
-            dur_predictor_filter_size ([type]): [description]
-            p_dur_predictor_dropout ([type]): [description]
-            dur_predictor_n_layers ([type]): [description]
+            p_out_fft_dropout (float): Dropout probability for out_fft
+            p_out_fft_dropatt (float): Multi-head attention dropout
+            p_out_fft_dropemb (float): Dropout added to word+positional embeddings
 
-            pitch_predictor_kernel_size ([type]): [description]
-            pitch_predictor_filter_size ([type]): [description]
-            p_pitch_predictor_dropout ([type]): [description]
-            pitch_predictor_n_layers ([type]): [description]
+            dur_predictor_kernel_size (int): Duration predictor conv-1D kernel size
+            dur_predictor_filter_size (int): Duration predictor conv-1D filter size
+            p_dur_predictor_dropout (float): Dropout probability for duration predictor
+            dur_predictor_n_layers (int): Number of conv-1D layers
+
+            pitch_predictor_kernel_size (int): Pitch predictor conv-1D kernel size
+            pitch_predictor_filter_size (int): Pitch predictor conv-1D filter size
+            p_pitch_predictor_dropout (float): Dropout probability for pitch predictor
+            pitch_predictor_n_layers (int): Number of conv-1D layers
         """
 
         super(FastPitch, self).__init__()
         del max_seq_len  # unused
-        del n_symbols
+        del n_symbols  # unused
 
         self.encoder = FFTransformer(
             n_layer=in_fft_n_layers,
@@ -184,19 +201,20 @@ class FastPitch(nn.Module):
 
         self.proj = nn.Linear(out_fft_output_size, n_mel_channels, bias=True)
 
-    def forward(self, inputs, use_gt_durations=True, use_gt_pitch=True,
-                pace=1.0, max_duration=75):
+    def forward(self, inputs, use_gt_durations: bool = True, 
+                use_gt_pitch: bool = True,
+                pace: float = 1.0, max_duration: int = 75):
         """A forward step.
 
         Args:
-            inputs ([type]): [description]
+            inputs (tuple): [description]
             use_gt_durations (bool, optional): [description]. Defaults to True.
             use_gt_pitch (bool, optional): [description]. Defaults to True.
             pace (float, optional): [description]. Defaults to 1.0.
             max_duration (int, optional): [description]. Defaults to 75.
 
         Returns:
-            [type]: [description]
+            tuple: mel_out, dec_mask, dur_pred, log_dur_pred, pitch_pred
         """
 
         inputs, _, mel_tgt, _, dur_tgt, _, pitch_tgt = inputs
@@ -231,7 +249,7 @@ class FastPitch(nn.Module):
         return mel_out, dec_mask, dur_pred, log_dur_pred, pitch_pred
 
     def infer(self, inputs, input_lens, pace=1.0, dur_tgt=None, pitch_tgt=None,
-              pitch_transform=None, max_duration=75):
+              pitch_transform=None, max_duration: int = 75):
         """Inference.
 
         Args:

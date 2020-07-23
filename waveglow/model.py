@@ -168,8 +168,21 @@ class WN(torch.nn.Module):
 
 
 class WaveGlow(torch.nn.Module):
-    def __init__(self, n_mel_channels, n_flows, n_group, n_early_every,
-                 n_early_size, WN_config):
+    def __init__(self, n_mel_channels: int, n_flows: int, n_group: int, n_early_every: int,
+                 n_early_size: int, WN_config):
+        """Initialize WaveGlow object.
+
+        Args:
+            n_mel_channels (int): Number of bins in mel-spectrograms
+            n_flows (int): Number of steps of flow
+            n_group (int): Number of samples in a group processed by the steps of flow
+            n_early_every (int): Determines how often (i.e., after how many coupling layers)
+                        a number of channels (defined by --early-size parameter) are output
+                        to the loss function
+            n_early_size (int): Number of channels output to the loss function
+            WN_config ([type]): [description]
+        """
+
         super(WaveGlow, self).__init__()
 
         self.upsample = torch.nn.ConvTranspose1d(n_mel_channels,
@@ -242,6 +255,15 @@ class WaveGlow(torch.nn.Module):
         return torch.cat(output_audio, 1), log_s_list, log_det_W_list
 
     def infer(self, spect, sigma=1.0):
+        """[summary]
+
+        Args:
+            spect ([type]): [description]
+            sigma (float, optional): [description]. Defaults to 1.0.
+
+        Returns:
+            [type]: [description]
+        """
 
         spect = self.upsample(spect)
         # trim conv artifacts. maybe pad spec to kernel multiple

@@ -117,7 +117,7 @@ def parse_fastpitch_args(parent, add_help: bool = False) -> ArgumentParser:
     pitch_pred.add_argument('--pitch-predictor-filter-size', default=256, type=int,
                           help='Pitch predictor conv-1D filter size')
     pitch_pred.add_argument('--p-pitch-predictor-dropout', default=0.1, type=float,
-                          help='Pitch probability for pitch predictor')
+                          help='Dropout probability for pitch predictor')
     pitch_pred.add_argument('--pitch-predictor-n-layers', default=2, type=int,
                           help='Number of conv-1D layers')
     return parser

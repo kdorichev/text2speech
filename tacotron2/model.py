@@ -606,15 +606,44 @@ class Decoder(nn.Module):
 
 
 class Tacotron2(nn.Module):
-    def __init__(self, mask_padding, n_mel_channels,
-                 n_symbols, symbols_embedding_dim, encoder_kernel_size,
-                 encoder_n_convolutions, encoder_embedding_dim,
-                 attention_rnn_dim, attention_dim, attention_location_n_filters,
-                 attention_location_kernel_size, n_frames_per_step,
-                 decoder_rnn_dim, prenet_dim, max_decoder_steps, gate_threshold,
-                 p_attention_dropout, p_decoder_dropout,
-                 postnet_embedding_dim, postnet_kernel_size,
-                 postnet_n_convolutions, decoder_no_early_stopping):
+    def __init__(self, mask_padding: bool, n_mel_channels: int,
+                 n_symbols: int, symbols_embedding_dim: int, encoder_kernel_size: int,
+                 encoder_n_convolutions: int, encoder_embedding_dim: int,
+                 attention_rnn_dim: int, attention_dim: int, attention_location_n_filters: int,
+                 attention_location_kernel_size: int, n_frames_per_step: int,
+                 decoder_rnn_dim: int, prenet_dim: int, max_decoder_steps: int, gate_threshold: float,
+                 p_attention_dropout: float, p_decoder_dropout: float,
+                 postnet_embedding_dim: int, postnet_kernel_size: int,
+                 postnet_n_convolutions: int, decoder_no_early_stopping: bool):
+        """[summary]
+
+        Args:
+            mask_padding (bool): Use mask padding
+            n_mel_channels (int): Number of bins in mel-spectrograms
+            n_symbols (int): Number of symbols in dictionary
+            symbols_embedding_dim (int): Input embedding dimension
+            encoder_kernel_size (int): Encoder kernel size
+            encoder_n_convolutions (int): Number of encoder convolutions
+            encoder_embedding_dim (int): Encoder embedding dimension
+            
+            attention_rnn_dim (int): Number of units in attention LSTM
+            attention_dim (int): Dimension of attention hidden representation
+            attention_location_n_filters (int): Number of filters for location-sensitive attention
+            attention_location_kernel_size (int): Kernel size for location-sensitive attention
+            
+            n_frames_per_step (int): Number of frames processed per step, 
+                currently only 1 is supported
+            decoder_rnn_dim (int): Number of units in decoder LSTM
+            prenet_dim (int): Number of ReLU units in prenet layers
+            max_decoder_steps (int): Maximum number of output mel spectrograms
+            gate_threshold (float): Probability threshold for stop token
+            p_attention_dropout (float): Dropout probability for attention LSTM
+            p_decoder_dropout (float): Dropout probability for decoder LSTM
+            postnet_embedding_dim (int): Postnet embedding dimension
+            postnet_kernel_size (int): Postnet kernel size
+            postnet_n_convolutions (int): Number of postnet convolutions
+            decoder_no_early_stopping (bool): Stop decoding once all samples are finished
+        """
         super(Tacotron2, self).__init__()
         self.mask_padding = mask_padding
         self.n_mel_channels = n_mel_channels

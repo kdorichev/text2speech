@@ -38,6 +38,13 @@ from common.utils import mask_from_lens
 class FastPitchLoss(nn.Module):
     def __init__(self, dur_predictor_loss_scale=1.0,
                  pitch_predictor_loss_scale=1.0):
+        """Initialize loss function class for FastPitch model
+
+        Args:
+            dur_predictor_loss_scale (float, optional): [description]. Defaults to 1.0.
+            pitch_predictor_loss_scale (float, optional): [description]. Defaults to 1.0.
+        """
+
         super(FastPitchLoss, self).__init__()
         self.dur_predictor_loss_scale = dur_predictor_loss_scale
         self.pitch_predictor_loss_scale = pitch_predictor_loss_scale
