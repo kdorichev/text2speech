@@ -251,7 +251,7 @@ def main():
         if getattr(args, f'extract_{datum}'):
             Path(args.dataset_path, datum).mkdir(parents=False, exist_ok=True)
 
-    filenames = [Path(l.split('|')[0]).stem
+    filenames = [Path(l.split('|')[0])  # .stem
                  for l in open(args.wav_text_filelist, 'r')]
     dataset = FilenamedLoader(filenames, args.dataset_path, args.wav_text_filelist,
                               args, load_mel_from_disk=False)
@@ -270,7 +270,7 @@ def main():
         _, text_lens, mels_padded, _, mel_lens = x
 
         for j, mel in enumerate(mels_padded):
-            fpath = Path(args.dataset_path, 'mels', fnames[j] + '.pt')
+            fpath = Path(args.dataset_path)/'mels'/Path(Path(fnames[j]).name).with_suffix('.pt')
             torch.save(mel[:, :mel_lens[j]].cpu(), fpath)
 
         with torch.no_grad():
@@ -278,13 +278,13 @@ def main():
 
         if args.extract_mels_teacher:
             for j, mel in enumerate(out_mels_postnet):
-                fpath = Path(args.dataset_path, 'mels_teacher', fnames[j] + '.pt')
+                fpath = Path(args.dataset_path)/'mels_teacher'/Path(Path(fnames[j]).name).with_suffix('.pt')
                 torch.save(mel[:, :mel_lens[j]].cpu(), fpath)
 
         if args.extract_attentions:
             for j, ali in enumerate(alignments):
                 ali = ali[:mel_lens[j],:text_lens[j]]
-                fpath = Path(args.dataset_path, 'attentions', fnames[j] + '.pt')
+                fpath = Path(args.dataset_path)/'attentions'/Path(Path(fnames[j]).name).with_suffix('.pt')
                 torch.save(ali.cpu(), fpath)
 
         durations = []
@@ -295,12 +295,12 @@ def main():
                 dur = torch.histc(torch.argmax(ali, dim=1), min=0,
                                   max=text_len-1, bins=text_len)
                 durations.append(dur)
-                fpath = Path(args.dataset_path, 'durations', fnames[j] + '.pt')
+                fpath = Path(args.dataset_path)/'durations'/Path(Path(fnames[j]).name).with_suffix('.pt')
                 torch.save(dur.cpu().int(), fpath)
 
         if args.extract_pitch_mel or args.extract_pitch_char or args.extract_pitch_trichar:
             for j, dur in enumerate(durations):
-                fpath = Path(args.dataset_path, 'pitch_char', fnames[j] + '.pt')
+                fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
                 wav = Path(args.dataset_path, 'wavs', fnames[j] + '.wav')
                 p_mel, p_char, p_trichar = calculate_pitch(str(wav), dur.cpu().numpy())
                 pitch_vecs['mel'][fnames[j]] = p_mel
@@ -313,13 +313,13 @@ def main():
     if args.extract_pitch_mel:
         normalize_pitch_vectors(pitch_vecs['mel'])
         for fname, pitch in pitch_vecs['mel'].items():
-            fpath = Path(args.dataset_path, 'pitch_mel', fname + '.pt')
+            fpath = Path(args.dataset_path)/'pitch_mel'/Path(Path(fnames[j]).name).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
 
     if args.extract_pitch_char:
         mean, std = normalize_pitch_vectors(pitch_vecs['char'])
         for fname, pitch in pitch_vecs['char'].items():
-            fpath = Path(args.dataset_path, 'pitch_char', fname + '.pt')
+            fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
         save_stats(args.dataset_path, args.wav_text_filelist, 'pitch_char',
                    mean, std)
@@ -327,7 +327,7 @@ def main():
     if args.extract_pitch_trichar:
         normalize_pitch_vectors(pitch_vecs['trichar'])
         for fname, pitch in pitch_vecs['trichar'].items():
-            fpath = Path(args.dataset_path, 'pitch_trichar', fname + '.pt')
+            fpath = Path(args.dataset_path)/'pitch_trichar'/Path(Path(fnames[j]).name).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
 
     DLLogger.flush()
