@@ -136,7 +136,7 @@ def load_and_setup_model(model_name, parser, checkpoint, amp: bool, device: torc
         jitable (bool, optional): [description]. Defaults to False.
 
     Returns:
-        [type]: [description]
+        [type]: A model
     """
 
     model_parser = models.parse_model_args(model_name, parser, add_help=False)

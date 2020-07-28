@@ -43,17 +43,18 @@ from tacotron2.model import Tacotron2
 from waveglow.model import WaveGlow
 
 
-def parse_model_args(model_name: str, parser: ArgumentParser, add_help=False):
+def parse_model_args(model_name: str, parser: ArgumentParser,
+                     add_help: bool = False) -> ArgumentParser:
     """Parse `model_name` arguments together with the parent `parser`.
     
     Args:
         model_name (str): One of ['Tacotron2', 'WaveGlow', 'FastPitch']
         parser (ArgumentParser): a parent ArgumentParser object to include.
-        add_help (bool, optional): Add a -h/--help option to the parser. 
+        add_help (bool, optional): Add a -h/--help option to the parser.
             Defaults to False.
 
     Raises:
-        NotImplementedError: if the `model_name` not in 
+        NotImplementedError: if `model_name` not in
                              ['Tacotron2', 'WaveGlow', 'FastPitch']
 
     Returns:
@@ -177,19 +178,19 @@ def get_model(model_name, model_config, device,
     return model.to(device)
 
 
-def get_model_config(model_name, args) -> dict:
+def get_model_config(model_name: str, args: ArgumentParser) -> dict:
     """Return a dict with `model_name` config prepared from `args`.
 
     Args:
-        model_name ([type]): [description]
+        model_name (str): One of the ['Tacotron2', 'WaveGlow', 'FastPitch']
         args ([type]): [description]
 
     Raises:
-        NotImplementedError: if the `model_name` not in 
+        NotImplementedError: if the `model_name` not in
                              ['Tacotron2', 'WaveGlow', 'FastPitch']
 
     Returns:
-        dict: [description]
+        dict: Configuration for the `model_name` in a dictionary.
     """
 
     if model_name == 'Tacotron2':
@@ -199,7 +200,7 @@ def get_model_config(model_name, args) -> dict:
             # audio
             n_mel_channels=args.n_mel_channels,
             # symbols
-            n_symbols=args.n_symbols,
+            n_symbols=args.n_symbols,  # defaults to len(common.text.symbols)
             symbols_embedding_dim=args.symbols_embedding_dim,
             # encoder
             encoder_kernel_size=args.encoder_kernel_size,

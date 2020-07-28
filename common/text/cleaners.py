@@ -1,74 +1,73 @@
-""" from https://github.com/keithito/tacotron """
+"""Adapted from https://github.com/keithito/tacotron
 
-'''
 Cleaners are transformations that run over the input text at both training and eval time.
 
 Cleaners can be selected by passing a comma-delimited list of cleaner names as the "cleaners"
 hyperparameter. Some cleaners are English-specific. You'll typically want to use:
-  1. "english_cleaners" for English text
-  2. "transliteration_cleaners" for non-English text that can be transliterated to ASCII using
-     the Unidecode library (https://pypi.python.org/pypi/Unidecode)
-  3. "basic_cleaners" if you do not want to transliterate (in this case, you should also update
-     the symbols in symbols.py to match your data).
-'''
-__all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'purge_dots', 'remove_specials',
-           'expand_abbreviations', 'unify_dash_hyphen', 'rm_quot_marks', 'basic_cleaner', 'russian_cleaner']
+    1. "english_cleaners" for English text
+    2. "transliteration_cleaners" for non-English text that can be transliterated to ASCII using
+       the Unidecode library (https://pypi.python.org/pypi/Unidecode)
+    3. "basic_cleaners" if you do not want to transliterate (in this case, you should also update
+       the symbols in symbols.py to match your data).
+"""
 
-# Cell
+__all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'purge_dots',
+           'remove_specials', 'expand_abbreviations', 'unify_dash_hyphen', 
+           'rm_quot_marks', 'basic_cleaner', 'russian_cleaner']
+
 import re
 
-# Cell
 def collapse_whitespace(text: str) -> str:
     "Replace multiple various whitespaces with a single space, strip leading and trailing spaces."
 
     return re.sub(r'[\s\ufeff\u200b\u2060]+', ' ', text).strip()
 
-# Cell
+
 def lowercase(text: str) -> str:
     "Convert `text` to lower case."
 
     return text.lower()
 
-# Cell
+
 def check_no_numbers(text: str) -> list:
     "Return a list of digits, or empty list, if not found."
 
     return re.findall(r"(\d+)", text)
 
-# Internal Cell
+
 _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
     (r'\(?\d\d[:.]\d\d\)?', ''),  # timestamps
-    (r'!\.{1,}', '!'), # !. -> !
-    (r'\?\.{1,}', '?'),# ?. -> ?
+    (r'!\.{1,}', '!'),   # !. -> !
+    (r'\?\.{1,}', '?'),  # ?. -> ?
     (r'\/', ''),
     ]]
 
-# Cell
+
 def purge_dots(text, purgedots=False):
     "If `purgedots`, `...`|`…` will be purged. Else replaced with `.`"
     text = re.sub(r'\s(…)', ' ', text)
     replacement = '' if purgedots else '.'
     text = re.sub('…', replacement, text)
-    text = re.sub('\.{3}', replacement, text)
-    text = re.sub('\.{2}', '', text)   # pause .. removed
+    text = re.sub(r'\.{3}', replacement, text)
+    text = re.sub(r'\.{2}', '', text)   # pause .. removed
     return text
 
-# Cell
+
 def remove_specials(text: str, purge_digits: bool=None) -> str:
     "Replace predefined in `_specials` sequence of characters"
 
     for regex, replacement in _specials:
         text = re.sub(regex, replacement, text)
     if purge_digits:
-        text = re.sub('\d', '', text)
+        text = re.sub(r'\d', '', text)
     return text
 
 # Cell
 _abbreviations = [(re.compile(f'\\b{x[0]}', re.IGNORECASE), x[1]) for x in [
-  ('т\.е\.', 'то есть'),
-  ('т\.к\.', 'так как'),
-  ('и т\.д\.', 'и так далее.'),
-  ('и т\.п\.', 'и тому подобное.')
+    (r'т\.е\.', 'то есть'),
+    (r'т\.к\.', 'так как'),
+    (r'и т\.д\.', 'и так далее.'),
+    (r'и т\.п\.', 'и тому подобное.')
 ]]
 
 # Cell

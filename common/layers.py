@@ -99,7 +99,7 @@ class TacotronSTFT(torch.nn.Module):
             hop_length (int, optional): [description]. Defaults to 256.
             win_length (int, optional): [description]. Defaults to 1024.
             n_mel_channels (int, optional): [description]. Defaults to 80.
-            sampling_rate (int, optional): [description]. Defaults to 22050.
+            sampling_rate (int, optional): Defaults to 22050.
             mel_fmin (float, optional): [description]. Defaults to 0.0.
             mel_fmax (float, optional): [description]. Defaults to 8000.0.
         """
