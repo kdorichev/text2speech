@@ -12,10 +12,11 @@ from https://github.com/keithito/tacotron
 
 from common.text import cmudict
 
-_pad        = '_'
-_punctuation = '!\'(),.:;? '
-_special = '-'
-_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+_pad        = ''
+_punctuation = '!?,.:;– '
+_special = '+-_*'
+_letters = 'абвгдеёжзиклмнопрстуфхцчшщъыьэюя'
+# 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 # Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
 _arpabet = ['@' + s for s in cmudict.valid_symbols]
