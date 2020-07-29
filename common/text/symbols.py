@@ -15,7 +15,7 @@ from common.text import cmudict
 _pad        = '_'
 _punctuation = '!?,.:;– '
 _special = '+-*'
-_letters = 'абвгдеёжзиклмнопрстуфхцчшщъыьэюя'
+_letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 # 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 # Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
