@@ -120,7 +120,17 @@ class FilenamedLoader(TextMelLoader):
         return mel_text + (self.filenames[index],)
 
 
-def maybe_pad(vec, l):
+def maybe_pad(vec: np.array, l: int):
+    """Pad an numpy.array with `0` if less than 3 elements than `l`, or truncate.
+
+    Args:
+        vec (np.array): An array to pad or truncate
+        l (int): required length
+
+    Returns:
+        np.array: Padded or truncated vector
+    """
+
     assert np.abs(vec.shape[0] - l) <= 3
     vec = vec[:l]
     if vec.shape[0] < l:
@@ -143,10 +153,19 @@ def dur_chunk_sizes(n, ary):
     return ret
 
 
-def calculate_pitch(wav, durs):
+def calculate_pitch(audio_file: str, durs: np.array) -> Tuple[np.array, np.array, np.array]:
+    """Calculate pitches of phonemes in `audio_file`.
+
+    Args:
+        audio_file (str): Audio file to read from.
+        durs (np.array): Durations of phonemes.
+
+    Returns:
+        Tuple[np.array, np.array, np.array]: pitch_mel, pitch_char, pitch_trichar
+    """
     mel_len = durs.sum()
     durs_cum = np.cumsum(np.pad(durs, (1, 0)))
-    snd = parselmouth.Sound(wav)
+    snd = parselmouth.Sound(audio_file)
     pitch = snd.to_pitch(time_step=snd.duration / (mel_len + 3)
                          ).selected_array['frequency']
     assert np.abs(mel_len - pitch.shape[0]) <= 1.0
@@ -300,9 +319,10 @@ def main():
 
         if args.extract_pitch_mel or args.extract_pitch_char or args.extract_pitch_trichar:
             for j, dur in enumerate(durations):
-                fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
-                wav = Path(args.dataset_path, 'wavs', fnames[j] + '.wav')
-                p_mel, p_char, p_trichar = calculate_pitch(str(wav), dur.cpu().numpy())
+                # fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
+                audio_file = Path(args.dataset_path)/'audio'/Path(Path(fnames[j]).name).with_suffix('.flac')
+                # Path(args.dataset_path, 'wavs', fnames[j] + '.wav')
+                p_mel, p_char, p_trichar = calculate_pitch(str(audio_file), dur.cpu().numpy())
                 pitch_vecs['mel'][fnames[j]] = p_mel
                 pitch_vecs['char'][fnames[j]] = p_char
                 pitch_vecs['trichar'][fnames[j]] = p_trichar
