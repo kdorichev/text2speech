@@ -334,13 +334,13 @@ def main():
     if args.extract_pitch_mel:
         normalize_pitch_vectors(pitch_vecs['mel'])
         for fname, pitch in pitch_vecs['mel'].items():
-            fpath = Path(args.dataset_path)/'pitch_mel'/Path(Path(fnames[j]).name).with_suffix('.pt')
+            fpath = Path(args.dataset_path)/'pitch_mel'/Path(fname).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
 
     if args.extract_pitch_char:
         mean, std = normalize_pitch_vectors(pitch_vecs['char'])
         for fname, pitch in pitch_vecs['char'].items():
-            fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
+            fpath = Path(args.dataset_path)/'pitch_char'/Path(fname).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
         save_stats(args.dataset_path, args.wav_text_filelist, 'pitch_char',
                    mean, std)
@@ -348,7 +348,7 @@ def main():
     if args.extract_pitch_trichar:
         normalize_pitch_vectors(pitch_vecs['trichar'])
         for fname, pitch in pitch_vecs['trichar'].items():
-            fpath = Path(args.dataset_path)/'pitch_trichar'/Path(Path(fnames[j]).name).with_suffix('.pt')
+            fpath = Path(args.dataset_path)/'pitch_trichar'/Path(fname).with_suffix('.pt')
             torch.save(torch.from_numpy(pitch), fpath)
 
     DLLogger.flush()
