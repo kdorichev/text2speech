@@ -320,12 +320,13 @@ def main():
         if args.extract_pitch_mel or args.extract_pitch_char or args.extract_pitch_trichar:
             for j, dur in enumerate(durations):
                 # fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
-                audio_file = Path(args.dataset_path)/'audio'/Path(Path(fnames[j]).name).with_suffix('.flac')
+                fname = Path(fnames[j]).name
+                audio_file = Path(args.dataset_path)/'audio'/Path(fname).with_suffix('.flac')
                 # Path(args.dataset_path, 'wavs', fnames[j] + '.wav')
                 p_mel, p_char, p_trichar = calculate_pitch(str(audio_file), dur.cpu().numpy())
-                pitch_vecs['mel'][fnames[j]] = p_mel
-                pitch_vecs['char'][fnames[j]] = p_char
-                pitch_vecs['trichar'][fnames[j]] = p_trichar
+                pitch_vecs['mel'][str(fname)] = p_mel
+                pitch_vecs['char'][str(fname)] = p_char
+                pitch_vecs['trichar'][str(fname)] = p_trichar
 
         nseconds = time.time() - tik
         DLLogger.log(step=f'Batch {i+1}/{len(data_loader)} ({nseconds:.2f}s)', data={})
