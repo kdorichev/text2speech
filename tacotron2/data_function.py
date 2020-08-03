@@ -28,10 +28,10 @@
 #
 # *****************************************************************************
 
+from typing import Tuple
 import torch
 import torch.utils.data
 from argparse import ArgumentParser
-from typing import Tuple
 
 import common.layers as layers
 from common.utils import load_wav_to_torch, load_filepaths_and_text, to_gpu
@@ -46,18 +46,12 @@ class TextMelLoader(torch.utils.data.Dataset):
         3) compute mel-spectrograms from audio files.
     """
 
-    def __init__(self, dataset_path: str, audiopaths_and_text: str,
-                 args: ArgumentParser, load_mel_from_disk: bool=True):
+    def __init__(self, dataset_path: str, audiopaths_and_text: str, args: ArgumentParser,
+                 load_mel_from_disk: bool=True):
         """Initialize `TextMelLoader` class and store its parameters.
 
         Args:
-            dataset_path (str): Path to the root of the dataset, LJSpeech-1.1
-            LJSpeech-1.1
-            ├── durations
-            ├── mels
-            ├── pitch_char
-            └── wavs
-
+            dataset_path (str): [description]
             audiopaths_and_text (str): A file from filelists/* to load data from.
             args (ArgumentParser): Command line arguments.
             load_mel_from_disk (bool, optional): To load (True) or 
@@ -76,18 +70,7 @@ class TextMelLoader(torch.utils.data.Dataset):
                 args.mel_fmax)
 
     def get_mel(self, filename: str) -> torch.Tensor:
-        """Return a tensor with melspec read or calculated from `filename`.
-
-        Args:
-            filename (str): File with audio or saved mel.
-
-        Raises:
-            ValueError: In case sample rate of the audio `filename` doesn't
-                        match the expected.
-
-        Returns:
-            torch.Tensor: mel spectrogram
-        """
+        """Return a tensor with melspec read or calculated from `filename`."""
 
         if not self.load_mel_from_disk:
             audio, sampling_rate = load_wav_to_torch(filename)
@@ -103,28 +86,12 @@ class TextMelLoader(torch.utils.data.Dataset):
 
         return melspec
 
-    def get_text(self, text: str):
-        """Converts `text` to a sequence of IDs corresponding to the symbols in the text.
-
-        Args:
-            text (str): [description]
-
-        Returns:
-            Tuple[torch.IntTensor, torch.Tensor, int]: [description]
-        """
+    def get_text(self, text):
         text_norm = torch.IntTensor(text_to_sequence(text, self.text_cleaners))
         return text_norm
 
-    def __getitem__(self, index) -> Tuple[torch.IntTensor, torch.Tensor, int]:
-        """Return (`text`, `mel` and `len_text`) for the `index`
-
-        Args:
-            index ([type]): [description]
-
-        Returns:
-            Tuple[torch.IntTensor, torch.Tensor, int]: [description]
-        """
-
+    def __getitem__(self, index):
+        # separate filename and text
         audiopath, text = self.audiopaths_and_text[index]
         len_text = len(text)
         text = self.get_text(text)
@@ -199,7 +166,20 @@ class TextMelCollate():
             output_lengths, len_x) + extra_fields
 
 
-def batch_to_gpu(batch):
+def batch_to_gpu(batch: Tuple) -> Tuple[Tuple, Tuple, int]:
+    """Move a `batch` to GPU.
+
+    Args:
+        batch (Tuple): text_padded, input_lengths, mel_padded, gate_padded, \
+                    output_lengths, len_x
+
+    Returns:
+        Tuple[Tupe, Tuple, int]: 
+            (text_padded, input_lengths, mel_padded, max_len, output_lengths),
+            (mel_padded, gate_padded),
+            len_x
+    """
+
     text_padded, input_lengths, mel_padded, gate_padded, \
         output_lengths, len_x = batch
     text_padded = to_gpu(text_padded).long()
