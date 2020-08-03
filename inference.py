@@ -128,7 +128,7 @@ def load_and_setup_model(model_name, parser, checkpoint, amp: bool, device: torc
         model_name ([type]): [description]
         parser ([type]): [description]
         checkpoint (str): Saved checkpoint to load.
-        amp (bool): Auto Mixed Precision
+        amp (bool): Auto Mixed Precision.
         device (torch.device): Device to load the model to.
         unk_args (list, optional): [description]. Defaults to [].
         forward_is_infer (bool, optional): [description]. Defaults to False.
@@ -273,6 +273,7 @@ def build_pitch_transformation(args):
     if args.pitch_transform_shift != 0.0:
         hz = args.pitch_transform_shift
         fun = f'({fun}) + {hz} / std'
+    # FIXME: eliminate usage of eval
     return eval(f'lambda pitch, mean, std: {fun}')
 
 
@@ -303,7 +304,7 @@ class MeasureTime(list):
 
 def main():
     """
-    Launches text to speech (inference).
+    Launches text to speech inference.
     Inference is executed on a single GPU.
     """
     # Enable benchmark mode in cudnn

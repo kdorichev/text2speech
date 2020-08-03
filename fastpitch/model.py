@@ -28,10 +28,10 @@
 #
 # *****************************************************************************
 
+from typing import Tuple
 import torch
 from torch import nn
 from torch.nn.utils.rnn import pad_sequence
-from typing import Tuple
 
 from common.layers import ConvReLUNorm
 from common.utils import mask_from_lens
@@ -39,18 +39,17 @@ from fastpitch.transformer import FFTransformer
 
 
 def regulate_len(durations, enc_out, pace: float = 1.0,
-                 mel_max_len=None) -> Tuple[torch.Tensor, torch.Tensor]:
-    """Regulate the length.
-    If target=None, then predicted durations are applied.
+                 mel_max_len: int = None) -> Tuple[torch.Tensor, torch.Tensor]:
+    """Regulate the length of durations.
 
     Args:
-        durations ([type]): [description]
+        durations ([type]): Durations, ground truth or predicted.
         enc_out ([type]): [description]
-        pace (float, optional): [description]. Defaults to 1.0.
-        mel_max_len ([type], optional): [description]. Defaults to None.
+        pace (float, optional): Target pace. Defaults to 1.0.
+        mel_max_len (int, optional): Max length of mel. Defaults to None.
 
     Returns:
-        [type]: [description]
+        Tuple[torch.Tensor, torch.Tensor]: enc_rep, dec_lens
     """
 
     reps = torch.round(durations.float() / pace).long()
@@ -201,17 +200,17 @@ class FastPitch(nn.Module):
 
         self.proj = nn.Linear(out_fft_output_size, n_mel_channels, bias=True)
 
-    def forward(self, inputs, use_gt_durations: bool = True, 
+    def forward(self, inputs: Tuple, use_gt_durations: bool = True, 
                 use_gt_pitch: bool = True,
                 pace: float = 1.0, max_duration: int = 75):
         """A forward step.
 
         Args:
-            inputs (tuple): [description]
-            use_gt_durations (bool, optional): [description]. Defaults to True.
-            use_gt_pitch (bool, optional): [description]. Defaults to True.
-            pace (float, optional): [description]. Defaults to 1.0.
-            max_duration (int, optional): [description]. Defaults to 75.
+            inputs (tuple): inputs, _, mel_tgt, _, dur_tgt, _, pitch_tgt
+            use_gt_durations (bool, optional): Use ground truth durations. Defaults to True.
+            use_gt_pitch (bool, optional): Use ground truth pitch. Defaults to True.
+            pace (float, optional): Pace. Defaults to 1.0.
+            max_duration (int, optional): Max duration. Defaults to 75.
 
         Returns:
             tuple: mel_out, dec_mask, dur_pred, log_dur_pred, pitch_pred
@@ -248,7 +247,7 @@ class FastPitch(nn.Module):
         mel_out = self.proj(dec_out)
         return mel_out, dec_mask, dur_pred, log_dur_pred, pitch_pred
 
-    def infer(self, inputs, input_lens, pace=1.0, dur_tgt=None, pitch_tgt=None,
+    def infer(self, inputs, input_lens, pace: float=1.0, dur_tgt=None, pitch_tgt=None,
               pitch_transform=None, max_duration: int = 75):
         """Inference.
 
@@ -256,7 +255,7 @@ class FastPitch(nn.Module):
             inputs (tuple): [description]
             input_lens ([type]): [description]
             pace (float, optional): Target pace. Defaults to 1.0.
-            dur_tgt ([type], optional): [description]. Defaults to None.
+            dur_tgt ([type], optional): Target duration. Defaults to None.
             pitch_tgt ([type], optional): Target pitch. Defaults to None.
             pitch_transform ([type], optional): [description]. Defaults to None.
             max_duration (int, optional): [description]. Defaults to 75.
