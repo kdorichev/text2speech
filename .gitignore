@@ -148,3 +148,5 @@ runs*/
 notebooks/
 LJSpeech-1.1/
 output*
+*.png
+_*.ipynb
