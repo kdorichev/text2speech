@@ -108,9 +108,7 @@ def init_dllogger(log_fpath: str = None, dummy: bool = False):
         "took", {"name": "took", "unit": "s", "format": ":>3.2f"})
     DLLogger.metadata("lrate_change", {"name": "lrate"})
 
-"""
 
-"""
 class TBLogger(object):
     """A logger for TensorBoardX.
     

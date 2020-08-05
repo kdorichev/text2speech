@@ -497,10 +497,14 @@ def main():
                 iter_mel_loss = iter_meta['mel_loss'].item()
                 epoch_mel_loss += iter_mel_loss
 
-                DLLogger.log((epoch, epoch_iter, num_iters), OrderedDict([
-                    ('train_loss', iter_loss), ('train_mel_loss', iter_mel_loss),
-                    ('train_frames/s', frames_per_sec), ('took', iter_time),
-                    ('lrate_change', dllog_lrate_change)
+                DLLogger.log(
+                    step=(epoch, epoch_iter, num_iters),
+                    data=OrderedDict([
+                        ('train_loss', iter_loss),
+                        ('train_mel_loss', iter_mel_loss),
+                        ('train_frames/s', frames_per_sec), 
+                        ('took', iter_time),
+                        ('lrate_change', dllog_lrate_change)
                 ]))
                 train_tblogger.log_meta(total_iter, iter_meta)
 
