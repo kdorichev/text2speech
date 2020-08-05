@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: VoskTranscribe
       url: /transcribe
+    - output: web,pdf
+      title: Dataset Pre-Processing
+      url: /Untitled
     output: web
     title: text2speech
   output: web
