@@ -73,7 +73,7 @@ class TextMelLoader(torch.utils.data.Dataset):
         """Return a tensor with melspec read or calculated from `filename`."""
 
         if not self.load_mel_from_disk:
-            audio, sampling_rate = load_wav_to_torch(filename)
+            audio, sampling_rate = load_wav_to_torch(filename, self.sampling_rate)
             if sampling_rate != self.stft.sampling_rate:
                 raise ValueError(f"{filename}: {sampling_rate} SR doesn't match target {self.stft.sampling_rate} SR")
             audio_norm = audio / self.max_wav_value
