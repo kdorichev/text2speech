@@ -62,7 +62,7 @@ def parse_args(parser):
     parser.add_argument('--wav-text-filelist', required=True,
                         type=str, help='Path to file with audio paths and text')
     parser.add_argument('--text-cleaners', nargs='*',
-                        default=['english_cleaners'], type=str,
+                        default=['russian_cleaner'], type=str,
                         help='Type of text cleaners for input text')
     parser.add_argument('--max-wav-value', default=1.0, type=float,
                         help='Maximum audiowave value')
