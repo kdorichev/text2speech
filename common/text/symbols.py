@@ -14,7 +14,7 @@ from common.text import cmudict
 
 _pad        = '_'
 _punctuation = '!?,.:;– '
-_special = '+-*'
+_special = '+-'
 _letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 # 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
