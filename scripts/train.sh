@@ -23,8 +23,8 @@ python -m torch.distributed.launch --nproc_per_node ${NGPU} train.py \
     -o "$OUTPUT_DIR/" \
     --log-file "$OUTPUT_DIR/nvlog.json" \
     --dataset-path LJSpeech-1.1 \
-    --training-files filelists/ljs_mel_dur_pitch_text_train_filelist.txt \
-    --validation-files filelists/ljs_mel_dur_pitch_text_test_filelist.txt \
+    --training-files filelists/Voituk_Narrative_train_filelist.txt \
+    --validation-files filelists/Voituk_Narrative_valid_filelist.txt \
     --pitch-mean-std-file LJSpeech-1.1/pitch_char_stats__ljs_audio_text_train_filelist.json \
     --epochs ${EPOCHS} \
     --epochs-per-checkpoint 100 \
