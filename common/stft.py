@@ -30,8 +30,8 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import torch
 import numpy as np
+import torch
 import torch.nn.functional as F
 from torch.autograd import Variable
 from scipy.signal import get_window
