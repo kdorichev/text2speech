@@ -153,9 +153,11 @@ def unusual_files(files=None, show=False, play=False):
 # Cell
 def plot_durations(files, figsize=None):
     "Plot audio `files` duration distribution"
+    sum_dur = 0
     durations = []
     for f in files:
         at = AudioTensor.create(label_func(f))
+        sum_dur += at.duration
         durations.append(at.duration)
     durations = torch.tensor(durations)
     figsize=(14,4) if figsize is None else figsize
@@ -163,7 +165,8 @@ def plot_durations(files, figsize=None):
 
     max_dur = math.ceil(durations.max())
     sns.distplot(durations,rug=True,axlabel='sec',ax=ax)
-    ttl = f"""Dataset Clip Duration Distribution, {len(durations)} clips\n\
+    ttl = f"""Dataset Clip Duration Distribution\n\
+        {len(durations)} clips, {sum_dur/3600:.1f} hours\n\
         Min = {durations.min().item():.3f}\
         Mean = {durations.mean().item():.3f}\
         Max = {durations.max().item():.3f}
