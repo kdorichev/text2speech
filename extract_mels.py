@@ -251,6 +251,7 @@ def main():
 
     DLLogger.init(backends=[JSONStreamBackend(Verbosity.DEFAULT, args.log_file),
                             StdOutBackend(Verbosity.VERBOSE)])
+
     for k, v in vars(args).items():
         DLLogger.log(step="PARAMETER", data={k:v})
 
@@ -322,7 +323,6 @@ def main():
                 # fpath = Path(args.dataset_path)/'pitch_char'/Path(Path(fnames[j]).name).with_suffix('.pt')
                 fname = Path(fnames[j]).name
                 audio_file = Path(args.dataset_path)/'audio'/Path(fname).with_suffix('.flac')
-                # Path(args.dataset_path, 'wavs', fnames[j] + '.wav')
                 p_mel, p_char, p_trichar = calculate_pitch(str(audio_file), dur.cpu().numpy())
                 pitch_vecs['mel'][str(fname)] = p_mel
                 pitch_vecs['char'][str(fname)] = p_char

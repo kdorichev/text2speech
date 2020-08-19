@@ -149,4 +149,5 @@ notebooks/
 LJSpeech-1.1/
 output*
 *.png
+nvlog*
 _*.ipynb
