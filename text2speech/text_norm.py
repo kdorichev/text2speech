@@ -32,7 +32,7 @@ _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
     (r'!\.{1,}', '!'), # !. -> !
     (r'\?\.{1,}', '?'),# ?. -> ?
     (r'\/', ''),
-    (r'[\*\_]', ''),
+ #   (r'[\*\_]', ''),
     (r'[\(\)]', '')
     ]]
 
@@ -138,7 +138,7 @@ def basic_cleaner(text: str) -> str:
 # Cell
 def russian_cleaner(text, purge_digits=True, _purge_dots=False):
     "Pipeline for cleaning Russian text."
-    text = lowercase(text)
+   # text = lowercase(text)
     text = expand_abbreviations(text)
     text = remove_specials(text, purge_digits=purge_digits)
     text = purge_dots(text,purgedots=_purge_dots)
