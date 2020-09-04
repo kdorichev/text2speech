@@ -1,14 +1,14 @@
 """ Text Normalization Utility for Text-To-Speech dataset preparation
     by K.Dorichev github: @kdorichev
-    May 2020
+    Sept 2020
 """
 
 import argparse
-import nltk
 from text_norm import *
+from razdel import sentenize
 
-__version__ = '0.3'
-__date__ = '10.07.2020'
+__version__ = '0.4'
+__date__ = '04.09.2020'
 
 def main():
     """Split `infile` into sentences and clean the text.
@@ -25,7 +25,7 @@ def main():
     args = parser.parse_args()
 
     sentences = []
-    
+
     try:
         with open(args.infile, 'r') as inf:
             try:
@@ -35,11 +35,11 @@ def main():
                         line = russian_cleaner(line, _purge_dots=args.purgedots)
 
                         if line != '':
-                            sentences = (nltk.sent_tokenize(line, language="russian"))
+                            sentences = sentenize(line)
                             for s in sentences:
                                 if s != '':
-                                    of.write(s)
-                                    of.write('\n')
+                                    of.write(s.text)
+                                    of.write("\n")
             except IOError:
                 print(f"Could not create output file: {args.outfile}")
                 return          
