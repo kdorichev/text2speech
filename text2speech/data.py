@@ -12,7 +12,7 @@ sns.set()
 
 # Cell
 from fastcore.all import *
-from fastai2.data.all import *
+from fastai.data.all import *
 from fastai2_audio.core.all import *
 
 # Cell
@@ -109,9 +109,7 @@ def word_in_files(word, files, show=False, play=False):
 
     for item in found_in:
         if show: print(item); print(ReadTxt(item))
-        if play:
-            audio = AudioTensor.create(label_func(item))
-            audio.hear()
+        if play: audio = AudioTensor.create(label_func(item)); audio.hear()
     return L(found_in)
 
 # Cell
@@ -151,21 +149,23 @@ def unusual_files(files=None, show=False, play=False):
     return _inner
 
 # Cell
-def plot_durations(files, figsize=None):
+def plot_durations(files, figsize=None, title: str = "Dataset Clip Duration Distribution"):
     "Plot audio `files` duration distribution"
     sum_dur = 0
     durations = []
+
     for f in files:
         at = AudioTensor.create(label_func(f))
         sum_dur += at.duration
         durations.append(at.duration)
+
     durations = torch.tensor(durations)
     figsize=(14,4) if figsize is None else figsize
     ax=plt.subplots(1,1,figsize=figsize)[1]
 
     max_dur = math.ceil(durations.max())
     sns.distplot(durations,rug=True,axlabel='sec',ax=ax)
-    ttl = f"""Dataset Clip Duration Distribution\n\
+    ttl = f"""{title}\n\
         {len(durations)} clips, {sum_dur/3600:.1f} hours\n\
         Min = {durations.min().item():.3f}\
         Mean = {durations.mean().item():.3f}\
@@ -177,6 +177,7 @@ def plot_durations(files, figsize=None):
 # Cell
 def drop_outliers(files, mindur=None, maxdur=None):
     "Return only those `files` with duration in (`mindur`,`maxdur`), drop outliers."
+    if mindur is None and maxdur is None: return L(files)
     newfiles = []
     mindur = mindur if mindur is not None else 0
     maxdur = maxdur if maxdur is not None else 10000
