@@ -26,6 +26,8 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "unusual_files": "02_data.ipynb",
          "plot_durations": "02_data.ipynb",
          "drop_outliers": "02_data.ipynb",
+         "create_filelist": "02_data.ipynb",
+         "create_mel_filelist": "02_data.ipynb",
          "VoskTranscribe": "03_transcribe.ipynb"}
 
 modules = ["text_norm.py",
