@@ -13,8 +13,8 @@ from pathlib import Path
 import sox
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
-from text2speech.data import label_func, get_txt_files, ReadTxt
-from text2speech.text_norm import russian_cleaner, texts_equal
+from text2speech.data import * #label_func, get_txt_files, ReadTxt
+from text2speech.text_norm import * # russian_cleaner, texts_equal
 from fastcore.all import L
 
 def main():
@@ -90,9 +90,10 @@ def main():
             if asr_text != "":
                 asr_text += " "
             asr_text += json.loads(rec.FinalResult())["text"]
+            asr_text = asr_text.lower()
 
             orig_txt = ReadTxt(f)
-            cln_txt = russian_cleaner(orig_txt)
+            cln_txt = russian_cleaner(orig_txt).lower()
             cln_txt = re.sub(r'[\.,?!*_:;+]', '', cln_txt)
             cln_txt = re.sub(r' [-–] ', ' ', cln_txt)
 
