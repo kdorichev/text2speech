@@ -199,6 +199,8 @@ def create_filelist(filelist: Path, idxs: L, files: L, target_audios_path: Path)
 
     """
 
+    target_audios_path = filelist.parent/'audio'
+
     with open(filelist, "w+") as fl:
         for idx in idxs:
             episode, number = files[idx].parents[3].name, int(files[idx].stem)
