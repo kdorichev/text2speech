@@ -6,6 +6,7 @@ __all__ = ['get_files', 'get_audio_files', 'get_txt_files', 'words_count', 'labe
 
 # Cell
 from pathlib import Path
+from shutil import copy2
 
 # Cell
 import seaborn as sns
@@ -189,7 +190,7 @@ def drop_outliers(files, mindur=None, maxdur=None):
     return L(newfiles)
 
 # Cell
-def create_filelist(filelist: Path, idxs: L, files: L, target_audios_path: Path) -> None:
+def create_filelist(filelist: Path, idxs: L, files: L) -> None:
     """Create a file with audio `filelist` from `idxs` of `files`
     and copy audio files with new names into `target_audios_path`.
 
