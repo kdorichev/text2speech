@@ -32,7 +32,7 @@ _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
     (r'!\.{1,}', '!'), # !. -> !
     (r'\?\.{1,}', '?'),# ?. -> ?
     (r'\/', ''),
- #   (r'[\*\_]', ''),
+    (r'[\*\_]', ''),
     (r'[\(\)]', '')
     ]]
 
@@ -98,10 +98,10 @@ def texts_equal(text1: str, text2: str, ignore_e: bool = True, verbose = False)\
         if verbose: print("Not equal length")
         return False, text1, text2
 
-    wc1, wc2 = len(text1.split()), len(text2.split())
-    if wc1 != wc2:
-        if verbose: print(f"Not equal words count: {wc1} != {wc2}")
-        return False, text1, text2
+#     wc1, wc2 = len(text1.split()), len(text2.split())
+#     if wc1 != wc2:
+#         if verbose: print(f"Not equal words count: {wc1} != {wc2}")
+#         return False, text1, text2
 
     words1, words2 = text1.split(), text2.split()
     text1, text2 = "", ""
@@ -117,6 +117,8 @@ def texts_equal(text1: str, text2: str, ignore_e: bool = True, verbose = False)\
                 else:
                     if ignore_e and letters1[j] in ['е', 'ё'] and letters2[j] in ['е', 'ё']:
                         if verbose: print('е != ё -- норм')
+                        is_equal += 1
+                    elif letters1[j] in ['-', ' '] and letters2[j] in ['-', ' ']:
                         is_equal += 1
                     else:
                         letters1[j] = letters1[j].upper()
