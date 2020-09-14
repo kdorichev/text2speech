@@ -7,6 +7,7 @@ __all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'remove_speci
 # Cell
 import re
 from typing import Tuple
+from razdel import tokenize
 
 # Cell
 def collapse_whitespace(text: str) -> str:
@@ -98,12 +99,13 @@ def texts_equal(text1: str, text2: str, ignore_e: bool = True, verbose = False)\
         if verbose: print("Not equal length")
         return False, text1, text2
 
-#     wc1, wc2 = len(text1.split()), len(text2.split())
-#     if wc1 != wc2:
-#         if verbose: print(f"Not equal words count: {wc1} != {wc2}")
-#         return False, text1, text2
+    words1 = [_.text for _ in list(tokenize(text1))]
+    words2 = [_.text for _ in list(tokenize(text2))]
+    wc1, wc2 = len(words1), len(words2)
+    if wc1 != wc2:
+        if verbose: print(f"Not equal words count: {wc1} != {wc2}")
+        return False, text1, text2
 
-    words1, words2 = text1.split(), text2.split()
     text1, text2 = "", ""
     # Per word comparison, assuming wc1 == wc2
     for i in range(len(words1)):
