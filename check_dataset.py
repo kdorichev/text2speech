@@ -27,6 +27,8 @@ def main():
     parser.add_argument('-e', '--export-path', type=str, help="File to export NOK items to.")
     parser.add_argument('-f', '--folders', nargs='+', default=[], help="Only these folders.")
     parser.add_argument('-n', '--number-items', type=int, help="Number of items to parse only.")
+    parser.add_argument('-u', '--uri-vosk', type=str, default='ws://localhost:2700',
+                        help="URI to VOSK server.")
     parser.add_argument('-v', '--verbose', action='store_true', help="Report more info.")
 
     try:
@@ -36,13 +38,26 @@ def main():
         sys.exit(0)
 
     SetLogLevel(-1)
-    model_path = Path("/home/condor/git/vosk-api/vosk-model-ru-0.10/")
-    if not model_path.exists():
-        url = "https://github.com/alphacep/vosk-api/blob/master/doc/models.md"
-        print(f"Please download the model from {url} and unpack as 'model' in the vosk-api folder.""")
-        sys.exit(1)
+    if 'ws://' in args.uri_vosk:
+        print(f'Using Vosk Server at {args.uri_vosk}')
+        sample_rate = 8000
+    else:
+        model_path = Path(args.uri_vosk)
+        if not (model_path/'am/final.mdl').exists():
+            url = "https://github.com/alphacep/vosk-api/blob/master/doc/models.md"
+            print(f"Please download the model from {url} and unpack as 'model' in the vosk-api folder.""")
+            print(f"Or specify URI to Vosk Server.""")
+            sys.exit(1)
+        print(f'Using Vosk Model at {args.uri_vosk}')
+        with open(model_path/'conf/mfcc.conf') as conf_file:
+            for line in conf_file:
+                if 'sample-frequency' in line:
+                    sample_rate = int(re.search(r'\d+', '--sample-frequency=8000')[0])
+                    break
 
-    sample_rate = 48000
+    print(f'Sample rate: {sample_rate}')
+    
+        
     model = Model(str(model_path))
     rec = KaldiRecognizer(model, sample_rate)
 
