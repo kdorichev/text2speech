@@ -2,7 +2,7 @@
 
 __all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'remove_specials', 'purge_dots',
            'expand_abbreviations', 'unify_dash_hyphen', 'rm_quot_marks', 'texts_equal', 'basic_cleaner',
-           'russian_cleaner']
+           'russian_cleaner', 'russian_cleaner2']
 
 # Cell
 import re
@@ -150,3 +150,9 @@ def russian_cleaner(text, purge_digits=True, _purge_dots=False):
     text = rm_quot_marks(text)
     text = collapse_whitespace(text)
     return text
+
+# Cell
+def russian_cleaner2(text, purge_digits=True, _purge_dots=False):
+    "Pipeline for cleaning and lowercase Russian text."
+
+    return russian_cleaner(lowercase(text), purge_digits, _purge_dots)
