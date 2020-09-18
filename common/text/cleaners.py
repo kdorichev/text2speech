@@ -11,48 +11,44 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
        the symbols in symbols.py to match your data).
 """
 
-__all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'purge_dots',
-           'remove_specials', 'expand_abbreviations', 'unify_dash_hyphen', 
-           'rm_quot_marks', 'basic_cleaner', 'russian_cleaner']
+__all__ = ['collapse_whitespace', 'lowercase', 'check_no_numbers', 'remove_specials', 'purge_dots',
+           'expand_abbreviations', 'unify_dash_hyphen', 'rm_quot_marks', 'texts_equal', 'basic_cleaner',
+           'russian_cleaner', 'russian_cleaner2']
 
+# Cell
 import re
+from typing import Tuple
+from razdel import tokenize
 
+# Cell
 def collapse_whitespace(text: str) -> str:
     "Replace multiple various whitespaces with a single space, strip leading and trailing spaces."
 
     return re.sub(r'[\s\ufeff\u200b\u2060]+', ' ', text).strip()
 
-
+# Cell
 def lowercase(text: str) -> str:
     "Convert `text` to lower case."
 
     return text.lower()
 
-
+# Cell
 def check_no_numbers(text: str) -> list:
     "Return a list of digits, or empty list, if not found."
 
-    return re.findall(r"(\d+)", text)
+    return re.findall(r'(\d+)', text)
 
-
+# Internal Cell
 _specials = [(re.compile(f'{x[0]}'), x[1]) for x in [
     (r'\(?\d\d[:.]\d\d\)?', ''),  # timestamps
-    (r'!\.{1,}', '!'),   # !. -> !
-    (r'\?\.{1,}', '?'),  # ?. -> ?
+    (r'!\.{1,}', '!'), # !. -> !
+    (r'\?\.{1,}', '?'),# ?. -> ?
     (r'\/', ''),
+    (r'[\*\_]', ''),
+    (r'[\(\)]', '')
     ]]
 
-
-def purge_dots(text, purgedots=False):
-    "If `purgedots`, `...`|`…` will be purged. Else replaced with `.`"
-    text = re.sub(r'\s(…)', ' ', text)
-    replacement = '' if purgedots else '.'
-    text = re.sub('…', replacement, text)
-    text = re.sub(r'\.{3}', replacement, text)
-    text = re.sub(r'\.{2}', '', text)   # pause .. removed
-    return text
-
-
+# Cell
 def remove_specials(text: str, purge_digits: bool=None) -> str:
     "Replace predefined in `_specials` sequence of characters"
 
@@ -63,11 +59,21 @@ def remove_specials(text: str, purge_digits: bool=None) -> str:
     return text
 
 # Cell
+def purge_dots(text, purgedots=False):
+    "If `purgedots`, `...`|`…` will be purged. Else replaced with `.`"
+    text = re.sub(r'\s(…)', ' ', text)
+    replacement = '' if purgedots else '.'
+    text = re.sub(r'…', replacement, text)
+    text = re.sub(r'\.{3}', replacement, text)
+    text = re.sub(r'\.{2}', '', text)   # pause .. removed
+    return text
+
+# Cell
 _abbreviations = [(re.compile(f'\\b{x[0]}', re.IGNORECASE), x[1]) for x in [
-    (r'т\.е\.', 'то есть'),
-    (r'т\.к\.', 'так как'),
-    (r'и т\.д\.', 'и так далее.'),
-    (r'и т\.п\.', 'и тому подобное.')
+  (r'т\.е\.', 'то есть'),
+  (r'т\.к\.', 'так как'),
+  (r'и т\.д\.', 'и так далее.'),
+  (r'и т\.п\.', 'и тому подобное.')
 ]]
 
 # Cell
@@ -86,12 +92,54 @@ def unify_dash_hyphen(text: str) -> str:
     text = re.sub('[\u2010\u2011]', '\u002d', text)  # hyphen, non-breaking hyphen
     text = re.sub('\s*?(\u2013)\s*?',' \g<1> ',text)
     return text
-
-# Cell
-def rm_quot_marks(text: str) -> str:
+    # text = lowercase(text)_marks(text: str) -> str:
     """Remove quotation marks from `text`."""
     # \u0022\u0027\u00ab\u00bb\u2018\u2019\u201a\u201b\u201c\u201d\u201e\u201f\u2039\u203a\u276e\u276f\u275b\u275c\u275d\u275e\u275f\u2760\u2e42\u301d\u301e\u301f
-    return re.sub('["\'«»‘’‚‛“”„‟‹›❮❯❛❜❝❞❟❠]','',text)
+    return re.sub(r'["\'«»‘’‚‛“”„‟‹›❮❯❛❜❝❞❟❠]','',text)
+
+# Cell
+def texts_equal(text1: str, text2: str, ignore_e: bool = True, verbose = False)\
+        -> Tuple[bool, str, str]:
+    """Check if `text1` equals `text2`. Optionally ignore diff between `е` and `ё`."""
+
+    is_equal = 1
+    text1, text2 = text1.strip(), text2.strip()
+    if len(text1) != len(text2):
+        if verbose: print("Not equal length")
+        return False, text1, text2
+
+    words1 = [_.text for _ in list(tokenize(text1))]
+    words2 = [_.text for _ in list(tokenize(text2))]
+    wc1, wc2 = len(words1), len(words2)
+    if wc1 != wc2:
+        if verbose: print(f"Not equal words count: {wc1} != {wc2}")
+        return False, text1, text2
+
+    text1, text2 = "", ""
+    # Per word comparison, assuming wc1 == wc2
+    for i in range(len(words1)):
+        letters1 = [char for char in words1[i]]
+        letters2 = [char for char in words2[i]]
+        if words1[i] != words2[i]:
+            is_equal -= 1
+            for j in range(min(len(letters1), len(letters2))):
+                if letters1[j] == letters2[j]:
+                    continue
+                else:
+                    if ignore_e and letters1[j] in ['е', 'ё'] and letters2[j] in ['е', 'ё']:
+                        if verbose: print('е != ё -- норм')
+                        is_equal += 1
+                    elif letters1[j] in ['-', ' '] and letters2[j] in ['-', ' ']:
+                        is_equal += 1
+                    else:
+                        letters1[j] = letters1[j].upper()
+                        letters2[j] = letters2[j].upper()
+                        is_equal -= 1
+        words1[i], words2[i] = ''.join(letters1), ''.join(letters2)
+        text1 = text1 + " " + words1[i]
+        text2 = text2 + " " +  words2[i]
+
+    return is_equal == 1, text1[1:], text2[1:]
 
 # Cell
 def basic_cleaner(text: str) -> str:
@@ -103,7 +151,7 @@ def basic_cleaner(text: str) -> str:
 # Cell
 def russian_cleaner(text, purge_digits=True, _purge_dots=False):
     "Pipeline for cleaning Russian text."
-    text = lowercase(text)
+    # text = lowercase(text)
     text = expand_abbreviations(text)
     text = remove_specials(text, purge_digits=purge_digits)
     text = purge_dots(text,purgedots=_purge_dots)
@@ -111,3 +159,9 @@ def russian_cleaner(text, purge_digits=True, _purge_dots=False):
     text = rm_quot_marks(text)
     text = collapse_whitespace(text)
     return text
+
+# Cell
+def russian_cleaner2(text, purge_digits=True, _purge_dots=False):
+    "Pipeline for cleaning and lowercase Russian text."
+
+    return russian_cleaner(lowercase(text), purge_digits, _purge_dots)
