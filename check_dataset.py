@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 """Dataset integrity check utility."""
 
 import sys
@@ -9,13 +9,14 @@ import json
 import subprocess
 import argparse
 from pathlib import Path
+from fastcore.foundation import L
 
 import sox
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
-from text2speech.data import * #label_func, get_txt_files, ReadTxt
-from text2speech.text_norm import * # russian_cleaner, texts_equal
-from fastcore.all import L
+from text2speech.data import label_func, get_txt_files, ReadTxt
+from text2speech.text_norm import russian_cleaner, texts_equal
+
 
 def main():
     """Check full or up to `number_items` of `dataset_path` or a single `input_file`
@@ -27,6 +28,8 @@ def main():
     parser.add_argument('-e', '--export-path', type=str, help="File to export NOK items to.")
     parser.add_argument('-f', '--folders', nargs='+', default=[], help="Only these folders.")
     parser.add_argument('-n', '--number-items', type=int, help="Number of items to parse only.")
+    parser.add_argument('-u', '--uri-vosk', type=str, default='ws://localhost:2700',
+                        help="URI to VOSK server.")
     parser.add_argument('-v', '--verbose', action='store_true', help="Report more info.")
 
     try:
@@ -34,18 +37,7 @@ def main():
     except Exception:
         parser.print_help()
         sys.exit(0)
-
-    SetLogLevel(-1)
-    model_path = Path("/home/condor/git/vosk-api/vosk-model-ru-0.10/")
-    if not model_path.exists():
-        url = "https://github.com/alphacep/vosk-api/blob/master/doc/models.md"
-        print(f"Please download the model from {url} and unpack as 'model' in the vosk-api folder.""")
-        sys.exit(1)
-
-    sample_rate = 48000
-    model = Model(str(model_path))
-    rec = KaldiRecognizer(model, sample_rate)
-
+        
     if args.input_file is not None:
         files = L(Path(args.input_file))
     elif args.dataset_path is not None:
@@ -55,6 +47,30 @@ def main():
         parser.print_help()
         sys.exit(0)
 
+    SetLogLevel(-1)
+    model_path = Path(args.uri_vosk)
+
+    if 'ws://' in args.uri_vosk:
+        print(f"Using Vosk Server at {args.uri_vosk}")
+        sample_rate = 8000
+    else:
+        if not (model_path/'am/final.mdl').exists():
+            url = "https://github.com/alphacep/vosk-api/blob/master/doc/models.md"
+            print(f"Please download the model from {url} and unpack as 'model' in the vosk-api folder.")
+            print("Or specify URI to Vosk Server.")
+            sys.exit(1)
+        print(f'Using Vosk Model at {args.uri_vosk}')
+        with open(model_path/'conf/mfcc.conf') as conf_file:
+            for line in conf_file:
+                if 'sample-frequency' in line:
+                    sample_rate = int(re.search(r'\d+', '--sample-frequency=8000')[0])
+                    break
+
+    print(f'Sample rate: {sample_rate}')
+
+    model = Model(str(model_path))
+    rec = KaldiRecognizer(model, sample_rate)
+
     if args.number_items is not None:
         files = files[:args.number_items]
     msg1 = f'Parsing {len(files)} files'
@@ -62,12 +78,11 @@ def main():
     print(msg1 + msg2)
 
     files = files.sorted()
-
     ok_count = 0
     nok_files = dict()
 
     transformer = sox.Transformer()
-    transformer.pad(start_duration=1)
+    transformer.pad(start_duration=1)  # To help Vosk at the start
 
     for f in files:
         af = str(label_func(f))
