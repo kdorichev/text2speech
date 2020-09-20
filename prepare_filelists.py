@@ -1,21 +1,17 @@
-#!/usr/bin/env python3
-"""This script copies audio files into target dir with proper names and creates 
-training and validation filelists.
+#!/usr/bin/python
+"""This script copies audio files into target dir with proper names and creates
+training and validation filelists for both Tacotron2 and FastPitch models.
 """
 
+import sys
 import argparse
 from pathlib import Path
-#from shutil import copy2
-
 from fastcore.all import L
-from text2speech.data import * #get_txt_files, create_filelist, create_mel_filelist
+from text2speech.data import get_txt_files, create_filelist, create_mel_filelist
 from fastai.data.transforms import RandomSplitter
 
 
 def main():
-    """Check full or up to `number_items` of `dataset_path` or a single `input_file`
-    using VOSK speech recognition and report inconsistencies with text file(s).
-    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-d', '--dataset-path', type=str, required=True, help="Path to dataset.")
     parser.add_argument('-e', '--export-path', type=str, default='./', 
@@ -27,7 +23,7 @@ def main():
     parser.add_argument('-v', '--verbose', action='store_true', help="Report more info.")
 
     try:
-        args = parser.parse_args()
+        args = parser.parse_args()    
     except Exception:
         parser.print_help()
         sys.exit(0)
@@ -36,7 +32,7 @@ def main():
     target_path.mkdir(exist_ok=True) 
     target_audios_path = target_path/'audio'
     target_audios_path.mkdir(exist_ok=True)
-    
+
     files = get_txt_files(args.dataset_path, folders=args.folders)
     if args.verbose: 
         print(f'Dataset length: {len(files)} files.')
@@ -46,12 +42,12 @@ def main():
 
     if args.verbose: 
         print(f'Training/Validation set length: {len(train_idxs)}/{len(val_idxs)} files.')
-    
+
     create_filelist(target_path/'train_filelist.txt', train_idxs, files)
     if args.verbose: print(f'Filelist created: {target_path/"train_filelist.txt"}')
     create_filelist(target_path/'valid_filelist.txt', val_idxs,   files)
     if args.verbose: print(f'Filelist created: {target_path/"valid_filelist.txt"}')
-    
+
     create_mel_filelist(target_path/'mel_dur_pitch_train_filelist.txt', train_idxs, files)
     if args.verbose: print(f'Filelist created: {target_path/"mel_dur_pitch_train_filelist.txt"}')
     create_mel_filelist(target_path/'mel_dur_pitch_valid_filelist.txt', val_idxs,   files)
