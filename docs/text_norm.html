@@ -688,10 +688,10 @@ description: "Functions used for TTS Dataset Preparation"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">purge_digits</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_purge_dots</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="s2">&quot;Pipeline for cleaning Russian text.&quot;</span>
-    <span class="c1"># text = lowercase(text)</span>
+
     <span class="n">text</span> <span class="o">=</span> <span class="n">expand_abbreviations</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">remove_specials</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">purge_digits</span><span class="o">=</span><span class="n">purge_digits</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">purge_dots</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">purgedots</span><span class="o">=</span><span class="n">_purge_dots</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">purge_dots</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">purgedots</span><span class="o">=</span><span class="n">_purge_dots</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">unify_dash_hyphen</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">rm_quot_marks</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">collapse_whitespace</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>

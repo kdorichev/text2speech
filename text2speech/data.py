@@ -15,7 +15,7 @@ sns.set()
 # Cell
 from fastcore.all import *
 from fastai.data.all import *
-from fastai2_audio.core.all import *
+from fastaudio.core.all import *
 
 # Cell
 from spacy.lang.ru import Russian
