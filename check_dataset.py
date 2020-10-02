@@ -20,7 +20,7 @@ from text2speech.text_norm import russian_cleaner, texts_equal
 
 def main():
     """Check full or up to `number_items` of `dataset_path` or a single `input_file`
-    using VOSK speech recognition and report inconsistencies with text file(s).
+    using VOSK speech recognition and report inconsistencies in text file(s).
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-d', '--dataset-path', type=str, help="Path to dataset.")
@@ -37,17 +37,18 @@ def main():
     except Exception:
         parser.print_help()
         sys.exit(0)
-        
+   
     if args.input_file is not None:
         files = L(Path(args.input_file))
     elif args.dataset_path is not None:
         files = get_txt_files(args.dataset_path, folders=args.folders)
-        assert len(files) > 0 #, f"Empty dataset? {args.dataset_path}"
+        assert len(files) > 0, f"Empty dataset? {args.dataset_path}"
     else:
         parser.print_help()
         sys.exit(0)
 
     SetLogLevel(-1)
+    print(args.uri_vosk)
     model_path = Path(args.uri_vosk)
 
     if 'ws://' in args.uri_vosk:
@@ -63,7 +64,7 @@ def main():
         with open(model_path/'conf/mfcc.conf') as conf_file:
             for line in conf_file:
                 if 'sample-frequency' in line:
-                    sample_rate = int(re.search(r'\d+', '--sample-frequency=8000')[0])
+                    sample_rate = int(re.search(r'\d+', line)[0])
                     break
 
     print(f'Sample rate: {sample_rate}')
