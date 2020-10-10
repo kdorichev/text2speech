@@ -16,7 +16,7 @@ entries:
       title: Data Processing
       url: data.html
     - output: web,pdf
-      title: VoskTranscribe
+      title: Title
       url: transcribe.html
     output: web
     title: text2speech
