@@ -11,13 +11,13 @@ entries:
       url: /
     - output: web,pdf
       title: Text Normalization
-      url: /text_norm
+      url: text_norm.html
     - output: web,pdf
       title: Data Processing
-      url: /data
+      url: data.html
     - output: web,pdf
       title: VoskTranscribe
-      url: /transcribe
+      url: transcribe.html
     output: web
     title: text2speech
   output: web

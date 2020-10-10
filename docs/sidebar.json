@@ -1,8 +1,8 @@
 {
   "text2speech": {
     "Overview": "/",
-    "Text Normalization": "/text_norm",
-    "Data Processing": "/data",
-    "VoskTranscribe": "/transcribe"
+    "Text Normalization": "text_norm.html",
+    "Data Processing": "data.html",
+    "VoskTranscribe": "transcribe.html"
   }
 }

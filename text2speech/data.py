@@ -9,10 +9,6 @@ from pathlib import Path
 from shutil import copy2
 
 # Cell
-import seaborn as sns
-sns.set()
-
-# Cell
 from fastcore.all import *
 from fastai.data.all import *
 from fastaudio.core.all import *
@@ -92,7 +88,7 @@ def label_func(fname):
 def ReadTxt(fn):
     "Read text from `fn`"
     fn = Path(fn) if isinstance(fn,str) else fn
-    return fn.read().strip()
+    return fn.read_text().strip()
 
 # Cell
 def word_in_files(word, files, show=False, play=False):

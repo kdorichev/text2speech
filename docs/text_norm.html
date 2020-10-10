@@ -2,11 +2,13 @@
 
 title: Text Normalization
 
+
 keywords: fastai
 sidebar: home_sidebar
 
 summary: "Functions used for TTS Dataset Preparation"
 description: "Functions used for TTS Dataset Preparation"
+nb_path: "nbs/01_text_norm.ipynb"
 ---
 <!--
 
@@ -51,13 +53,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -65,7 +60,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="collapse_whitespace" class="doc_header"><code>collapse_whitespace</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>collapse_whitespace</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Replace multiple various whitespaces with a single space, strip leading and trailing spaces.</p>
 
@@ -75,6 +70,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -108,13 +110,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -122,7 +117,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="lowercase" class="doc_header"><code>lowercase</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lowercase</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Convert <code>text</code> to lower case.</p>
 
@@ -132,6 +127,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -158,13 +160,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -172,7 +167,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="check_no_numbers" class="doc_header"><code>check_no_numbers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L24" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_numbers</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Return a list of digits, or empty list, if not found.</p>
 
@@ -182,6 +177,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -207,6 +209,23 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">_specials</span> <span class="o">=</span> <span class="p">[(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\(?\d\d[:.]\d\d\)?&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>  <span class="c1"># timestamps</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;!\.{1,}&#39;</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">),</span> <span class="c1"># !. -&gt; !</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\?\.{1,}&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">),</span><span class="c1"># ?. -&gt; ?</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\*\_]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\(\)]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -222,7 +241,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>:<code>str</code>, <strong><code>purge_digits</code></strong>:<code>bool</code>=<em><code>None</code></em>)</p>
+<h4 id="remove_specials" class="doc_header"><code>remove_specials</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>remove_specials</code>(<strong><code>text</code></strong>:<code>str</code>, <strong><code>purge_digits</code></strong>:<code>bool</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Replace predefined in <code>_specials</code> sequence of characters</p>
 
@@ -254,7 +273,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="purge_dots" class="doc_header"><code>purge_dots</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>purge_dots</code>(<strong><code>text</code></strong>, <strong><code>purgedots</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="purge_dots" class="doc_header"><code>purge_dots</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>purge_dots</code>(<strong><code>text</code></strong>, <strong><code>purgedots</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>If <code>purgedots</code>, <code>...</code>|<code>…</code> will be purged. Else replaced with <code>.</code></p>
 
@@ -264,6 +283,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -344,13 +370,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -358,7 +377,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="expand_abbreviations" class="doc_header"><code>expand_abbreviations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>expand_abbreviations</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p><code>expand_abbreviations()</code> defined in <code>_abbreviations</code></p>
 
@@ -368,6 +387,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -395,13 +421,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -409,7 +428,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="unify_dash_hyphen" class="doc_header"><code>unify_dash_hyphen</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unify_dash_hyphen</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="unify_dash_hyphen" class="doc_header"><code>unify_dash_hyphen</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L66" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unify_dash_hyphen</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Unify dash and hyphen symbols -- replace with emdash or hyphen, separate with space.</p>
 
@@ -419,6 +438,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -468,13 +494,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -482,7 +501,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="rm_quot_marks" class="doc_header"><code>rm_quot_marks</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L86" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rm_quot_marks</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="rm_quot_marks" class="doc_header"><code>rm_quot_marks</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rm_quot_marks</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Remove quotation marks from <code>text</code>.</p>
 
@@ -492,6 +511,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -523,13 +549,6 @@ description: "Functions used for TTS Dataset Preparation"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -537,7 +556,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="texts_equal" class="doc_header"><code>texts_equal</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>texts_equal</code>(<strong><code>text1</code></strong>:<code>str</code>, <strong><code>text2</code></strong>:<code>str</code>, <strong><code>ignore_e</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>verbose</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="texts_equal" class="doc_header"><code>texts_equal</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>texts_equal</code>(<strong><code>text1</code></strong>:<code>str</code>, <strong><code>text2</code></strong>:<code>str</code>, <strong><code>ignore_e</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>verbose</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Check if <code>text1</code> equals <code>text2</code>. Optionally ignore diff between <code>е</code> and <code>ё</code>.</p>
 
@@ -547,6 +566,13 @@ description: "Functions used for TTS Dataset Preparation"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -638,31 +664,6 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="basic_cleaner" class="doc_header"><code>basic_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>basic_cleaner</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
-</blockquote>
-<p>Basic pipeline: lowercase and collapse whitespaces.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -708,31 +709,6 @@ description: "Functions used for TTS Dataset Preparation"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="russian_cleaner" class="doc_header"><code>russian_cleaner</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L143" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner</code>(<strong><code>text</code></strong>, <strong><code>purge_digits</code></strong>=<em><code>True</code></em>, <strong><code>_purge_dots</code></strong>=<em><code>False</code></em>)</p>
-</blockquote>
-<p>Pipeline for cleaning Russian text.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -744,31 +720,6 @@ description: "Functions used for TTS Dataset Preparation"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="russian_cleaner2" class="doc_header"><code>russian_cleaner2</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/text_norm.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>russian_cleaner2</code>(<strong><code>text</code></strong>, <strong><code>purge_digits</code></strong>=<em><code>True</code></em>, <strong><code>_purge_dots</code></strong>=<em><code>False</code></em>)</p>
-</blockquote>
-<p>Pipeline for cleaning and lowercase Russian text.</p>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -858,7 +809,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;\ufeff\n\n\n\n\n\n\n\nВсе думают, что знают историю Америки, но когда заходит речь о морских приключениях, мы пересказываем сказки. Взять хотя бы морских чудовищ – пиратов. Вы знали, что они сражались совсем не так, как нам показывают в кино? И что Чёрная Борода боялся, как бы враги не раскрыли его секрет? И что за фокусы с исчезновением показывает Бермудский треугольник? (00:25) Инопланетяне не угоняли звено «девятнадцать», виновник жил у нас дома. Суши вёсла, парень, я – Джейми Кэйлер. Пора порубить мифы на мелкие кусочки… и выкопать сундук… с правдой. \n\n\nАМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ\n\n\nЗолотой век пиратства пришёлся на период с тысяча шестьсот  девяностого по тысяча семьсот тридцатый год. Но большинство пиратов быстро отходили от дел. Эдвард Тич.. знаменитый Чёрная Борода.. наводил страх на моря меньше двух лет. Как и многие пираты, он получил раннюю пенсию.. вместе с ударом абордажной сабли. Короткая карьера, зато наследие на века. Но всё, что мы знаем, омыто океаном фантазии. Аж поджилки трясутся.\n\n\nРеальность пиратства далеко не романтична.\n\n\nКевин Макдоналд, Университет Лойолы\n\n\nДалеко не Голливуд.\n\n\nМиф складывался постепенно.\n\n\nРоберт Ричи, писатель\n\n\nВот что мы уже знаем про пиратов и пиратство, детки. / Волны Карибского моря и Атлантики не знают закона из-за орды варваров в маскарадных костюмах. \n\n\nПовязка на одном глазу, деревянная нога, попугай на плече, вооружены до зубов.\n\n\nПод командованием капитанов-самодуров корабли под флагом с черепом и костями.. обрушивают шквал ядер на торговые суда, вырезают команды и заставляют оставшихся в живых пройти по доске. / 02:30 Захватив золото, серебро, драгоценности и дублоны, пираты прятали добычу в тайном месте и перепрятывали с помощью карты-головоломки. Верно?\n\n\nДОМЫСЕЛ \n\n\nВ этой лихой истории спрятан целый сундук заблуждений, начиная с образа безбашенного капитана, которому все подчиняются. На самом деле власть опасного Чёрного Бороды была жёстко ограничена демократическими правилами пиратов.\n\n\nОни голосовали по каждому поводу.\n\n\nКристин Маркель Лампе, писатель\n\n\nОни могли изгнать капитана. Но только не во время битвы.\n\n\nПалубная демократия ничуть не похожа на диктатуру и унижения в европейском флоте. Враги пиратов, капитаны военных кораблей – вот настоящие тираны морей. \n\n\nОни считали матросов.. тупицами и.. отбросами…\n\n\nГейл Селинджер, писатель\n\n\nДержать их в узде можно только с помощью лишений.. и наказаний. А пираты, почти все, были.. матросами, и когда они уходили к пиратам, их экипажи не желали давать одному человеку столько власти. \n\n\nТолько во время боя власть капитана была абсолютной. И он может наводить ужас сколько пожелает. Перед каждым боем Чёрная борода… украшал волосы… медленно тлеющими запалами: казалось, что у него голова горит. \n\n\nПредставьте: стоите вы на палубе, и на вас надвигается огромный мужик с бородой, и вокруг его головы вьётся дым. ..Какой вы ни крутой, а всё равно закричите «помоги господи».\n\n\nА как же другие пиратские примочки? Крюки, повязки на глаза, костыли?\n\n\nА вот это всё правда.\n\n\nПираты – любимые клиенты изготовителей протезов, потому что в море легко получить увечье. Это боевые раны и травмы из-за плохо закреплённого груза. / 04:51 А ещё могут упасть снасти. / Но, несмотря на нехватку частей тела, пираты всё равно набивали сундуки дублонами. Верно?\n\n\nДОМЫСЕЛ \n\n\nБогатая добыча – большая редкость. Обычно пиратам доставались… карты, оружие, паруса, ром, мыло, свечи или одежда. \n\n\nОни не накопили… богатств. Тем более сокровищ. Они ухитрялись жить на огрызках… выживать.\n\n\nПиратам нужны люди. Поэтому в любой добыче, которую брали на кораблях, важны мужчины. Они выполняли различные задачи на корабле.\n\n\nА как же знаменитые набеги, когда в их крюки попадало бесценное сокровище? Его закапывали и составляли карту? \n\n\nДОМЫСЕЛ\n\n\nЧто за вздор, парень. Пираты… ничего не запасали на чёрный день. \n\n\nПираты спускали добычу быстро, как только заходили в порт: пьянство, азартные игры, женщины. Деньги тратились при первой возможности.\n\n\nПираты не держались за свои сокровища, потому что не рассчитывали прожить долго. \n\n\nТогда почему мы принимаем фантазии о закопанных сокровищах и картах за факты? Скажем спасибо шотландскому писателю Роберту Льюису Стивенсону и залихватским приключениям, которые он описал в тысяча восемьсот восемьдесят третьем году. \n\n\nПочти всё, что мы знаем и представляем себе о пиратах, взято из «Острова сокровищ» Стивенсона. Он придумал, что пираты закапывали сокровища.\n\n\nА ещё он придумал тайные карты, на которых нужное место отмечено крестом.\n\n\nОн нарисовал карту ещё до того, как написал роман, так что вся книжка была написала вокруг маленького крестика на карте. \n\n\nОн же придумал «пятнадцать человек на сундук мертвеца – йо-хо-хо и бутылка рома».\n\n\nДиснеевский фильм пятидесятого года добавил ещё один миф. Джона Сильвера играл Роберт Ньютон, и он придумал характерный говорок, рычание. \n\n\nПираты не рычали, Роберт Ньютон придумал это для образа, и раскатистое «Эр» стало признаком пирата.\n\n\nЖенщины-пираты встречались нечасто, но кое-кто нацепил абордажную саблю и запугивал океаны вместе с мужчинами. Лучше всех известна Энн Бонни. Она была женой капитана..и обвинила его в том, что они попались. Все мужчины на корабле напились.. и не могли сражаться. Так родилось величайшее пиратское оскорбление: сражался бы как мужчина – не висел бы, как собака. / 07:54 Другие факты в литературе тоже вызывают вопросы. Возьмём флаг с черепом и костями. Он действительно развевался на каждом пиратском корабле, да?\n\n\nДОМЫСЕЛ \n\n\nЖуткая эмблема – настоящая. Но на самом деле у пиратов флагов было не меньше, чем в ООН. Череп с костями – лишь один из них. Пираты часто обманывали жертв, поднимая флаг дружественной страны. Многие капитаны делали личные флаги с мерзкими рисунками, чтобы запугивать жертв. \n\n\nИх было не меньше, чем банд сегодня, это личный знак. По нему узнавали, какой именно пират на корабле.\n\n\nЧто бы ни было на флаге, суть одна: вы все умрёте, если будете сопротивляться. Так что… Не пытайтесь.\n\n\nНо легенды гласят, что военные и торговые суда вооружены и опасны. ..А обычное нападение пиратов – это всегда кровавое сражение, верно?\n\n\nДОМЫСЕЛ\n\n\nУвы. Только в Голливуде.\n\n\nВ истории известно несколько пиратских сражений. Но чаще всего пираты грабили корабли мирно, а не заставляли подчиниться силой. \n\n\nЧтобы торговый корабль сдался, нужно вооружиться до зубов, набрать головорезов и показать капитана с жуткой репутацией.\n\n\nНеизвестный пират – вообще не пират. Поэтому Чёрная Борода окружал своё имя ужасом, подобрал костюм и образ. Если вы слышали имя Чёрного Бороды, если видели, как приближается его корабль, вы скорее всего сдадитесь сами. Спасибо репутации. \n\n\nВот он, главный секрет Чёрной Бороды. Мы считаем его символом… пиратской жестокости и кровавых убийств, но его сабля была удивительно чиста.\n\n\nДо последней битвы.. нет доказательств, что он кого-то убивал.\n\n\nЕсть и другая причина, почему сражения с пиратами были редки.\n\n\nУ моряков на торговом судне нет причин воевать. Корабль не твой, груз не твой. Зачем за них умирать?\n\n\nНо кое-кто не желает унижаться. Перчатки в сторону, два готовых к бою корабля начинают обстреливать друг друга ядрами. \n\n\nДОМЫСЕЛ \n\n\nПрости, Эррол Флинн. Это всё целлулоид.\n\n\nНе вставали корабли друг напротив друга и не перебрасывались ядрами. Подумайте сами: пушечное ядро пробивает корпус, он же деревянный, судно потонет.\n\n\nВ таком случае вместе с кораблём потонет и добыча, которая нужна пиратам. Считанные сражения, записанные в источниках, – это мелкие перестрелки из мушкетов, ручная схватка на абордажных саблях. А когда дым развеется и пираты победят? Тогда побеждённые слабаки пойдут по доске. Ага, угадали.\n\n\nПроход по доске – один из самых знаменитых мифов о пиратах. На самом деле – ложь. \n\n\nСомневаюсь, что пираты озаботились бы какой-то доской для пленных капитанов. Много чести. Их просто.. бросали за борт.\n\n\nА как же мрачный конец рок-звезды пиратства, Чёрной Бороды? / В тысяча семьсот восемнадцатом году.. его выследил… частный корабль, нанятый губернатором Виргинии. Это бой… в полном соответствии с легендами. Всё правда: чем страшнее пират.. тем труднее его погубить. \n\n\nПосчитали: на нём было двадцать пять колотых ран. / И пять огнестрельных, и только потом его убили ударом сабли сзади, в шею.\n\n\nЭти же воды, что бороздил Чёрная Борода, в другое время прославится катастрофами и исчезновениями, которые многие не могут объяснить. Давайте изучим географию таинственного треугольника и отделим… факты от домыслов.\n\n\nАМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ  //  14.01  АМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ\n\n\nБермудский треугольник не обозначен ни на одной карте, но занимает постоянное место в людском воображении. Это пространство южнее Флориды, где пропало больше сотни судов и самолётов.. и больше тысячи человек. / Говорят, они стали жертвами не то инопланетян, не то провалов, не то высоких технологий времён Атлантиды. Это правда… или вымысел, живущий… только потому, что факты.. тоже исчезли?\n\n\nБермудский треугольник – классический американский миф.\n\n\nБенджамен Редфорд, писатель\n\n\nРок у наших берегов.\n\n\nОреол тайны.\n\n\nДжо Никел, писатель\n\n\nНо эта тайна рукотворна.\n\n\nОт легенды о Бермудском треугольнике… мурашки бегут по коже. Мистическое кладбище кораблей и самолётов площадью более миллиона квадратных километров, вершины треугольника – Бермуды, Майами и Пуэрто-Рико. Он поглотил больше судов и самолётов, чем любой другой регион Земли. Ни одно исчезновение нельзя разумно объяснить. Просто мрак. И ведь правда…\n\n\nДОМЫСЕЛ \n\n\nВместе с водой выплеснули факты. Начиная с того, что количество исчезновений здесь.. самое большое на планете.\n\n\nОбъекты пропадают здесь не чаще, даже не таинственней, чем в других регионах планеты.\n\n\nУзнайте у страховых компаний. Страховка для кораблей и самолётов, путешествующих здесь, стоит не больше любой другой. А как же загадка этих исчезновений? Их можно объяснить только паранормальными явлениями. Так?\n\n\nДОМЫСЕЛ \n\n\nНет. Любое исчезновение можно объяснить рационально. \n\n\nДавайте спросим специалистов-мореходов. Или военных экспертов – у них нет вопросов. Они понимают, что есть факторы – человеческий.. ошибка оборудования и так далее. Когда человек в море один, очень легко попасть в беду. \n\n\nДобавим к этому, что у погоды в треугольнике дурная слава: она меняется очень быстро. Но это не объясняет, почему никогда… не остаётся обломков крушения самолётов и кораблей. Несомненно, их забрали сверхъестественные существа. Или?..\n\n\nДОМЫСЕЛ \n\n\nБермудский треугольник – идеальное место для уничтожения улик. Почти везде его глубина – шесть километров. А в менее глубоких местах всё уносит Гольфстрим – мощное течение, скорость которого – сто километров в час. \n\n\nТечения могут унести любой предмет куда угодно. Сегодня вещь здесь, а через неделю – в сотнях километров. Не удивительно, что ничего не могут найти. \n\n\nИсчезновения в Бермудском треугольнике.. можно объяснить без каких-то разрывов времени, / инопланетян… / Тогда откуда такая репутация?\n\n\nЭто журналистский миф. Легенда.. создана ошибками.. и заблуждениями, репортёрами и писателями.\n\n\nРождение мифа о треугольнике восходит к шестидесятым и семидесятым годам двадцатого века, когда дешёвые журналы и книги собирают одни факты и отбрасывают другие. Сплетают сенсации и продают выдумку. Дальше фантазии плодятся. Пресса охотно их повторяет и создаёт один из самых устойчивых мифов популярной культуры. Цепь искажений приводит к рождению базовой легенды треугольника – звено «девятнадцать». В сорок пятом году пять бомбардировщиков отправились в плановый учебный полёт. Их ведущий, лейтенант Чарльз Тейлор, передал по радио загадочный крик о помощи.\n\n\nОн сказал нечто в духе «океан какой-то странный; не пойму, где Запад, я не знаю, где я».\n\n\nА потом.. внезапно.. пять бомбардировщиков… исчезли. ..Что хуже.. посланный на их поиски шестой самолёт… тоже.. исчез без следа. \n\n\nКогда Стивен Спилберг снимал «Близкие контакты третьей степени», он искал яркое начало. В его фильме учёные во время песчаной бури сделали в пустыне Мохаве шокирующее открытие. Это пять самолётов звена «девятнадцать», давно пропавшие в Бермудском треугольнике. Оказывается, бомбардировщики были похищены инопланетянами и в конце фильма возвращены на Землю. / 19:18 Как-то так. Отличный фильм. Но настоящая история звена «девятнадцать»… / совсем другое кино. / 19:29 Леденящая кровь деталь – последнее сообщение лейтенанта Чарльза Тейлора, сказавшего, цитирую: «океан какой-то странный». Он совершенно дизориентирован. \n\n\nМы слышим голос исчезающего человека. Дух захватывает. По этой причине накрутили столько тайн. \n\n\nТейлор описывает паранормальное явление, сбившее с пути целую эскадрилью, так?\n\n\nДОМЫСЕЛ \n\n\nНет. / Нет ничего необъяснимого в истории звена «девятнадцать». Это трагическая, роковая ошибка пилотирования. \n\n\nНа самом деле Тейлор и всё звено погибли потому, что он заблудился. Не знал, куда залетел. И все пропали вместе с ним. Потому что командует он. \n\n\nПропажу самолётов расследовали и написали пятисот-страничный отчёт. / Когда самолёты отправились в учебный полёт, небо было ясное. / 20:32 Но потом начался шторм. Видимость падает, Тейлор окончательно теряется. Он находится именно там, где должен быть по плану, над Багамскими островами. Но у него сломаны два компаса, и он считает, что под ним – Флорида Кис в Мексиканском заливе. Он ведёт самолёты на восток, рассчитывая попасть на западный берег Флориды. Но уводит пилотов-учеников дальше в открытый океан. \n\n\nУжасно, что минимум один из них, если не два, понимали, где они, понимали, что им нужно повернуть на запад как можно скорее. И сказали об этом. Почему все летели на восток? Потому что командовал Тейлор. А он / ничего не понимал.\n\n\nЧто имел в виду Тейлор, когда говорил про океан? Здесь тоже есть проблема. \n\n\nТейлор этого не говорил. Такой цитаты нет в отчёте.\n\n\nВот так-то: знаменитую цитату выдумал один писатель-фантазёр, чтобы создать сенсационную историю. Остальные за ним повторяли. \n\n\nНо даже если бы Тейлор это сказал, это было бы нормально, он же не понимал, где он. Это значит: я не узнаю местность, над которой лечу. Так и было. Это мы знаем точно.\n\n\nТрагическая правда заключается в том, что у самолётов закончилось топливо. / 22:13 Они упали где-то в Атлантике. Пять бомбардировщиков утонули.. и пилоты вместе с ними. ..Но это не объясняет пропажу шестого самолёта… с тринадцатью поисковиками и спасателями. Вот это – необъяснимо. \n\n\nДОМЫСЕЛ \n\n\nПричина понятна. На поиски отправили самолёт «Мартин Маринер», «летающий топливный бак»: он может оставаться в воздухе двадцать четыре часа. Известно, что топливо часто протекало, самолёты загорались. Военные решили, что самолёт взорвался.\n\n\nЭто не просто версия: проходивший корабль записал… взрыв… этого самолёта. \n\n\nВзрыв в небе там, где должен быть самолёт-спасатель, видели с парохода «Гейнз Миллз».  Что это?\n\n\nКак и все таинственные исчезновения в Бермудском треугольнике, самое известное из них тонет под грузом фактов. И всё же… мифы вроде Треугольника напоминают нам, что мы часто выбираем фантазии, потому что любим тайны. Но давайте не забывать. Мы должны сделать так, чтобы правда… не пропала.\n\n\nПрограмма озвучена на\xa0студии\xa0«Кириллица». Текст читал Алексей Войтюк.\n\n\n\n\n1\n\n\n&#39;</pre>
+<pre>&#39;\ufeff\n\n\n\n\n\n\n\nВсе думают, что знают историю Америки, но когда заходит речь о морских приключениях, мы пересказываем сказки. Взять хотя бы морских чудовищ – пиратов. Вы знали, что они сражались совсем не так, как нам показывают в кино? И что Чёрная Борода боялся, как бы враги не раскрыли его секрет? И что за фокусы с исчезновением показывает Бермудский треугольник? (00:25) Инопланетяне не угоняли звено «девятнадцать», виновник жил у нас дома. Суши вёсла, парень, я – Джейми Кэйлер. Пора порубить мифы на мелкие кусочки… и выкопать сундук… с правдой. \n\n\nАМЕРИКА:  ФАКТЫ  И  ДОМЫСЛЫ\n\n\nЗолотой век пиратства пришёлся на период с тысяча шестьсот  девяностого по тысяча семьсот тридцатый год. Но большинство пиратов быстро отходили от дел. Эдвард Тич.. знаменитый Чёрная Борода.. наводил страх на моря меньше двух лет. Как и многие пираты, он получил раннюю пенсию.. вместе с ударом абордажной сабли. Короткая карьера, зато наследие на века. Но всё, что мы знаем, омыто океаном фантазии. Аж поджилки трясутся.\n\n\nРеальность пиратства далеко не романтична.\n\n\nКевин Макдоналд, Университет Лойолы\n\n\nДалеко не Голливуд.\n\n\nМиф складывался постепенно.\n\n\nРоберт Ричи, писатель\n\n\nВот что мы уже знаем про пиратов и пиратство, детки. / Волны Карибского моря и Атлантики не знают закона из-за орды варваров в маскарадных костюмах. \n\n\nПовязка на одном глазу, деревянная нога, попугай на плече, вооружены до зубов.\n\n\nПод командованием капитанов-самодуров корабли под флагом с черепом и костями.. обрушивают шквал ядер на торговые суда, вырезают команды и заставляют оставшихся в живых пройти по доске. / 02:30 Захватив золото, серебро, драгоценности и дублоны, пираты прятали добычу в тайном месте и перепрятывали с помощью карты-головоломки. Верно?\n\n\nДОМЫСЕЛ \n\n\nВ этой лихой истории спрятан целый сундук заблуждений, начиная с образа безбашенного капитана, которому все подчиняются. На самом деле власть опасного Чёрного Бороды была жёстко ограничена демократическими правилами пиратов.\n\n\nОни голосовали по каждому поводу.\n\n\nКристин Маркель Лампе, писатель\n\n\nОни могли изгнать капитана. Но только не во время битвы.\n\n\nПалубная демократия ничуть не похожа на диктатуру и унижения в европейском флоте. Враги пиратов, капитаны военных кораблей – вот настоящие тираны морей. \n\n\nОни считали матросов.. тупицами и.. отбросами…\n\n\nГейл Селинджер, писатель\n\n\nДержать их в узде можно только с помощью лишений.. и наказаний. А пираты, почти все, были.. матросами, и когда они уходили к пиратам, их экипажи не желали давать одному человеку столько власти. \n\n\nТолько во время боя власть капитана была абсолютной. И он может наводить ужас сколько пожелает. Перед каждым боем Чёрная борода… украшал волосы… медленно тлеющими запалами: казалось, что у него голова горит. \n\n\nПредставьте: стоите вы на палубе, и на вас надвигается огромный мужик с бородой, и вокруг его головы вьётся дым. ..Какой вы ни крутой, а всё равно закричите «помоги господи».\n\n\nА как же другие пиратские примочки? Крюки, повязки на глаза, костыли?\n\n\nА вот это всё правда.\n\n\nПираты – любимые клиенты изготовителей протезов, потому что в море легко получить увечье. Это боевые раны и травмы из-за плохо закреплённого груза. / 04:51 А ещё могут упасть снасти. / Но, несмотря на нехватку частей тела, пираты всё равно набивали сундуки дублонами. Верно?\n\n\nДОМЫСЕЛ \n\n\nБогатая добыча – большая редкость. Обычно пиратам доставались… карты, оружие, паруса, ром, мыло, свечи или одежда. \n\n\nОни не накопили… богатств. Тем более сокровищ. Они ухитрялись жить на огрызках… выживать.\n\n\nПиратам нужны люди. Поэтому в любой добыче, которую брали на кораблях, важны мужчины. Они выполняли различные задачи на корабле.\n\n\nА как же знаменитые набеги, когда в их крюки попадало бесценное сокровище? Его закапывали и составляли карту? \n\n\nДОМЫСЕЛ\n\n\nЧто за вздор, парень. Пираты… ничего не запасали на чёрный день. \n\n\nПираты спускали добычу быстро, как только заходили в порт: пьянство, азартные игры, женщины. Деньги тратились при первой возможности.\n\n\nПираты не держались за свои сокровища, потому что не рассчитывали прожить долго. \n\n\nТогда почему мы принимаем фантазии о закопанных сокровищах и картах за факты? Скажем спасибо шотландскому писателю Роберту Льюису Стивенсону и залихватским приключениям, которые он описал в тысяча восемьсот восемьдесят третьем году. \n\n\nПочти всё, что мы знаем и представляем себе о пиратах, взято из «Острова сокровищ» Стивенсона. Он придумал, что пираты закапывали сокровища.\n\n\nА ещё он придумал тайные карты, на которых нужное место отмечено крестом.\n\n\nОн нарисовал карту ещё до того, как написал роман, так что вся книжка была написала вокруг маленького крестика на карте. \n\n\nОн же придумал «пятнадцать человек на сундук мертвеца – йо-хо-хо и бутылка рома».\n\n\n\n1\n\n\n&#39;</pre>
 </div>
 
 </div>
@@ -892,7 +843,7 @@ description: "Functions used for TTS Dataset Preparation"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;Все думают, что знают историю Америки, но когда заходит речь о морских приключениях, мы пересказываем сказки. Взять хотя бы морских чудовищ – пиратов. Вы знали, что они сражались совсем не так, как нам показывают в кино? И что Чёрная Борода боялся, как бы враги не раскрыли его секрет? И что за фокусы с исчезновением показывает Бермудский треугольник? Инопланетяне не угоняли звено девятнадцать, виновник жил у нас дома. Суши вёсла, парень, я – Джейми Кэйлер. Пора порубить мифы на мелкие кусочки. и выкопать сундук. с правдой. АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ Золотой век пиратства пришёлся на период с тысяча шестьсот девяностого по тысяча семьсот тридцатый год. Но большинство пиратов быстро отходили от дел. Эдвард Тич знаменитый Чёрная Борода наводил страх на моря меньше двух лет. Как и многие пираты, он получил раннюю пенсию вместе с ударом абордажной сабли. Короткая карьера, зато наследие на века. Но всё, что мы знаем, омыто океаном фантазии. Аж поджилки трясутся. Реальность пиратства далеко не романтична. Кевин Макдоналд, Университет Лойолы Далеко не Голливуд. Миф складывался постепенно. Роберт Ричи, писатель Вот что мы уже знаем про пиратов и пиратство, детки. Волны Карибского моря и Атлантики не знают закона из-за орды варваров в маскарадных костюмах. Повязка на одном глазу, деревянная нога, попугай на плече, вооружены до зубов. Под командованием капитанов-самодуров корабли под флагом с черепом и костями обрушивают шквал ядер на торговые суда, вырезают команды и заставляют оставшихся в живых пройти по доске. Захватив золото, серебро, драгоценности и дублоны, пираты прятали добычу в тайном месте и перепрятывали с помощью карты-головоломки. Верно? ДОМЫСЕЛ В этой лихой истории спрятан целый сундук заблуждений, начиная с образа безбашенного капитана, которому все подчиняются. На самом деле власть опасного Чёрного Бороды была жёстко ограничена демократическими правилами пиратов. Они голосовали по каждому поводу. Кристин Маркель Лампе, писатель Они могли изгнать капитана. Но только не во время битвы. Палубная демократия ничуть не похожа на диктатуру и унижения в европейском флоте. Враги пиратов, капитаны военных кораблей – вот настоящие тираны морей. Они считали матросов тупицами и отбросами. Гейл Селинджер, писатель Держать их в узде можно только с помощью лишений и наказаний. А пираты, почти все, были матросами, и когда они уходили к пиратам, их экипажи не желали давать одному человеку столько власти. Только во время боя власть капитана была абсолютной. И он может наводить ужас сколько пожелает. Перед каждым боем Чёрная борода. украшал волосы. медленно тлеющими запалами: казалось, что у него голова горит. Представьте: стоите вы на палубе, и на вас надвигается огромный мужик с бородой, и вокруг его головы вьётся дым. Какой вы ни крутой, а всё равно закричите помоги господи. А как же другие пиратские примочки? Крюки, повязки на глаза, костыли? А вот это всё правда. Пираты – любимые клиенты изготовителей протезов, потому что в море легко получить увечье. Это боевые раны и травмы из-за плохо закреплённого груза. А ещё могут упасть снасти. Но, несмотря на нехватку частей тела, пираты всё равно набивали сундуки дублонами. Верно? ДОМЫСЕЛ Богатая добыча – большая редкость. Обычно пиратам доставались. карты, оружие, паруса, ром, мыло, свечи или одежда. Они не накопили. богатств. Тем более сокровищ. Они ухитрялись жить на огрызках. выживать. Пиратам нужны люди. Поэтому в любой добыче, которую брали на кораблях, важны мужчины. Они выполняли различные задачи на корабле. А как же знаменитые набеги, когда в их крюки попадало бесценное сокровище? Его закапывали и составляли карту? ДОМЫСЕЛ Что за вздор, парень. Пираты. ничего не запасали на чёрный день. Пираты спускали добычу быстро, как только заходили в порт: пьянство, азартные игры, женщины. Деньги тратились при первой возможности. Пираты не держались за свои сокровища, потому что не рассчитывали прожить долго. Тогда почему мы принимаем фантазии о закопанных сокровищах и картах за факты? Скажем спасибо шотландскому писателю Роберту Льюису Стивенсону и залихватским приключениям, которые он описал в тысяча восемьсот восемьдесят третьем году. Почти всё, что мы знаем и представляем себе о пиратах, взято из Острова сокровищ Стивенсона. Он придумал, что пираты закапывали сокровища. А ещё он придумал тайные карты, на которых нужное место отмечено крестом. Он нарисовал карту ещё до того, как написал роман, так что вся книжка была написала вокруг маленького крестика на карте. Он же придумал пятнадцать человек на сундук мертвеца – йо-хо-хо и бутылка рома. Диснеевский фильм пятидесятого года добавил ещё один миф. Джона Сильвера играл Роберт Ньютон, и он придумал характерный говорок, рычание. Пираты не рычали, Роберт Ньютон придумал это для образа, и раскатистое Эр стало признаком пирата. Женщины-пираты встречались нечасто, но кое-кто нацепил абордажную саблю и запугивал океаны вместе с мужчинами. Лучше всех известна Энн Бонни. Она была женой капитанаи обвинила его в том, что они попались. Все мужчины на корабле напились и не могли сражаться. Так родилось величайшее пиратское оскорбление: сражался бы как мужчина – не висел бы, как собака. Другие факты в литературе тоже вызывают вопросы. Возьмём флаг с черепом и костями. Он действительно развевался на каждом пиратском корабле, да? ДОМЫСЕЛ Жуткая эмблема – настоящая. Но на самом деле у пиратов флагов было не меньше, чем в ООН. Череп с костями – лишь один из них. Пираты часто обманывали жертв, поднимая флаг дружественной страны. Многие капитаны делали личные флаги с мерзкими рисунками, чтобы запугивать жертв. Их было не меньше, чем банд сегодня, это личный знак. По нему узнавали, какой именно пират на корабле. Что бы ни было на флаге, суть одна: вы все умрёте, если будете сопротивляться. Так что. Не пытайтесь. Но легенды гласят, что военные и торговые суда вооружены и опасны. А обычное нападение пиратов – это всегда кровавое сражение, верно? ДОМЫСЕЛ Увы. Только в Голливуде. В истории известно несколько пиратских сражений. Но чаще всего пираты грабили корабли мирно, а не заставляли подчиниться силой. Чтобы торговый корабль сдался, нужно вооружиться до зубов, набрать головорезов и показать капитана с жуткой репутацией. Неизвестный пират – вообще не пират. Поэтому Чёрная Борода окружал своё имя ужасом, подобрал костюм и образ. Если вы слышали имя Чёрного Бороды, если видели, как приближается его корабль, вы скорее всего сдадитесь сами. Спасибо репутации. Вот он, главный секрет Чёрной Бороды. Мы считаем его символом. пиратской жестокости и кровавых убийств, но его сабля была удивительно чиста. До последней битвы нет доказательств, что он кого-то убивал. Есть и другая причина, почему сражения с пиратами были редки. У моряков на торговом судне нет причин воевать. Корабль не твой, груз не твой. Зачем за них умирать? Но кое-кто не желает унижаться. Перчатки в сторону, два готовых к бою корабля начинают обстреливать друг друга ядрами. ДОМЫСЕЛ Прости, Эррол Флинн. Это всё целлулоид. Не вставали корабли друг напротив друга и не перебрасывались ядрами. Подумайте сами: пушечное ядро пробивает корпус, он же деревянный, судно потонет. В таком случае вместе с кораблём потонет и добыча, которая нужна пиратам. Считанные сражения, записанные в источниках, – это мелкие перестрелки из мушкетов, ручная схватка на абордажных саблях. А когда дым развеется и пираты победят? Тогда побеждённые слабаки пойдут по доске. Ага, угадали. Проход по доске – один из самых знаменитых мифов о пиратах. На самом деле – ложь. Сомневаюсь, что пираты озаботились бы какой-то доской для пленных капитанов. Много чести. Их просто бросали за борт. А как же мрачный конец рок-звезды пиратства, Чёрной Бороды? В тысяча семьсот восемнадцатом году его выследил. частный корабль, нанятый губернатором Виргинии. Это бой. в полном соответствии с легендами. Всё правда: чем страшнее пират тем труднее его погубить. Посчитали: на нём было двадцать пять колотых ран. И пять огнестрельных, и только потом его убили ударом сабли сзади, в шею. Эти же воды, что бороздил Чёрная Борода, в другое время прославится катастрофами и исчезновениями, которые многие не могут объяснить. Давайте изучим географию таинственного треугольника и отделим. факты от домыслов. АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ Бермудский треугольник не обозначен ни на одной карте, но занимает постоянное место в людском воображении. Это пространство южнее Флориды, где пропало больше сотни судов и самолётов и больше тысячи человек. Говорят, они стали жертвами не то инопланетян, не то провалов, не то высоких технологий времён Атлантиды. Это правда. или вымысел, живущий. только потому, что факты тоже исчезли? Бермудский треугольник – классический американский миф. Бенджамен Редфорд, писатель Рок у наших берегов. Ореол тайны. Джо Никел, писатель Но эта тайна рукотворна. От легенды о Бермудском треугольнике. мурашки бегут по коже. Мистическое кладбище кораблей и самолётов площадью более миллиона квадратных километров, вершины треугольника – Бермуды, Майами и Пуэрто-Рико. Он поглотил больше судов и самолётов, чем любой другой регион Земли. Ни одно исчезновение нельзя разумно объяснить. Просто мрак. И ведь правда. ДОМЫСЕЛ Вместе с водой выплеснули факты. Начиная с того, что количество исчезновений здесь самое большое на планете. Объекты пропадают здесь не чаще, даже не таинственней, чем в других регионах планеты. Узнайте у страховых компаний. Страховка для кораблей и самолётов, путешествующих здесь, стоит не больше любой другой. А как же загадка этих исчезновений? Их можно объяснить только паранормальными явлениями. Так? ДОМЫСЕЛ Нет. Любое исчезновение можно объяснить рационально. Давайте спросим специалистов-мореходов. Или военных экспертов – у них нет вопросов. Они понимают, что есть факторы – человеческий ошибка оборудования и так далее. Когда человек в море один, очень легко попасть в беду. Добавим к этому, что у погоды в треугольнике дурная слава: она меняется очень быстро. Но это не объясняет, почему никогда. не остаётся обломков крушения самолётов и кораблей. Несомненно, их забрали сверхъестественные существа. Или? ДОМЫСЕЛ Бермудский треугольник – идеальное место для уничтожения улик. Почти везде его глубина – шесть километров. А в менее глубоких местах всё уносит Гольфстрим – мощное течение, скорость которого – сто километров в час. Течения могут унести любой предмет куда угодно. Сегодня вещь здесь, а через неделю – в сотнях километров. Не удивительно, что ничего не могут найти. Исчезновения в Бермудском треугольнике можно объяснить без каких-то разрывов времени, инопланетян. Тогда откуда такая репутация? Это журналистский миф. Легенда создана ошибками и заблуждениями, репортёрами и писателями. Рождение мифа о треугольнике восходит к шестидесятым и семидесятым годам двадцатого века, когда дешёвые журналы и книги собирают одни факты и отбрасывают другие. Сплетают сенсации и продают выдумку. Дальше фантазии плодятся. Пресса охотно их повторяет и создаёт один из самых устойчивых мифов популярной культуры. Цепь искажений приводит к рождению базовой легенды треугольника – звено девятнадцать. В сорок пятом году пять бомбардировщиков отправились в плановый учебный полёт. Их ведущий, лейтенант Чарльз Тейлор, передал по радио загадочный крик о помощи. Он сказал нечто в духе океан какой-то странный; не пойму, где Запад, я не знаю, где я. А потом внезапно пять бомбардировщиков. исчезли. Что хуже посланный на их поиски шестой самолёт. тоже исчез без следа. Когда Стивен Спилберг снимал Близкие контакты третьей степени, он искал яркое начало. В его фильме учёные во время песчаной бури сделали в пустыне Мохаве шокирующее открытие. Это пять самолётов звена девятнадцать, давно пропавшие в Бермудском треугольнике. Оказывается, бомбардировщики были похищены инопланетянами и в конце фильма возвращены на Землю. Как-то так. Отличный фильм. Но настоящая история звена девятнадцать. совсем другое кино. Леденящая кровь деталь – последнее сообщение лейтенанта Чарльза Тейлора, сказавшего, цитирую: океан какой-то странный. Он совершенно дизориентирован. Мы слышим голос исчезающего человека. Дух захватывает. По этой причине накрутили столько тайн. Тейлор описывает паранормальное явление, сбившее с пути целую эскадрилью, так? ДОМЫСЕЛ Нет. Нет ничего необъяснимого в истории звена девятнадцать. Это трагическая, роковая ошибка пилотирования. На самом деле Тейлор и всё звено погибли потому, что он заблудился. Не знал, куда залетел. И все пропали вместе с ним. Потому что командует он. Пропажу самолётов расследовали и написали пятисот-страничный отчёт. Когда самолёты отправились в учебный полёт, небо было ясное. Но потом начался шторм. Видимость падает, Тейлор окончательно теряется. Он находится именно там, где должен быть по плану, над Багамскими островами. Но у него сломаны два компаса, и он считает, что под ним – Флорида Кис в Мексиканском заливе. Он ведёт самолёты на восток, рассчитывая попасть на западный берег Флориды. Но уводит пилотов-учеников дальше в открытый океан. Ужасно, что минимум один из них, если не два, понимали, где они, понимали, что им нужно повернуть на запад как можно скорее. И сказали об этом. Почему все летели на восток? Потому что командовал Тейлор. А он ничего не понимал. Что имел в виду Тейлор, когда говорил про океан? Здесь тоже есть проблема. Тейлор этого не говорил. Такой цитаты нет в отчёте. Вот так-то: знаменитую цитату выдумал один писатель-фантазёр, чтобы создать сенсационную историю. Остальные за ним повторяли. Но даже если бы Тейлор это сказал, это было бы нормально, он же не понимал, где он. Это значит: я не узнаю местность, над которой лечу. Так и было. Это мы знаем точно. Трагическая правда заключается в том, что у самолётов закончилось топливо. Они упали где-то в Атлантике. Пять бомбардировщиков утонули и пилоты вместе с ними. Но это не объясняет пропажу шестого самолёта. с тринадцатью поисковиками и спасателями. Вот это – необъяснимо. ДОМЫСЕЛ Причина понятна. На поиски отправили самолёт Мартин Маринер, летающий топливный бак: он может оставаться в воздухе двадцать четыре часа. Известно, что топливо часто протекало, самолёты загорались. Военные решили, что самолёт взорвался. Это не просто версия: проходивший корабль записал. взрыв. этого самолёта. Взрыв в небе там, где должен быть самолёт-спасатель, видели с парохода Гейнз Миллз. Что это? Как и все таинственные исчезновения в Бермудском треугольнике, самое известное из них тонет под грузом фактов. И всё же. мифы вроде Треугольника напоминают нам, что мы часто выбираем фантазии, потому что любим тайны. Но давайте не забывать. Мы должны сделать так, чтобы правда. не пропала. Программа озвучена на студии Кириллица. Текст читал Алексей Войтюк.&#39;</pre>
+<pre>&#39;Все думают, что знают историю Америки, но когда заходит речь о морских приключениях, мы пересказываем сказки. Взять хотя бы морских чудовищ – пиратов. Вы знали, что они сражались совсем не так, как нам показывают в кино? И что Чёрная Борода боялся, как бы враги не раскрыли его секрет? И что за фокусы с исчезновением показывает Бермудский треугольник? Инопланетяне не угоняли звено девятнадцать, виновник жил у нас дома. Суши вёсла, парень, я – Джейми Кэйлер. Пора порубить мифы на мелкие кусочки. и выкопать сундук. с правдой. АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ Золотой век пиратства пришёлся на период с тысяча шестьсот девяностого по тысяча семьсот тридцатый год. Но большинство пиратов быстро отходили от дел. Эдвард Тич знаменитый Чёрная Борода наводил страх на моря меньше двух лет. Как и многие пираты, он получил раннюю пенсию вместе с ударом абордажной сабли. Короткая карьера, зато наследие на века. Но всё, что мы знаем, омыто океаном фантазии. Аж поджилки трясутся. Реальность пиратства далеко не романтична. Кевин Макдоналд, Университет Лойолы Далеко не Голливуд. Миф складывался постепенно. Роберт Ричи, писатель Вот что мы уже знаем про пиратов и пиратство, детки. Волны Карибского моря и Атлантики не знают закона из-за орды варваров в маскарадных костюмах. Повязка на одном глазу, деревянная нога, попугай на плече, вооружены до зубов. Под командованием капитанов-самодуров корабли под флагом с черепом и костями обрушивают шквал ядер на торговые суда, вырезают команды и заставляют оставшихся в живых пройти по доске. Захватив золото, серебро, драгоценности и дублоны, пираты прятали добычу в тайном месте и перепрятывали с помощью карты-головоломки. Верно? ДОМЫСЕЛ В этой лихой истории спрятан целый сундук заблуждений, начиная с образа безбашенного капитана, которому все подчиняются. На самом деле власть опасного Чёрного Бороды была жёстко ограничена демократическими правилами пиратов. Они голосовали по каждому поводу. Кристин Маркель Лампе, писатель Они могли изгнать капитана. Но только не во время битвы. Палубная демократия ничуть не похожа на диктатуру и унижения в европейском флоте. Враги пиратов, капитаны военных кораблей – вот настоящие тираны морей. Они считали матросов тупицами и отбросами. Гейл Селинджер, писатель Держать их в узде можно только с помощью лишений и наказаний. А пираты, почти все, были матросами, и когда они уходили к пиратам, их экипажи не желали давать одному человеку столько власти. Только во время боя власть капитана была абсолютной. И он может наводить ужас сколько пожелает. Перед каждым боем Чёрная борода. украшал волосы. медленно тлеющими запалами: казалось, что у него голова горит. Представьте: стоите вы на палубе, и на вас надвигается огромный мужик с бородой, и вокруг его головы вьётся дым. Какой вы ни крутой, а всё равно закричите помоги господи. А как же другие пиратские примочки? Крюки, повязки на глаза, костыли? А вот это всё правда. Пираты – любимые клиенты изготовителей протезов, потому что в море легко получить увечье. Это боевые раны и травмы из-за плохо закреплённого груза. А ещё могут упасть снасти. Но, несмотря на нехватку частей тела, пираты всё равно набивали сундуки дублонами. Верно? ДОМЫСЕЛ Богатая добыча – большая редкость. Обычно пиратам доставались. карты, оружие, паруса, ром, мыло, свечи или одежда. Они не накопили. богатств. Тем более сокровищ. Они ухитрялись жить на огрызках. выживать. Пиратам нужны люди. Поэтому в любой добыче, которую брали на кораблях, важны мужчины. Они выполняли различные задачи на корабле. А как же знаменитые набеги, когда в их крюки попадало бесценное сокровище? Его закапывали и составляли карту? ДОМЫСЕЛ Что за вздор, парень. Пираты. ничего не запасали на чёрный день. Пираты спускали добычу быстро, как только заходили в порт: пьянство, азартные игры, женщины. Деньги тратились при первой возможности. Пираты не держались за свои сокровища, потому что не рассчитывали прожить долго. Тогда почему мы принимаем фантазии о закопанных сокровищах и картах за факты? Скажем спасибо шотландскому писателю Роберту Льюису Стивенсону и залихватским приключениям, которые он описал в тысяча восемьсот восемьдесят третьем году. Почти всё, что мы знаем и представляем себе о пиратах, взято из Острова сокровищ Стивенсона. Он придумал, что пираты закапывали сокровища. А ещё он придумал тайные карты, на которых нужное место отмечено крестом. Он нарисовал карту ещё до того, как написал роман, так что вся книжка была написала вокруг маленького крестика на карте. Он же придумал пятнадцать человек на сундук мертвеца – йо-хо-хо и бутылка рома.&#39;</pre>
 </div>
 
 </div>
@@ -993,182 +944,6 @@ description: "Functions used for TTS Dataset Preparation"
 А ещё он придумал тайные карты, на которых нужное место отмечено крестом.
 Он нарисовал карту ещё до того, как написал роман, так что вся книжка была написала вокруг маленького крестика на карте.
 Он же придумал пятнадцать человек на сундук мертвеца – йо-хо-хо и бутылка рома.
-Диснеевский фильм пятидесятого года добавил ещё один миф.
-Джона Сильвера играл Роберт Ньютон, и он придумал характерный говорок, рычание.
-Пираты не рычали, Роберт Ньютон придумал это для образа, и раскатистое Эр стало признаком пирата.
-Женщины-пираты встречались нечасто, но кое-кто нацепил абордажную саблю и запугивал океаны вместе с мужчинами.
-Лучше всех известна Энн Бонни.
-Она была женой капитанаи обвинила его в том, что они попались.
-Все мужчины на корабле напились и не могли сражаться.
-Так родилось величайшее пиратское оскорбление: сражался бы как мужчина – не висел бы, как собака.
-Другие факты в литературе тоже вызывают вопросы.
-Возьмём флаг с черепом и костями.
-Он действительно развевался на каждом пиратском корабле, да?
-ДОМЫСЕЛ Жуткая эмблема – настоящая.
-Но на самом деле у пиратов флагов было не меньше, чем в ООН.
-Череп с костями – лишь один из них.
-Пираты часто обманывали жертв, поднимая флаг дружественной страны.
-Многие капитаны делали личные флаги с мерзкими рисунками, чтобы запугивать жертв.
-Их было не меньше, чем банд сегодня, это личный знак.
-По нему узнавали, какой именно пират на корабле.
-Что бы ни было на флаге, суть одна: вы все умрёте, если будете сопротивляться.
-Так что.
-Не пытайтесь.
-Но легенды гласят, что военные и торговые суда вооружены и опасны.
-А обычное нападение пиратов – это всегда кровавое сражение, верно?
-ДОМЫСЕЛ Увы.
-Только в Голливуде.
-В истории известно несколько пиратских сражений.
-Но чаще всего пираты грабили корабли мирно, а не заставляли подчиниться силой.
-Чтобы торговый корабль сдался, нужно вооружиться до зубов, набрать головорезов и показать капитана с жуткой репутацией.
-Неизвестный пират – вообще не пират.
-Поэтому Чёрная Борода окружал своё имя ужасом, подобрал костюм и образ.
-Если вы слышали имя Чёрного Бороды, если видели, как приближается его корабль, вы скорее всего сдадитесь сами.
-Спасибо репутации.
-Вот он, главный секрет Чёрной Бороды.
-Мы считаем его символом. пиратской жестокости и кровавых убийств, но его сабля была удивительно чиста.
-До последней битвы нет доказательств, что он кого-то убивал.
-Есть и другая причина, почему сражения с пиратами были редки.
-У моряков на торговом судне нет причин воевать.
-Корабль не твой, груз не твой.
-Зачем за них умирать?
-Но кое-кто не желает унижаться.
-Перчатки в сторону, два готовых к бою корабля начинают обстреливать друг друга ядрами.
-ДОМЫСЕЛ Прости, Эррол Флинн.
-Это всё целлулоид.
-Не вставали корабли друг напротив друга и не перебрасывались ядрами.
-Подумайте сами: пушечное ядро пробивает корпус, он же деревянный, судно потонет.
-В таком случае вместе с кораблём потонет и добыча, которая нужна пиратам.
-Считанные сражения, записанные в источниках, – это мелкие перестрелки из мушкетов, ручная схватка на абордажных саблях.
-А когда дым развеется и пираты победят?
-Тогда побеждённые слабаки пойдут по доске.
-Ага, угадали.
-Проход по доске – один из самых знаменитых мифов о пиратах.
-На самом деле – ложь.
-Сомневаюсь, что пираты озаботились бы какой-то доской для пленных капитанов.
-Много чести.
-Их просто бросали за борт.
-А как же мрачный конец рок-звезды пиратства, Чёрной Бороды?
-В тысяча семьсот восемнадцатом году его выследил. частный корабль, нанятый губернатором Виргинии.
-Это бой. в полном соответствии с легендами.
-Всё правда: чем страшнее пират тем труднее его погубить.
-Посчитали: на нём было двадцать пять колотых ран.
-И пять огнестрельных, и только потом его убили ударом сабли сзади, в шею.
-Эти же воды, что бороздил Чёрная Борода, в другое время прославится катастрофами и исчезновениями, которые многие не могут объяснить.
-Давайте изучим географию таинственного треугольника и отделим. факты от домыслов.
-АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ АМЕРИКА: ФАКТЫ И ДОМЫСЛЫ Бермудский треугольник не обозначен ни на одной карте, но занимает постоянное место в людском воображении.
-Это пространство южнее Флориды, где пропало больше сотни судов и самолётов и больше тысячи человек.
-Говорят, они стали жертвами не то инопланетян, не то провалов, не то высоких технологий времён Атлантиды.
-Это правда. или вымысел, живущий. только потому, что факты тоже исчезли?
-Бермудский треугольник – классический американский миф.
-Бенджамен Редфорд, писатель Рок у наших берегов.
-Ореол тайны.
-Джо Никел, писатель Но эта тайна рукотворна.
-От легенды о Бермудском треугольнике. мурашки бегут по коже.
-Мистическое кладбище кораблей и самолётов площадью более миллиона квадратных километров, вершины треугольника – Бермуды, Майами и Пуэрто-Рико.
-Он поглотил больше судов и самолётов, чем любой другой регион Земли.
-Ни одно исчезновение нельзя разумно объяснить.
-Просто мрак.
-И ведь правда.
-ДОМЫСЕЛ Вместе с водой выплеснули факты.
-Начиная с того, что количество исчезновений здесь самое большое на планете.
-Объекты пропадают здесь не чаще, даже не таинственней, чем в других регионах планеты.
-Узнайте у страховых компаний.
-Страховка для кораблей и самолётов, путешествующих здесь, стоит не больше любой другой.
-А как же загадка этих исчезновений?
-Их можно объяснить только паранормальными явлениями.
-Так?
-ДОМЫСЕЛ Нет.
-Любое исчезновение можно объяснить рационально.
-Давайте спросим специалистов-мореходов.
-Или военных экспертов – у них нет вопросов.
-Они понимают, что есть факторы – человеческий ошибка оборудования и так далее.
-Когда человек в море один, очень легко попасть в беду.
-Добавим к этому, что у погоды в треугольнике дурная слава: она меняется очень быстро.
-Но это не объясняет, почему никогда. не остаётся обломков крушения самолётов и кораблей.
-Несомненно, их забрали сверхъестественные существа.
-Или?
-ДОМЫСЕЛ Бермудский треугольник – идеальное место для уничтожения улик.
-Почти везде его глубина – шесть километров.
-А в менее глубоких местах всё уносит Гольфстрим – мощное течение, скорость которого – сто километров в час.
-Течения могут унести любой предмет куда угодно.
-Сегодня вещь здесь, а через неделю – в сотнях километров.
-Не удивительно, что ничего не могут найти.
-Исчезновения в Бермудском треугольнике можно объяснить без каких-то разрывов времени, инопланетян.
-Тогда откуда такая репутация?
-Это журналистский миф.
-Легенда создана ошибками и заблуждениями, репортёрами и писателями.
-Рождение мифа о треугольнике восходит к шестидесятым и семидесятым годам двадцатого века, когда дешёвые журналы и книги собирают одни факты и отбрасывают другие.
-Сплетают сенсации и продают выдумку.
-Дальше фантазии плодятся.
-Пресса охотно их повторяет и создаёт один из самых устойчивых мифов популярной культуры.
-Цепь искажений приводит к рождению базовой легенды треугольника – звено девятнадцать.
-В сорок пятом году пять бомбардировщиков отправились в плановый учебный полёт.
-Их ведущий, лейтенант Чарльз Тейлор, передал по радио загадочный крик о помощи.
-Он сказал нечто в духе океан какой-то странный; не пойму, где Запад, я не знаю, где я.
-А потом внезапно пять бомбардировщиков. исчезли.
-Что хуже посланный на их поиски шестой самолёт. тоже исчез без следа.
-Когда Стивен Спилберг снимал Близкие контакты третьей степени, он искал яркое начало.
-В его фильме учёные во время песчаной бури сделали в пустыне Мохаве шокирующее открытие.
-Это пять самолётов звена девятнадцать, давно пропавшие в Бермудском треугольнике.
-Оказывается, бомбардировщики были похищены инопланетянами и в конце фильма возвращены на Землю.
-Как-то так.
-Отличный фильм.
-Но настоящая история звена девятнадцать. совсем другое кино.
-Леденящая кровь деталь – последнее сообщение лейтенанта Чарльза Тейлора, сказавшего, цитирую: океан какой-то странный.
-Он совершенно дизориентирован.
-Мы слышим голос исчезающего человека.
-Дух захватывает.
-По этой причине накрутили столько тайн.
-Тейлор описывает паранормальное явление, сбившее с пути целую эскадрилью, так?
-ДОМЫСЕЛ Нет.
-Нет ничего необъяснимого в истории звена девятнадцать.
-Это трагическая, роковая ошибка пилотирования.
-На самом деле Тейлор и всё звено погибли потому, что он заблудился.
-Не знал, куда залетел.
-И все пропали вместе с ним.
-Потому что командует он.
-Пропажу самолётов расследовали и написали пятисот-страничный отчёт.
-Когда самолёты отправились в учебный полёт, небо было ясное.
-Но потом начался шторм.
-Видимость падает, Тейлор окончательно теряется.
-Он находится именно там, где должен быть по плану, над Багамскими островами.
-Но у него сломаны два компаса, и он считает, что под ним – Флорида Кис в Мексиканском заливе.
-Он ведёт самолёты на восток, рассчитывая попасть на западный берег Флориды.
-Но уводит пилотов-учеников дальше в открытый океан.
-Ужасно, что минимум один из них, если не два, понимали, где они, понимали, что им нужно повернуть на запад как можно скорее.
-И сказали об этом.
-Почему все летели на восток?
-Потому что командовал Тейлор.
-А он ничего не понимал.
-Что имел в виду Тейлор, когда говорил про океан?
-Здесь тоже есть проблема.
-Тейлор этого не говорил.
-Такой цитаты нет в отчёте.
-Вот так-то: знаменитую цитату выдумал один писатель-фантазёр, чтобы создать сенсационную историю.
-Остальные за ним повторяли.
-Но даже если бы Тейлор это сказал, это было бы нормально, он же не понимал, где он.
-Это значит: я не узнаю местность, над которой лечу.
-Так и было.
-Это мы знаем точно.
-Трагическая правда заключается в том, что у самолётов закончилось топливо.
-Они упали где-то в Атлантике.
-Пять бомбардировщиков утонули и пилоты вместе с ними.
-Но это не объясняет пропажу шестого самолёта. с тринадцатью поисковиками и спасателями.
-Вот это – необъяснимо.
-ДОМЫСЕЛ Причина понятна.
-На поиски отправили самолёт Мартин Маринер, летающий топливный бак: он может оставаться в воздухе двадцать четыре часа.
-Известно, что топливо часто протекало, самолёты загорались.
-Военные решили, что самолёт взорвался.
-Это не просто версия: проходивший корабль записал. взрыв. этого самолёта.
-Взрыв в небе там, где должен быть самолёт-спасатель, видели с парохода Гейнз Миллз.
-Что это?
-Как и все таинственные исчезновения в Бермудском треугольнике, самое известное из них тонет под грузом фактов.
-И всё же. мифы вроде Треугольника напоминают нам, что мы часто выбираем фантазии, потому что любим тайны.
-Но давайте не забывать.
-Мы должны сделать так, чтобы правда. не пропала.
-Программа озвучена на студии Кириллица.
-Текст читал Алексей Войтюк.
 </pre>
 </div>
 </div>
@@ -1213,7 +988,6 @@ description: "Functions used for TTS Dataset Preparation"
 -	45	0x2d	True
 .	46	0x2e	True
 :	58	0x3a	True
-;	59	0x3b	True
 ?	63	0x3f	True
 А	1040	0x410	True
 Б	1041	0x411	True
@@ -1221,7 +995,6 @@ description: "Functions used for TTS Dataset Preparation"
 Г	1043	0x413	True
 Д	1044	0x414	True
 Е	1045	0x415	True
-Ж	1046	0x416	True
 З	1047	0x417	True
 И	1048	0x418	True
 К	1050	0x41a	True
@@ -1235,7 +1008,6 @@ description: "Functions used for TTS Dataset Preparation"
 Т	1058	0x422	True
 У	1059	0x423	True
 Ф	1060	0x424	True
-Ц	1062	0x426	True
 Ч	1063	0x427	True
 Ы	1067	0x42b	True
 Э	1069	0x42d	True
@@ -1265,7 +1037,6 @@ description: "Functions used for TTS Dataset Preparation"
 ч	1095	0x447	True
 ш	1096	0x448	True
 щ	1097	0x449	True
-ъ	1098	0x44a	True
 ы	1099	0x44b	True
 ь	1100	0x44c	True
 э	1101	0x44d	True
@@ -1297,7 +1068,7 @@ description: "Functions used for TTS Dataset Preparation"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Char</span><span class="se">\t</span><span class="s1">Dec</span><span class="se">\t</span><span class="s1">Hex</span><span class="se">\t</span><span class="s1">Printable?&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">)))):</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">russian_cleaner2</span><span class="p">(</span><span class="n">text</span><span class="p">)))):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">isprintable</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -1317,32 +1088,7 @@ description: "Functions used for TTS Dataset Preparation"
 -	45	0x2d	True
 .	46	0x2e	True
 :	58	0x3a	True
-;	59	0x3b	True
 ?	63	0x3f	True
-А	1040	0x410	True
-Б	1041	0x411	True
-В	1042	0x412	True
-Г	1043	0x413	True
-Д	1044	0x414	True
-Е	1045	0x415	True
-Ж	1046	0x416	True
-З	1047	0x417	True
-И	1048	0x418	True
-К	1050	0x41a	True
-Л	1051	0x41b	True
-М	1052	0x41c	True
-Н	1053	0x41d	True
-О	1054	0x41e	True
-П	1055	0x41f	True
-Р	1056	0x420	True
-С	1057	0x421	True
-Т	1058	0x422	True
-У	1059	0x423	True
-Ф	1060	0x424	True
-Ц	1062	0x426	True
-Ч	1063	0x427	True
-Ы	1067	0x42b	True
-Э	1069	0x42d	True
 а	1072	0x430	True
 б	1073	0x431	True
 в	1074	0x432	True
@@ -1369,7 +1115,6 @@ description: "Functions used for TTS Dataset Preparation"
 ч	1095	0x447	True
 ш	1096	0x448	True
 щ	1097	0x449	True
-ъ	1098	0x44a	True
 ы	1099	0x44b	True
 ь	1100	0x44c	True
 э	1101	0x44d	True
@@ -1416,14 +1161,28 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Char	Dec	Hex	Printable?
-(	40	0x28	True
-)	41	0x29	True
 А	1040	0x410	True
+Б	1041	0x411	True
 В	1042	0x412	True
+Г	1043	0x413	True
+Д	1044	0x414	True
+Е	1045	0x415	True
+З	1047	0x417	True
 И	1048	0x418	True
+К	1050	0x41a	True
+Л	1051	0x41b	True
+М	1052	0x41c	True
+Н	1053	0x41d	True
+О	1054	0x41e	True
 П	1055	0x41f	True
 Р	1056	0x420	True
 С	1057	0x421	True
+Т	1058	0x422	True
+У	1059	0x423	True
+Ф	1060	0x424	True
+Ч	1063	0x427	True
+Ы	1067	0x42b	True
+Э	1069	0x42d	True
 </pre>
 </div>
 </div>
@@ -1441,26 +1200,10 @@ description: "Functions used for TTS Dataset Preparation"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_no_numbers</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">check_no_numbers</span><span class="p">(</span><span class="n">russian_cleaner</span><span class="p">(</span><span class="n">text</span><span class="p">))</span><span class="o">==</span> <span class="p">[]</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[]</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
