@@ -41,6 +41,7 @@ from typing import Optional, Tuple
 import numpy as np
 import torch
 from librosa.core import load
+from librosa.effects import trim
 
 
 def mask_from_lens(lens, max_len: Optional[int] = None):
@@ -73,7 +74,7 @@ def load_wav_to_torch(full_path: str, sr: Optional[int] = 22050) -> Tuple[torch.
     """
 
     data, sampling_rate = load(full_path, sr)
-    return torch.from_numpy(data), sampling_rate
+    return torch.from_numpy(trim(data)[0]), sampling_rate
 
 def _split_line(root, line, split="|") -> Tuple[str, str]:
     """Split a line from the filelists/*_filelist.txt files into a tuple consisting
