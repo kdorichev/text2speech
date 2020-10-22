@@ -11,6 +11,9 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "unify_dash_hyphen": "01_text_norm.ipynb",
          "rm_quot_marks": "01_text_norm.ipynb",
          "texts_equal": "01_text_norm.ipynb",
+         "basic_cleaner": "01_text_norm.ipynb",
+         "russian_cleaner": "01_text_norm.ipynb",
+         "russian_cleaner2": "01_text_norm.ipynb",
          "get_files": "02_data.ipynb",
          "get_audio_files": "02_data.ipynb",
          "get_txt_files": "02_data.ipynb",
@@ -25,10 +28,12 @@ index = {"collapse_whitespace": "01_text_norm.ipynb",
          "plot_durations": "02_data.ipynb",
          "drop_outliers": "02_data.ipynb",
          "create_filelist": "02_data.ipynb",
-         "create_mel_filelist": "02_data.ipynb"}
+         "create_mel_filelist": "02_data.ipynb",
+         "VoskTranscribe": "03_transcribe.ipynb"}
 
 modules = ["text_norm.py",
-           "data.py"]
+           "data.py",
+           "text_transcribe.py"]
 
 doc_url = "https://kdorichev.github.io/text2speech/"
 

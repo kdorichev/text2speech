@@ -65,7 +65,7 @@ def parse_args(parser) -> ArgumentParser:
     Args:
         parser ([type]): [description]
 
-    Returns:
+    Retu25fe4d385680d1c633f0c711e22a7bb9a0ecae78rns:
         ArgumentParser: [description]
     """
     

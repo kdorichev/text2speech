@@ -9,6 +9,10 @@ from pathlib import Path
 from shutil import copy2
 
 # Cell
+import seaborn as sns
+sns.set()
+
+# Cell
 from fastcore.all import *
 from fastai.data.all import *
 from fastaudio.core.all import *

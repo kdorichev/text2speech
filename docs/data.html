@@ -39,17 +39,6 @@ nb_path: "nbs/02_data.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -157,7 +146,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_txt_files" class="doc_header"><code>get_txt_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_txt_files</code>(<strong><code>path</code></strong>, <strong><code>recurse</code></strong>=<em><code>True</code></em>, <strong><code>folders</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_txt_files" class="doc_header"><code>get_txt_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_txt_files</code>(<strong><code>path</code></strong>, <strong><code>recurse</code></strong>=<em><code>True</code></em>, <strong><code>folders</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Get text files in <code>path</code> recursively, only in <code>folders</code>, if specified.</p>
 
@@ -260,7 +249,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="words_count" class="doc_header"><code>words_count</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>words_count</code>(<strong><code>files</code></strong>, <strong><code>sort</code></strong>=<em><code>True</code></em>, <strong><code>drop_punkt</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="words_count" class="doc_header"><code>words_count</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L64" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>words_count</code>(<strong><code>files</code></strong>, <strong><code>sort</code></strong>=<em><code>True</code></em>, <strong><code>drop_punkt</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Return a dict of words in <code>files</code> with counts, sorted by default</p>
 
@@ -292,7 +281,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="label_func" class="doc_header"><code>label_func</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L83" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>label_func</code>(<strong><code>fname</code></strong>)</p>
+<h4 id="label_func" class="doc_header"><code>label_func</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>label_func</code>(<strong><code>fname</code></strong>)</p>
 </blockquote>
 <p>Return path to audio file corresponding to text <code>fname</code></p>
 
@@ -341,7 +330,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="ReadTxt" class="doc_header"><code>ReadTxt</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L88" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>ReadTxt</code>(<strong><code>fn</code></strong>)</p>
+<h4 id="ReadTxt" class="doc_header"><code>ReadTxt</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>ReadTxt</code>(<strong><code>fn</code></strong>)</p>
 </blockquote>
 <p>Read text from <code>fn</code></p>
 
@@ -390,7 +379,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="word_in_files" class="doc_header"><code>word_in_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>word_in_files</code>(<strong><code>word</code></strong>, <strong><code>files</code></strong>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="word_in_files" class="doc_header"><code>word_in_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>word_in_files</code>(<strong><code>word</code></strong>, <strong><code>files</code></strong>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Return an L list of <code>files</code> where <code>word</code> is present; optionally <code>show</code> and/or <code>play</code></p>
 
@@ -422,7 +411,7 @@ nb_path: "nbs/02_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="regex_files" class="doc_header"><code>regex_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L114" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>regex_files</code>(<strong><code>regexp</code></strong>, <strong><code>files</code></strong>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="regex_files" class="doc_header"><code>regex_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L118" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>regex_files</code>(<strong><code>regexp</code></strong>, <strong><code>files</code></strong>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Return an L list of text <code>files</code> where regular expression <code>regexp</code> is found.
 Optionally <code>show</code> text and/or <code>play</code> corresponding audio.</p>
@@ -455,7 +444,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="accent_files" class="doc_header"><code>accent_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L129" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>accent_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="accent_files" class="doc_header"><code>accent_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L133" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>accent_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Create a function that returns a <code>L</code> list of files where accent is marked with + in any word.</p>
 
@@ -530,7 +519,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="abbrev_files" class="doc_header"><code>abbrev_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>abbrev_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="abbrev_files" class="doc_header"><code>abbrev_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>abbrev_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Create a function that returns a <code>L</code> list of files where abbreviated word is wrapped in *</p>
 
@@ -562,7 +551,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="unusual_files" class="doc_header"><code>unusual_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L143" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unusual_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="unusual_files" class="doc_header"><code>unusual_files</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unusual_files</code>(<strong><code>files</code></strong>=<em><code>None</code></em>, <strong><code>show</code></strong>=<em><code>False</code></em>, <strong><code>play</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Create a function that returns a <code>L</code> list of files where unusually pronounsed word is wrapped in _</p>
 
@@ -637,7 +626,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_durations" class="doc_header"><code>plot_durations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_durations</code>(<strong><code>files</code></strong>, <strong><code>figsize</code></strong>=<em><code>None</code></em>, <strong><code>title</code></strong>:<code>str</code>=<em><code>'Dataset Clip Duration Distribution'</code></em>)</p>
+<h4 id="plot_durations" class="doc_header"><code>plot_durations</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_durations</code>(<strong><code>files</code></strong>, <strong><code>figsize</code></strong>=<em><code>None</code></em>, <strong><code>title</code></strong>:<code>str</code>=<em><code>'Dataset Clip Duration Distribution'</code></em>)</p>
 </blockquote>
 <p>Plot audio <code>files</code> duration distribution</p>
 
@@ -669,7 +658,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="drop_outliers" class="doc_header"><code>drop_outliers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L176" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>drop_outliers</code>(<strong><code>files</code></strong>, <strong><code>mindur</code></strong>=<em><code>None</code></em>, <strong><code>maxdur</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="drop_outliers" class="doc_header"><code>drop_outliers</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L180" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>drop_outliers</code>(<strong><code>files</code></strong>, <strong><code>mindur</code></strong>=<em><code>None</code></em>, <strong><code>maxdur</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return only those <code>files</code> with duration in (<code>mindur</code>,<code>maxdur</code>), drop outliers.</p>
 
@@ -701,7 +690,7 @@ Optionally <code>show</code> text and/or <code>play</code> corresponding audio.<
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_filelist" class="doc_header"><code>create_filelist</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_filelist</code>(<strong><code>filelist</code></strong>:<code>Path</code>, <strong><code>idxs</code></strong>:<code>L</code>, <strong><code>files</code></strong>:<code>L</code>)</p>
+<h4 id="create_filelist" class="doc_header"><code>create_filelist</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L193" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_filelist</code>(<strong><code>filelist</code></strong>:<code>Path</code>, <strong><code>idxs</code></strong>:<code>L</code>, <strong><code>files</code></strong>:<code>L</code>)</p>
 </blockquote>
 <p>Create a file with audio <code>filelist</code> from <code>idxs</code> of <code>files</code>
 and copy audio files with new names into <code>target_audios_path</code>.</p>
@@ -737,7 +726,7 @@ and copy audio files with new names into <code>target_audios_path</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_mel_filelist" class="doc_header"><code>create_mel_filelist</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L211" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_mel_filelist</code>(<strong><code>filelist</code></strong>:<code>Path</code>, <strong><code>idxs</code></strong>:<code>L</code>, <strong><code>files</code></strong>:<code>L</code>)</p>
+<h4 id="create_mel_filelist" class="doc_header"><code>create_mel_filelist</code><a href="https://github.com/kdorichev/text2speech/tree/master/text2speech/data.py#L215" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_mel_filelist</code>(<strong><code>filelist</code></strong>:<code>Path</code>, <strong><code>idxs</code></strong>:<code>L</code>, <strong><code>files</code></strong>:<code>L</code>)</p>
 </blockquote>
 <p>Creates a mel_duration_pitch <code>filelist</code> from <code>idxs</code> of <code>files</code>.</p>
 <p>Example:
