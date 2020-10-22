@@ -94,7 +94,7 @@ def texts_equal(text1: str, text2: str, ignore_e: bool = True, verbose = False)\
     """Check if `text1` equals `text2`. Optionally ignore diff between `е` and `ё`."""
 
     is_equal = 1
-    text1, text2 = text1.strip(), text2.strip()
+    text1, text2 = text1.replace('-',' ').strip(), text2.replace('-',' ').strip()
     if len(text1) != len(text2):
         if verbose: print("Not equal length")
         return False, text1, text2
