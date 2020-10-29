@@ -36,18 +36,14 @@ import os
 import re
 import time
 from collections import defaultdict, OrderedDict
-# unused: from contextlib import contextmanager
 
 import torch
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel
-# Unused: from torch.autograd import Variable
-# Unused: from torch.nn.parameter import Parameter
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 
 import numpy as np
-# Unused: from scipy.io.wavfile import write as write_wav
 
 import dllogger as DLLogger
 from apex import amp
@@ -62,7 +58,7 @@ from common.log_helper import init_dllogger, TBLogger, unique_dllogger_fpath
 
 def parse_args(parser):
     """Parse commandline arguments."""
-    
+
     parser.add_argument('-o', '--output', type=str, required=True,
                         help='Directory to save checkpoints')
     parser.add_argument('-d', '--dataset-path', type=str, default='./',
@@ -120,7 +116,7 @@ def parse_args(parser):
     dataset.add_argument('--pitch-mean-std-file', type=str, default=None,
                          help='Path to pitch stats to be stored in the model')
     dataset.add_argument('--text-cleaners', nargs='*',
-                         default=['english_cleaners'], type=str,
+                         default=['russian_cleaner2'], type=str,
                          help='Type of text cleaners for input text')
 
     distributed = parser.add_argument_group('distributed setup')
@@ -409,10 +405,8 @@ def main():
     for epoch in range(start_epoch, args.epochs + 1):
         epoch_start_time = time.time()
 
-        epoch_loss = 0.0
-        epoch_mel_loss = 0.0
+        epoch_loss, epoch_mel_loss, epoch_frames_per_sec = 0.0, 0.0, 0.0
         epoch_num_frames = 0
-        epoch_frames_per_sec = 0.0
 
         if distributed_run:
             train_loader.sampler.set_epoch(epoch)
